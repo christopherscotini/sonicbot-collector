@@ -1,11 +1,14 @@
 package com.gamaset.sonicbot.collector.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gamaset.sonicbot.collector.service.MatchService;
+import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
+import com.gamaset.sonicbot.collector.service.match.MatchService;
 
 /**
  * 
@@ -24,14 +27,14 @@ public class MatchController {
 	
 	
 	/**
+	 * @return 
 	 * 
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/list", produces = {"application/json; charset=UTF-8" })
-	public void list(){
+	public List<MatchResumeDTO> list(){
 		
-		System.out.println("asas");
 		
-		matchService.listByDate();
+		return matchService.listByDate();
 		
 	}
 	
