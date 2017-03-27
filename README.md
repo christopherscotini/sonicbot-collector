@@ -7,3 +7,8 @@ Estrategias de Leitura:
 
 - Scanning: Leitor que visa localizar as informações que estamos interessados, devemos ser objetivos e seletivos, porque não se faz necessario ler todas as informações. [Detalhe de cada Partida]
 	http://localhost:8082/sbcollector/match/{matchId}
+
+- Prediction: É o coração do projeto, é a inteligencia que deduz quais mercados são bons para aposta.
+	+ Hipotese Dupla
+	+ Gols
+	+ Resultado Final

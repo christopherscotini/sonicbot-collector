@@ -18,15 +18,15 @@ import com.gamaset.sonicbot.collector.dto.CompetitionSeasonDTO;
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
 import com.gamaset.sonicbot.collector.dto.MatchStatusEnum;
+import com.gamaset.sonicbot.collector.dto.SeasonDTO;
 import com.gamaset.sonicbot.collector.dto.TeamDTO;
 import com.gamaset.sonicbot.collector.dto.TeamMatchDTO;
 import com.gamaset.sonicbot.collector.infra.exception.scrapper.FormatValueScrapperException;
 import com.gamaset.sonicbot.collector.infra.utils.DateUtils;
 import com.gamaset.sonicbot.collector.infra.utils.HomeAwayConditionEnum;
 import com.gamaset.sonicbot.collector.infra.utils.NumberUtils;
+import com.gamaset.sonicbot.collector.infra.utils.TimerUtils;
 import com.gamaset.sonicbot.collector.service.login.LoginComponent;
-
-
 
 /**
  * Componente responsavel pela leitura dos jogos no academia das apostas.
@@ -49,9 +49,11 @@ public class MatchScrapperComponent {
 	public MatchSeriesDTO read(Set<Long> availableCompetitionsId) {
 
 		MatchSeriesDTO dto = new MatchSeriesDTO();
+		TimerUtils timer = new TimerUtils();
+		timer.start();
 
 		try {
-
+			
 			Document doc = Jsoup.connect(URL_ACADEMIA).cookies(login.getCookies()).get();
 
 			Elements trGames = doc.select("table[class=competition-today dskt]").first().select("tbody").first()
@@ -76,6 +78,7 @@ public class MatchScrapperComponent {
 				match.setLinkMatch(findLinkMatch(trGame));
 				match.setHomeTeamMatch(extractTeam(trGame, HomeAwayConditionEnum.HOME_TEAM));
 				match.setAwayTeamMatch(extractTeam(trGame, HomeAwayConditionEnum.AWAY_TEAM));
+				findDetailsMatch(match);
 				dto.getMatches().add(match);
 			}
 			
@@ -87,6 +90,8 @@ public class MatchScrapperComponent {
 			log.log(Level.SEVERE, e.getMessage());
 		}
 
+		System.out.println(String.format("time to procces: %s segs ", timer.stop().get("seconds")));
+		
 		return dto;
 	}
 	
@@ -156,5 +161,24 @@ public class MatchScrapperComponent {
 				select("ul").get(1).
 				select("li[class=gamehead]").first();
 		return DateUtils.convertDateInfoMatchStringToDateStringYYYY_MM_DD(gameHeadInfo.text());
+	}
+	
+	private void findDetailsMatch(MatchResumeDTO match) throws IOException{
+		Document doc = Jsoup.connect(match.getLinkMatch()).cookies(login.getCookies()).get();
+		Element gameHeadInfo = doc.select("div[class=stats-game-head]").first();
+
+		String urlIdHomeTeam = gameHeadInfo.select("div[class=stats-game-head-teamname]").get(0).select("a").first().attr("href");
+		Long idHomeTeam = Long.valueOf(urlIdHomeTeam.substring(urlIdHomeTeam.lastIndexOf("/")+1).replace("#", ""));
+		match.getHomeTeamMatch().getTeam().setId(idHomeTeam);
+		
+		String urlIdAwayTeam = gameHeadInfo.select("div[class=stats-game-head-teamname]").get(1).select("a").first().attr("href");
+		Long idAwayTeam = Long.valueOf(urlIdAwayTeam.substring(urlIdAwayTeam.lastIndexOf("/")+1).replace("#", ""));
+		match.getAwayTeamMatch().getTeam().setId(idAwayTeam);
+		
+		Elements liElement = gameHeadInfo.select("td[class=stats-game-head-date]").select("ul").get(1).select("li[class=gamehead]");
+		String idSess = liElement.get(2).select("a").first().attr("href");
+		Long idSession = Long.valueOf(idSess.substring(idSess.lastIndexOf("/")+1).replace("#", ""));
+		String descSession = gameHeadInfo.select("td[class=stats-game-head-date]").select("ul").get(1).select("li[class=gamehead]").get(2).select("a").first().text();
+		match.getCompetitionSeason().setSeason(new SeasonDTO(idSession, descSession));
 	}
 }
