@@ -13,16 +13,20 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class MatchResumeDTO {
 	
-	private String date;
+	private Long matchId;
+	private MatchStatusEnum matchStatus;
+	private CompetitionSeasonDTO competitionSeason;
+	private TeamMatchDTO homeTeamMatch;
+	private TeamMatchDTO awayTeamMatch;
 	private String linkMatch;
 	
 	
-	public String getDate() {
-		return date;
+	public Long getMatchId() {
+		return matchId;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setMatchId(Long matchId) {
+		this.matchId = matchId;
 	}
 
 	public String getLinkMatch() {
@@ -31,6 +35,38 @@ public class MatchResumeDTO {
 
 	public void setLinkMatch(String linkMatch) {
 		this.linkMatch = linkMatch;
+	}
+
+	public MatchStatusEnum getMatchStatus() {
+		return matchStatus;
+	}
+
+	public void setMatchStatus(MatchStatusEnum matchStatus) {
+		this.matchStatus = matchStatus;
+	}
+
+	public TeamMatchDTO getHomeTeamMatch() {
+		return homeTeamMatch;
+	}
+
+	public void setHomeTeamMatch(TeamMatchDTO homeTeamMatch) {
+		this.homeTeamMatch = homeTeamMatch;
+	}
+
+	public TeamMatchDTO getAwayTeamMatch() {
+		return awayTeamMatch;
+	}
+
+	public void setAwayTeamMatch(TeamMatchDTO awayTeamMatch) {
+		this.awayTeamMatch = awayTeamMatch;
+	}
+
+	public CompetitionSeasonDTO getCompetitionSeason() {
+		return competitionSeason;
+	}
+
+	public void setCompetitionSeason(CompetitionSeasonDTO competitionSeason) {
+		this.competitionSeason = competitionSeason;
 	}
 
 	/*

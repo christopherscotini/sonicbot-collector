@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
+import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
 import com.gamaset.sonicbot.collector.service.match.MatchService;
 
 /**
@@ -31,7 +32,7 @@ public class MatchController {
 	 * 
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/list", produces = {"application/json; charset=UTF-8" })
-	public List<MatchResumeDTO> list(){
+	public MatchSeriesDTO list(){
 		
 		
 		return matchService.listByDate();
