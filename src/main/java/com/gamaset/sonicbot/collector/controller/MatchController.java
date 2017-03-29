@@ -1,14 +1,12 @@
 package com.gamaset.sonicbot.collector.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
+import com.gamaset.sonicbot.collector.service.match.MatchDetailService;
 import com.gamaset.sonicbot.collector.service.match.MatchService;
 
 /**
@@ -25,6 +23,8 @@ public class MatchController {
 
 	@Autowired
 	private MatchService matchService;
+	@Autowired
+	private MatchDetailService matchDetailService;
 	
 	
 	/**
@@ -36,6 +36,14 @@ public class MatchController {
 		
 		
 		return matchService.listByDate();
+		
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/detail/{matchId}", produces = {"application/json; charset=UTF-8" })
+	public void detail(){
+		
+		
+		matchDetailService.detail();
 		
 	}
 	

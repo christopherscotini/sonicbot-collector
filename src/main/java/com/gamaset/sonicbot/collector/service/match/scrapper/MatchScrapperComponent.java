@@ -46,7 +46,7 @@ public class MatchScrapperComponent {
 
 	private final String URL_ACADEMIA = "https://www.academiadasapostas.com/";
 	
-	public MatchSeriesDTO read(Set<Long> availableCompetitionsId) {
+	public MatchSeriesDTO scrap(Set<Long> availableCompetitionsId) {
 
 		MatchSeriesDTO dto = new MatchSeriesDTO();
 		TimerUtils timer = new TimerUtils();

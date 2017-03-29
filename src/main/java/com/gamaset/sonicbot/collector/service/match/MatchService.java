@@ -27,7 +27,7 @@ public class MatchService {
 	public MatchSeriesDTO listByDate(){
 		//TODO veriry if necessary any validator
 		
-		return scrapper.read(getAvailableComps());
+		return scrapper.scrap(getAvailableComps());
 	}
 	
 	
