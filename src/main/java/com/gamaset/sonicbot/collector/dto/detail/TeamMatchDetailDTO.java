@@ -1,27 +1,30 @@
-package com.gamaset.sonicbot.collector.dto;
+package com.gamaset.sonicbot.collector.dto.detail;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class TeamMatchDTO {
+import com.gamaset.sonicbot.collector.dto.TeamMatchDTO;
 
-	private TeamDTO team;
-	private Integer score = 0;
+public class TeamMatchDetailDTO {
 
-	public TeamDTO getTeam() {
-		return team;
+	private TeamMatchDTO homeTeamMatch;
+	private TeamMatchDTO awayTeamMatch;
+	
+	public TeamMatchDTO getHomeTeamMatch() {
+		return homeTeamMatch;
 	}
-	public void setTeam(TeamDTO team) {
-		this.team = team;
+	public void setHomeTeamMatch(TeamMatchDTO homeTeamMatch) {
+		this.homeTeamMatch = homeTeamMatch;
 	}
-	public Integer getScore() {
-		return score;
+	public TeamMatchDTO getAwayTeamMatch() {
+		return awayTeamMatch;
 	}
-	public void setScore(Integer score) {
-		this.score = score;
+	public void setAwayTeamMatch(TeamMatchDTO awayTeamMatch) {
+		this.awayTeamMatch = awayTeamMatch;
 	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -45,4 +48,5 @@ public class TeamMatchDTO {
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
 	}
+	
 }

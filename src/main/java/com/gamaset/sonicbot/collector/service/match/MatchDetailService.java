@@ -3,6 +3,7 @@ package com.gamaset.sonicbot.collector.service.match;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.service.match.scrapper.MatchDetailScrapperComponent;
 
 /**
@@ -17,9 +18,9 @@ public class MatchDetailService {
 	@Autowired
 	private MatchDetailScrapperComponent detailScrapperComponent;
 
-	public void detail() {
+	public void detail(MatchResumeDTO match) {
 
-		detailScrapperComponent.scrap();
+		detailScrapperComponent.scrap(match);
 		
 	}
 	

@@ -56,4 +56,7 @@ public class DateUtils {
 		return months.get(key);
 	}
 
+	public static long convertDateStringToTimestamp(String date) {
+		return convertDateStringToDate(date).getTime()/1000;
+	}
 }

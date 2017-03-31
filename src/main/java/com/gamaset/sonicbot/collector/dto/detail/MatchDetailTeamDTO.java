@@ -1,27 +1,30 @@
-package com.gamaset.sonicbot.collector.dto;
+package com.gamaset.sonicbot.collector.dto.detail;
+
+import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class TeamMatchDTO {
+/**
+ * 
+ * @author Christopher Rozario
+ *
+ * @since 1.0.0
+ */
+public class MatchDetailTeamDTO {
 
-	private TeamDTO team;
-	private Integer score = 0;
+	private List<TeamMatchDetailDTO> matchesByCondition;
 
-	public TeamDTO getTeam() {
-		return team;
+	public List<TeamMatchDetailDTO> getMatchesByCondition() {
+		return matchesByCondition;
 	}
-	public void setTeam(TeamDTO team) {
-		this.team = team;
+
+	public void setMatchesByCondition(List<TeamMatchDetailDTO> matchesByCondition) {
+		this.matchesByCondition = matchesByCondition;
 	}
-	public Integer getScore() {
-		return score;
-	}
-	public void setScore(Integer score) {
-		this.score = score;
-	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
