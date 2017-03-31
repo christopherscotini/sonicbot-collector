@@ -5,20 +5,25 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 /**
  * 
  * @author Christopher Rozario
  *
  * @since 1.0.0
  */
+@JsonPropertyOrder({"matchId", "linkMatch", 
+	"matchStatus", "competitionSeason", 
+	"homeTeamMatch", "awayTeamMatch"})
 public class MatchResumeDTO {
 	
 	private Long matchId;
+	private String linkMatch;
 	private MatchStatusEnum matchStatus;
 	private CompetitionSeasonDTO competitionSeason;
 	private TeamMatchDTO homeTeamMatch;
 	private TeamMatchDTO awayTeamMatch;
-	private String linkMatch;
 	
 	
 	public Long getMatchId() {

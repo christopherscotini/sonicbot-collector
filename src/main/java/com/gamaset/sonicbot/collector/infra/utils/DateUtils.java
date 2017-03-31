@@ -6,6 +6,8 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.gamaset.sonicbot.collector.infra.exception.FormatDateException;
+
 public class DateUtils {
 
 	public static String convertDateInfoMatchStringToDateStringYYYY_MM_DD(String date) {
@@ -28,12 +30,19 @@ public class DateUtils {
 	 * @return
 	 */
 	public static Date convertDateStringToDate(String date) {
-		String[] dateParts = date.split("-");
-		Calendar cal = new GregorianCalendar(
+		Calendar cal = null;
+		
+		try{
+			String[] dateParts = date.split("-");
+			cal = new GregorianCalendar(
 				Integer.valueOf(dateParts[0]),
 				Integer.valueOf(dateParts[1])-1, 
 				Integer.valueOf(dateParts[2])
 				);
+		}catch(Exception e){
+			throw new FormatDateException("date pattern should be [yyyy-MM-dd]");
+		}
+		
 		return cal.getTime();
 	}
 	

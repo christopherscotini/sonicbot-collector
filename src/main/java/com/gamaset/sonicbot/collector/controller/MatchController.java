@@ -47,10 +47,10 @@ public class MatchController {
 	}
 
 	@ApiOperation(value="Retorna os detalhes da partida", notes="Busca os detalhes da partida de acordo com o id")
-	@RequestMapping(method = RequestMethod.GET, value = "/detail", produces = {"application/json; charset=UTF-8" })
+	@RequestMapping(method = RequestMethod.POST, value = "/detail", consumes = {"application/json; charset=UTF-8" })
 	public void detail(
 			@ApiParam(value="Usado para retornar os detalhes da partida.", required=true) 
-			@RequestBody(required = true) MatchResumeDTO match){
+			@RequestBody MatchResumeDTO match){
 		
 		matchDetailService.detail(match);
 		

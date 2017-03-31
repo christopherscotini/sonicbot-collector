@@ -18,8 +18,13 @@ public class MatchDetailService {
 	@Autowired
 	private MatchDetailScrapperComponent detailScrapperComponent;
 
+	@Autowired
+	private MatchDetailValidator validator;
+	
 	public void detail(MatchResumeDTO match) {
 
+		validator.validate(match);
+		
 		detailScrapperComponent.scrap(match);
 		
 	}
