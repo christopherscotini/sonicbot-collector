@@ -26,17 +26,16 @@ import io.swagger.annotations.ApiParam;
  */
 @Api(tags="Match")
 @RestController
-@RequestMapping( value = "match")
+@RequestMapping(value = "match")
 public class MatchController {
 
 	@Autowired
 	private MatchService matchService;
 	@Autowired
 	private MatchDetailService matchDetailService;
-	
-	
+
 	/**
-	 * @return 
+	 * @return
 	 * 
 	 */
 	@ApiOperation(value="Retorna as partidas do dia.", notes="")
@@ -56,5 +55,5 @@ public class MatchController {
 		matchDetailService.detail(match);
 		
 	}
-	
+
 }
