@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
+import com.gamaset.sonicbot.collector.infra.utils.DateUtils;
 import com.gamaset.sonicbot.collector.service.match.scrapper.MatchScrapperComponent;
 
 /**
@@ -24,10 +25,14 @@ public class MatchService {
 	@Autowired
 	private MatchScrapperComponent scrapper;
 	
-	public MatchSeriesDTO listByDate(){
+	private final String URL_ACADEMIA = "https://www.academiadasapostas.com/stats/livescores/popup/";
+	
+	public MatchSeriesDTO listByDate(String date){
 		//TODO veriry if necessary any validator
 		
-		return scrapper.scrap(getAvailableComps());
+		String url = (date == null || date.trim().equals("")) ? URL_ACADEMIA : URL_ACADEMIA + DateUtils.convertDateStringToTimestamp(date) + "/";
+		
+		return scrapper.scrap(getAvailableComps(), url);
 	}
 	
 	

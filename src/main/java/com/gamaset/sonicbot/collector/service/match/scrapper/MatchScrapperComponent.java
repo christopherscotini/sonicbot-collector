@@ -43,10 +43,8 @@ public class MatchScrapperComponent {
 	
 	@Autowired
 	private LoginComponent login;
-
-	private final String URL_ACADEMIA = "https://www.academiadasapostas.com/";
 	
-	public MatchSeriesDTO scrap(Set<Long> availableCompetitionsId) {
+	public MatchSeriesDTO scrap(Set<Long> availableCompetitionsId, String url) {
 
 		MatchSeriesDTO dto = new MatchSeriesDTO();
 		TimerUtils timer = new TimerUtils();
@@ -54,9 +52,9 @@ public class MatchScrapperComponent {
 
 		try {
 			
-			Document doc = Jsoup.connect(URL_ACADEMIA).cookies(login.getCookies()).get();
+			Document doc = Jsoup.connect(url).cookies(login.getCookies()).get();
 
-			Elements trGames = doc.select("table[class=competition-today dskt]").first().select("tbody").first()
+			Elements trGames = doc.select("table[class=competition-today]").first().select("tbody").first()
 					.select("tr[type=match]");
 
 			dto.setMatches(new ArrayList<MatchResumeDTO>());

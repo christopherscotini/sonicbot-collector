@@ -3,6 +3,7 @@ package com.gamaset.sonicbot.collector.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
@@ -18,33 +19,31 @@ import com.gamaset.sonicbot.collector.service.match.MatchService;
  * @since 1.0.0
  */
 @RestController
-@RequestMapping( value = "match")
+@RequestMapping(value = "match")
 public class MatchController {
 
 	@Autowired
 	private MatchService matchService;
 	@Autowired
 	private MatchDetailService matchDetailService;
-	
-	
+
 	/**
-	 * @return 
+	 * @return
 	 * 
 	 */
-	@RequestMapping(method = RequestMethod.GET, value = "/list", produces = {"application/json; charset=UTF-8" })
-	public MatchSeriesDTO list(){
-		
-		
-		return matchService.listByDate();
-		
+	@RequestMapping(method = RequestMethod.GET, value = "/list", produces = { "application/json; charset=UTF-8" })
+	public MatchSeriesDTO list(@RequestParam(required = false) String date) {
+
+		return matchService.listByDate(date);
+
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/detail/{matchId}", produces = {"application/json; charset=UTF-8" })
-	public void detail(){
-		
-		
+	@RequestMapping(method = RequestMethod.GET, value = "/detail/{matchId}", produces = {
+			"application/json; charset=UTF-8" })
+	public void detail() {
+
 		matchDetailService.detail();
-		
+
 	}
-	
+
 }
