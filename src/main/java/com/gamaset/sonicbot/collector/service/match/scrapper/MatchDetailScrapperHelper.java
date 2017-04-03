@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.gamaset.sonicbot.collector.dto.TeamDTO;
 import com.gamaset.sonicbot.collector.dto.TeamMatchDTO;
 import com.gamaset.sonicbot.collector.dto.detail.TeamMatchDetailDTO;
-import com.gamaset.sonicbot.collector.infra.utils.HomeAwayConditionEnum;
+import com.gamaset.sonicbot.collector.infra.constants.HomeAwayConditionEnum;
 
 /**
  * 
