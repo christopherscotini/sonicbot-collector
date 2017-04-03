@@ -1,4 +1,4 @@
-package com.gamaset.sonicbot.collector.infra.utils;
+package com.gamaset.sonicbot.collector.infra.constants;
 
 /**
  * 

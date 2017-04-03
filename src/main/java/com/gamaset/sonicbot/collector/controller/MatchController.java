@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gamaset.sonicbot.collector.business.ManagerProcessMatchStatistic;
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
-import com.gamaset.sonicbot.collector.service.match.MatchDetailService;
+import com.gamaset.sonicbot.collector.dto.statistic.MatchStatisticDTO;
 import com.gamaset.sonicbot.collector.service.match.MatchService;
 
 import io.swagger.annotations.Api;
@@ -32,7 +33,7 @@ public class MatchController {
 	@Autowired
 	private MatchService matchService;
 	@Autowired
-	private MatchDetailService matchDetailService;
+	private ManagerProcessMatchStatistic managerProcessMatchStatistic;
 
 	/**
 	 * @return
@@ -48,11 +49,11 @@ public class MatchController {
 
 	@ApiOperation(value="Retorna os detalhes da partida", notes="Busca os detalhes da partida de acordo com o id")
 	@RequestMapping(method = RequestMethod.POST, value = "/detail", consumes = {"application/json; charset=UTF-8" })
-	public void detail(
+	public MatchStatisticDTO detail(
 			@ApiParam(value="Usado para retornar os detalhes da partida.", required=true) 
 			@RequestBody MatchResumeDTO match){
 		
-		matchDetailService.detail(match);
+		return managerProcessMatchStatistic.generateStatistics(match);
 		
 	}
 

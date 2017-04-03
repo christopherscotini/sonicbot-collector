@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.detail.MatchDetailDTO;
 import com.gamaset.sonicbot.collector.dto.detail.MatchDetailTeamDTO;
-import com.gamaset.sonicbot.collector.infra.utils.HomeAwayConditionEnum;
+import com.gamaset.sonicbot.collector.infra.constants.HomeAwayConditionEnum;
 import com.gamaset.sonicbot.collector.service.login.LoginComponent;
 
 /**
@@ -38,8 +38,11 @@ public class MatchDetailScrapperComponent {
 			
 			MatchDetailTeamDTO homeTeamDetail = new MatchDetailTeamDTO();
 			homeTeamDetail.setMatchesByCondition(helper.extractLast10MatchesByCondition(dataStats, HomeAwayConditionEnum.HOME_TEAM));
+			MatchDetailTeamDTO awayTeamDetail = new MatchDetailTeamDTO();
+			awayTeamDetail.setMatchesByCondition(helper.extractLast10MatchesByCondition(dataStats, HomeAwayConditionEnum.AWAY_TEAM));
 			
 			dto.setMatchDetailHomeTeam(homeTeamDetail);
+			dto.setMatchDetailAwayTeam(awayTeamDetail);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

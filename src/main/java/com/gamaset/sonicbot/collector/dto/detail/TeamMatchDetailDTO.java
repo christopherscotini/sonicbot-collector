@@ -5,12 +5,25 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gamaset.sonicbot.collector.dto.TeamMatchDTO;
 
 public class TeamMatchDetailDTO {
 
 	private TeamMatchDTO homeTeamMatch;
 	private TeamMatchDTO awayTeamMatch;
+	
+	@JsonIgnore
+	public TeamMatchDTO getWinner(){
+		if(this.homeTeamMatch.getScore() > this.awayTeamMatch.getScore()){
+			return homeTeamMatch;
+		}else{
+			if(this.homeTeamMatch.getScore() < this.awayTeamMatch.getScore()){
+				return awayTeamMatch;
+			}
+		}
+		return null;
+	}
 	
 	public TeamMatchDTO getHomeTeamMatch() {
 		return homeTeamMatch;
