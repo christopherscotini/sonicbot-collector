@@ -42,7 +42,9 @@ public class MatchController {
 	@ApiOperation(value="Retorna as partidas do dia.", notes="")
 	@RequestMapping(method = RequestMethod.GET, value = "/list", produces = { "application/json; charset=UTF-8" })
 	public MatchSeriesDTO list(@RequestParam(required = false) String date) {
-
+		if(date == null || date.isEmpty()){
+			return matchService.listToday();
+		}
 		return matchService.listByDate(date);
 
 	}

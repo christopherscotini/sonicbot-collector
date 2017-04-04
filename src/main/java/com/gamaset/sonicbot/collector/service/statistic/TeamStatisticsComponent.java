@@ -8,6 +8,7 @@ import com.gamaset.sonicbot.collector.dto.statistic.TeamStatisticsDTO;
 import com.gamaset.sonicbot.collector.infra.constants.HomeAwayConditionEnum;
 import com.gamaset.sonicbot.collector.service.statistic.calculator.CalculatorDoubleChanceComponent;
 import com.gamaset.sonicbot.collector.service.statistic.calculator.CalculatorFulltimeResultComponent;
+import com.gamaset.sonicbot.collector.service.statistic.calculator.CalculatorGoalsComponent;
 
 /**
  * Componente responsavel por gerenciar as coletas de calculo de probabilidades
@@ -29,9 +30,9 @@ public class TeamStatisticsComponent {
 	public TeamStatisticsDTO calculate(MatchDetailTeamDTO matchDetailTeam, HomeAwayConditionEnum condition) {
 		
 		TeamStatisticsDTO statsDTO = new TeamStatisticsDTO();
-		statsDTO.setFulltimeProbability(calculatorFulltimeResult.calculate(matchDetailTeam.getMatchesByCondition(), condition));
-		statsDTO.setDoubleChanceProbability(calculatorDoubleChance.calculate(matchDetailTeam.getMatchesByCondition(), condition));
-		statsDTO.setGoalsProbability(calculatoGoals.calculate(matchDetailTeam.getMatchesByCondition(), condition));
+		statsDTO.setFulltimeProbabilities(calculatorFulltimeResult.calculate(matchDetailTeam.getMatchesByCondition(), condition));
+		statsDTO.setDoubleChanceProbabilities(calculatorDoubleChance.calculate(matchDetailTeam.getMatchesByCondition(), condition));
+		statsDTO.setGoalsProbabilities(calculatoGoals.calculate(matchDetailTeam.getMatchesByCondition(), condition));
 		
 		return statsDTO;
 	}

@@ -7,7 +7,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.gamaset.sonicbot.collector.dto.statistic.goal.GoalProbabilityDTO;
+import com.gamaset.sonicbot.collector.dto.statistic.probability.DoubleChanceProbabilityDTO;
+import com.gamaset.sonicbot.collector.dto.statistic.probability.FulltimeProbabilityDTO;
+import com.gamaset.sonicbot.collector.dto.statistic.probability.GoalProbabilityDTO;
 
 /**
  * 
@@ -17,32 +19,51 @@ import com.gamaset.sonicbot.collector.dto.statistic.goal.GoalProbabilityDTO;
  */
 public class TeamStatisticsDTO {
 
-	private StatsMarketDTO fulltimeProbability;
-	private StatsMarketDTO doubleChanceProbability;
-	private List<GoalProbabilityDTO> goalsProbability;
+	private List<FulltimeProbabilityDTO> fulltimeProbabilities;
+	private List<DoubleChanceProbabilityDTO> doubleChanceProbabilities;
+	private List<GoalProbabilityDTO> goalsProbabilities;
 
-	public StatsMarketDTO getFulltimeProbability() {
-		return fulltimeProbability;
+
+	/**
+	 * @return the fulltimeProbabilities
+	 */
+	public List<FulltimeProbabilityDTO> getFulltimeProbabilities() {
+		return fulltimeProbabilities;
 	}
 
-	public void setFulltimeProbability(StatsMarketDTO fulltimeProbability) {
-		this.fulltimeProbability = fulltimeProbability;
+	/**
+	 * @param fulltimeProbabilities the fulltimeProbabilities to set
+	 */
+	public void setFulltimeProbabilities(List<FulltimeProbabilityDTO> fulltimeProbabilities) {
+		this.fulltimeProbabilities = fulltimeProbabilities;
 	}
 
-	public StatsMarketDTO getDoubleChanceProbability() {
-		return doubleChanceProbability;
+	/**
+	 * @return the doubleChanceProbabilities
+	 */
+	public List<DoubleChanceProbabilityDTO> getDoubleChanceProbabilities() {
+		return doubleChanceProbabilities;
 	}
 
-	public void setDoubleChanceProbability(StatsMarketDTO doubleChanceProbability) {
-		this.doubleChanceProbability = doubleChanceProbability;
+	/**
+	 * @param doubleChanceProbabilities the doubleChanceProbabilities to set
+	 */
+	public void setDoubleChanceProbabilities(List<DoubleChanceProbabilityDTO> doubleChanceProbabilities) {
+		this.doubleChanceProbabilities = doubleChanceProbabilities;
 	}
 
-	public List<GoalProbabilityDTO> getGoalsProbability() {
-		return goalsProbability;
+	/**
+	 * @return the goalsProbabilities
+	 */
+	public List<GoalProbabilityDTO> getGoalsProbabilities() {
+		return goalsProbabilities;
 	}
 
-	public void setGoalsProbability(List<GoalProbabilityDTO> goalsProbability) {
-		this.goalsProbability = goalsProbability;
+	/**
+	 * @param goalsProbabilities the goalsProbabilities to set
+	 */
+	public void setGoalsProbabilities(List<GoalProbabilityDTO> goalsProbabilities) {
+		this.goalsProbabilities = goalsProbabilities;
 	}
 
 	/*
