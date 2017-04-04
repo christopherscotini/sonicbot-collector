@@ -9,6 +9,13 @@ import com.gamaset.sonicbot.collector.infra.constants.HomeAwayConditionEnum;
 import com.gamaset.sonicbot.collector.service.statistic.calculator.CalculatorDoubleChanceComponent;
 import com.gamaset.sonicbot.collector.service.statistic.calculator.CalculatorFulltimeResultComponent;
 
+/**
+ * Componente responsavel por gerenciar as coletas de calculo de probabilidades
+ * 
+ * @author Christopher Rozario
+ *
+ * @since 1.0.0
+ */
 @Component
 public class TeamStatisticsComponent {
 
@@ -16,12 +23,15 @@ public class TeamStatisticsComponent {
 	private CalculatorFulltimeResultComponent calculatorFulltimeResult;
 	@Autowired
 	private CalculatorDoubleChanceComponent calculatorDoubleChance;
+	@Autowired
+	private CalculatorGoalsComponent calculatoGoals;
 
 	public TeamStatisticsDTO calculate(MatchDetailTeamDTO matchDetailTeam, HomeAwayConditionEnum condition) {
 		
 		TeamStatisticsDTO statsDTO = new TeamStatisticsDTO();
-		statsDTO.setFulltimeResult(calculatorFulltimeResult.calculate(matchDetailTeam.getMatchesByCondition(), condition));
-		statsDTO.setDoubleChanceResult(calculatorDoubleChance.calculate(matchDetailTeam.getMatchesByCondition(), condition));
+		statsDTO.setFulltimeProbability(calculatorFulltimeResult.calculate(matchDetailTeam.getMatchesByCondition(), condition));
+		statsDTO.setDoubleChanceProbability(calculatorDoubleChance.calculate(matchDetailTeam.getMatchesByCondition(), condition));
+		statsDTO.setGoalsProbability(calculatoGoals.calculate(matchDetailTeam.getMatchesByCondition(), condition));
 		
 		return statsDTO;
 	}

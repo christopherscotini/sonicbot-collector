@@ -1,30 +1,48 @@
 package com.gamaset.sonicbot.collector.dto.statistic;
 
+import java.util.List;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.gamaset.sonicbot.collector.dto.statistic.goal.GoalProbabilityDTO;
+
+/**
+ * 
+ * @author Christopher Rozario
+ *
+ * @since 1.0.0
+ */
 public class TeamStatisticsDTO {
 
-	private StatsMarketDTO fulltimeResult;
-	private StatsMarketDTO doubleChanceResult;
-	
-	
-	public StatsMarketDTO getFulltimeResult() {
-		return fulltimeResult;
+	private StatsMarketDTO fulltimeProbability;
+	private StatsMarketDTO doubleChanceProbability;
+	private List<GoalProbabilityDTO> goalsProbability;
+
+	public StatsMarketDTO getFulltimeProbability() {
+		return fulltimeProbability;
 	}
 
-	public void setFulltimeResult(StatsMarketDTO fulltimeResult) {
-		this.fulltimeResult = fulltimeResult;
+	public void setFulltimeProbability(StatsMarketDTO fulltimeProbability) {
+		this.fulltimeProbability = fulltimeProbability;
 	}
 
-	public StatsMarketDTO getDoubleChanceResult() {
-		return doubleChanceResult;
+	public StatsMarketDTO getDoubleChanceProbability() {
+		return doubleChanceProbability;
 	}
 
-	public void setDoubleChanceResult(StatsMarketDTO doubleChanceResult) {
-		this.doubleChanceResult = doubleChanceResult;
+	public void setDoubleChanceProbability(StatsMarketDTO doubleChanceProbability) {
+		this.doubleChanceProbability = doubleChanceProbability;
+	}
+
+	public List<GoalProbabilityDTO> getGoalsProbability() {
+		return goalsProbability;
+	}
+
+	public void setGoalsProbability(List<GoalProbabilityDTO> goalsProbability) {
+		this.goalsProbability = goalsProbability;
 	}
 
 	/*

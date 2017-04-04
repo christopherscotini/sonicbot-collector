@@ -3,6 +3,8 @@ package com.gamaset.sonicbot.collector.service.statistic.calculator;
 import org.springframework.stereotype.Component;
 
 import com.gamaset.sonicbot.collector.infra.constants.EffectSizeEnum;
+import com.gamaset.sonicbot.collector.infra.constants.GoalMarketType;
+import com.gamaset.sonicbot.collector.infra.constants.GoalTypeEnum;
 import com.gamaset.sonicbot.collector.infra.constants.HomeAwayConditionEnum;
 
 @Component
@@ -71,6 +73,11 @@ public class EffectSizeCalculatorComponent {
 			return EffectSizeEnum.NONE;
 		}
 		
+	}
+
+	public EffectSizeEnum calculateForGoal(Double value, HomeAwayConditionEnum condition, GoalTypeEnum goalType, GoalMarketType goalMarketType) {
+
+		return null;
 	}
 
 }

@@ -7,6 +7,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.gamaset.sonicbot.collector.infra.constants.EffectSizeEnum;
 
+/**
+ * 
+ * @author Christopher Rozario
+ *
+ * @since 1.0.0
+ */
 public class StatsMarketDTO {
 
 	private Long selectionMarketBetId;
@@ -15,6 +21,14 @@ public class StatsMarketDTO {
 
 	public StatsMarketDTO() {}
 	
+	/**
+	 * @param selectionMarketBetId
+	 */
+	public StatsMarketDTO(Long selectionMarketBetId) {
+		this.selectionMarketBetId = selectionMarketBetId;
+	}
+
+
 	public Long getSelectionMarketBetId() {
 		return selectionMarketBetId;
 	}
