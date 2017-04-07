@@ -7,6 +7,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.gamaset.sonicbot.collector.dto.PositionDTO;
+import com.gamaset.sonicbot.collector.dto.TeamMatchDTO;
+
 /**
  * 
  * @author Christopher Rozario
@@ -16,6 +19,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class MatchDetailTeamDTO {
 
 	private List<TeamMatchDetailDTO> matchesByCondition;
+	private List<PositionDTO> positions;
 
 	public List<TeamMatchDetailDTO> getMatchesByCondition() {
 		return matchesByCondition;
@@ -25,6 +29,14 @@ public class MatchDetailTeamDTO {
 		this.matchesByCondition = matchesByCondition;
 	}
 	
+	public List<PositionDTO> getPositions() {
+		return positions;
+	}
+
+	public void setPositions(List<PositionDTO> positions) {
+		this.positions = positions;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

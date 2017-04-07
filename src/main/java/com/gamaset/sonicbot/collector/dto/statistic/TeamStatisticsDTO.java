@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.gamaset.sonicbot.collector.dto.PositionDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.probability.DoubleChanceProbabilityDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.probability.FulltimeProbabilityDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.probability.GoalProbabilityDTO;
@@ -22,7 +23,7 @@ public class TeamStatisticsDTO {
 	private List<FulltimeProbabilityDTO> fulltimeProbabilities;
 	private List<DoubleChanceProbabilityDTO> doubleChanceProbabilities;
 	private List<GoalProbabilityDTO> goalsProbabilities;
-
+	private List<PositionDTO> positions;
 
 	/**
 	 * @return the fulltimeProbabilities
@@ -64,6 +65,14 @@ public class TeamStatisticsDTO {
 	 */
 	public void setGoalsProbabilities(List<GoalProbabilityDTO> goalsProbabilities) {
 		this.goalsProbabilities = goalsProbabilities;
+	}
+
+	public List<PositionDTO> getPositions() {
+		return positions;
+	}
+
+	public void setPositions(List<PositionDTO> positions) {
+		this.positions = positions;
 	}
 
 	/*

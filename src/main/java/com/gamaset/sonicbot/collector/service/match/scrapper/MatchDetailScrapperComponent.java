@@ -38,12 +38,13 @@ public class MatchDetailScrapperComponent {
 			
 			MatchDetailTeamDTO homeTeamDetail = new MatchDetailTeamDTO();
 			homeTeamDetail.setMatchesByCondition(helper.extractLast10MatchesByCondition(dataStats, HomeAwayConditionEnum.HOME_TEAM));
+			homeTeamDetail.setPositions(helper.extractPosition(dataStats, match.getHomeTeamMatch()));
 			MatchDetailTeamDTO awayTeamDetail = new MatchDetailTeamDTO();
 			awayTeamDetail.setMatchesByCondition(helper.extractLast10MatchesByCondition(dataStats, HomeAwayConditionEnum.AWAY_TEAM));
+			awayTeamDetail.setPositions(helper.extractPosition(dataStats, match.getAwayTeamMatch()));
 			
 			dto.setMatchDetailHomeTeam(homeTeamDetail);
 			dto.setMatchDetailAwayTeam(awayTeamDetail);
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
