@@ -45,7 +45,7 @@ public class CalculatorDoubleChanceComponent {
 		int occurs = 0;
 
 		int numberMatches = dc.getNumberMatchesType()==CriteriaNumberMatchesType.ALL_GAMES?matches.size():dc.getNumberMatchesType().getNumerOfMatches();
-		for (int i = 0; i < numberMatches; i++) {
+		for (int i = 0; i < (matches.size()>numberMatches?numberMatches:matches.size()); i++) {
 			TeamMatchDetailDTO matchResume = matches.get(i);
 			if(condition.equals(HomeAwayConditionEnum.HOME_TEAM)){
 				if (matchResume.getWinner() == null || matchResume.getWinner().equals(matchResume.getHomeTeamMatch())){

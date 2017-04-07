@@ -43,9 +43,14 @@ public class MatchController {
 	@RequestMapping(method = RequestMethod.GET, value = "/list", produces = { "application/json; charset=UTF-8" })
 	public MatchSeriesDTO list(@RequestParam(required = false) String date) {
 		if(date == null || date.isEmpty()){
-			return matchService.listToday();
+			MatchSeriesDTO listToday = matchService.listToday();
+//			for (MatchResumeDTO match : listToday.getMatches()) {
+//				detail(match);
+//			}
+			return listToday;
 		}
-		return matchService.listByDate(date);
+		MatchSeriesDTO listByDate = matchService.listByDate(date);
+		return listByDate;
 
 	}
 

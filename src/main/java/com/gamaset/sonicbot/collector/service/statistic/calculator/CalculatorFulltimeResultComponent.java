@@ -44,7 +44,8 @@ public class CalculatorFulltimeResultComponent {
 		int occurs = 0;
 
 		int numberMatches = ft.getNumberMatchesType()==CriteriaNumberMatchesType.ALL_GAMES?matches.size():ft.getNumberMatchesType().getNumerOfMatches();
-		for (int i = 0; i < numberMatches; i++) {
+
+		for (int i = 0; i <(matches.size()>numberMatches?numberMatches:matches.size()) ; i++) {
 			TeamMatchDetailDTO matchResume = matches.get(i);
 			if (HomeAwayConditionEnum.HOME_TEAM.equals(condition)) {
 				if (matchResume.getWinner() != null && matchResume.getWinner().equals(matchResume.getHomeTeamMatch())) {
@@ -58,7 +59,7 @@ public class CalculatorFulltimeResultComponent {
 		}
 
 		try {
-			result.setValue(new Double((occurs * 100) / matches.size()));
+			result.setValue(occurs==0?0:new Double((occurs * 100) / matches.size()));
 			if(HomeAwayConditionEnum.HOME_TEAM.equals(condition)){
 				result.setSize(sizeCalculator.calculateForWin(result.getValue(), HomeAwayConditionEnum.HOME_TEAM));
 				result.setSelectionMarketBetId(SelectionMarketBetType.HOME_TEAM_WIN.getId());

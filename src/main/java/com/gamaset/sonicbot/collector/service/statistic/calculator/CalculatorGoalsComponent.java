@@ -65,7 +65,7 @@ public class CalculatorGoalsComponent {
 		int occurs = 0;
 		
 		int numberMatches = prob.getNumberMatchesType()==CriteriaNumberMatchesType.ALL_GAMES?matches.size():prob.getNumberMatchesType().getNumerOfMatches();
-		for (int i = 0; i < numberMatches; i++) {
+		for (int i = 0; i < (matches.size()>numberMatches?numberMatches:matches.size()); i++) {
 			TeamMatchDetailDTO match = matches.get(i);
 			
 			if(condition.equals(HomeAwayConditionEnum.HOME_TEAM)){
@@ -91,7 +91,7 @@ public class CalculatorGoalsComponent {
 			}
 		}
 		
-		prob.getProbability().setValue(new Double((occurs * 100) / numberMatches));
+		prob.getProbability().setValue(occurs==0?0:new Double((occurs * 100) / numberMatches));
 		prob.getProbability().setSize(sizeCalculator.calculateForGoal(prob.getProbability().getValue(), condition, prob.getGoalMarketType(), prob.getGoalType()));
 		
 	}

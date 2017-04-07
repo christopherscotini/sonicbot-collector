@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
+import com.gamaset.sonicbot.collector.infra.CachingConfig;
 import com.gamaset.sonicbot.collector.infra.utils.DateUtils;
 import com.gamaset.sonicbot.collector.service.match.scrapper.MatchScrapperComponent;
 
@@ -26,12 +27,13 @@ public class MatchService {
 	
 	private final String URL_ACADEMIA = "https://www.academiadasapostas.com/stats/livescores/popup/";
 
-//	@Cacheable
+//	@Cacheable(cacheNames = CachingConfig.MATCH_BY_DATE_CHACHE)
 	public MatchSeriesDTO listToday(){
 		
 		return scrapper.scrap(getAvailableComps(), URL_ACADEMIA);
 	}
 	
+//	@Cacheable(cacheNames = CachingConfig.MATCH_BY_DATE_CHACHE)
 	public MatchSeriesDTO listByDate(String date){
 		//TODO veriry if necessary any validator
 
