@@ -1,16 +1,16 @@
 package com.gamaset.sonicbot.collector.dto.statistic.probability;
 
-import com.gamaset.sonicbot.collector.infra.constants.GeneralOrConditionType;
+import com.gamaset.sonicbot.collector.infra.constants.GeneralOrConditionTypeEnum;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.gamaset.sonicbot.collector.infra.constants.CriteriaNumberMatchesType;
-import com.gamaset.sonicbot.collector.infra.constants.GoalMarketType;
+import com.gamaset.sonicbot.collector.infra.constants.CriteriaAnalisysMatchesTypeEnum;
+import com.gamaset.sonicbot.collector.infra.constants.GoalMarketTypeEnum;
 import com.gamaset.sonicbot.collector.infra.constants.GoalTypeEnum;
-import com.gamaset.sonicbot.collector.infra.constants.SelectionMarketBetType;
+import com.gamaset.sonicbot.collector.infra.constants.SelectionMarketBetTypeEnum;
 
 /**
  * 
@@ -20,10 +20,10 @@ import com.gamaset.sonicbot.collector.infra.constants.SelectionMarketBetType;
  */
 public class GoalProbabilityDTO {
 
-	private GeneralOrConditionType generalConditionType;
-	private GoalMarketType goalMarketType;
+	private GeneralOrConditionTypeEnum generalConditionType;
+	private GoalMarketTypeEnum goalMarketType;
 	private GoalTypeEnum goalType;
-	private CriteriaNumberMatchesType numberMatchesType;
+	private CriteriaAnalisysMatchesTypeEnum numberMatchesType;
 	private StatsMarketDTO probability;
 
 	/**
@@ -33,17 +33,17 @@ public class GoalProbabilityDTO {
 	 * @param goalType
 	 * @param criteriaNumberMatchesType
 	 */
-	public GoalProbabilityDTO(GeneralOrConditionType generalConditionType, GoalMarketType goalMarketType,
-			GoalTypeEnum goalType, CriteriaNumberMatchesType numberMatchesType) {
+	public GoalProbabilityDTO(GeneralOrConditionTypeEnum generalConditionType, GoalMarketTypeEnum goalMarketType,
+			GoalTypeEnum goalType, CriteriaAnalisysMatchesTypeEnum numberMatchesType) {
 		this.generalConditionType = generalConditionType;
 		this.goalMarketType = goalMarketType;
 		this.goalType = goalType;
 		this.numberMatchesType = numberMatchesType;
-		if (goalMarketType.equals(GoalMarketType.OVER_05)) {
-			this.probability = new StatsMarketDTO(SelectionMarketBetType.OVER_05.getId());
+		if (goalMarketType.equals(GoalMarketTypeEnum.OVER_05)) {
+			this.probability = new StatsMarketDTO(SelectionMarketBetTypeEnum.OVER_05.getId());
 		} else {
-			if (goalMarketType.equals(GoalMarketType.OVER_15)) {
-				this.probability = new StatsMarketDTO(SelectionMarketBetType.OVER_15.getId());
+			if (goalMarketType.equals(GoalMarketTypeEnum.OVER_15)) {
+				this.probability = new StatsMarketDTO(SelectionMarketBetTypeEnum.OVER_15.getId());
 			}
 		}
 	}
@@ -52,11 +52,11 @@ public class GoalProbabilityDTO {
 		return probability;
 	}
 
-	public GoalMarketType getGoalMarketType() {
+	public GoalMarketTypeEnum getGoalMarketType() {
 		return goalMarketType;
 	}
 
-	public GeneralOrConditionType getGeneralConditionType() {
+	public GeneralOrConditionTypeEnum getGeneralConditionType() {
 		return generalConditionType;
 	}
 
@@ -67,7 +67,7 @@ public class GoalProbabilityDTO {
 	/**
 	 * @return the numberMatchesType
 	 */
-	public CriteriaNumberMatchesType getNumberMatchesType() {
+	public CriteriaAnalisysMatchesTypeEnum getNumberMatchesType() {
 		return numberMatchesType;
 	}
 

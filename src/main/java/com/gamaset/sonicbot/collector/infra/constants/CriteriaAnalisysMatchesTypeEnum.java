@@ -1,12 +1,12 @@
 package com.gamaset.sonicbot.collector.infra.constants;
 
-public enum CriteriaNumberMatchesType {
+public enum CriteriaAnalisysMatchesTypeEnum {
 
-	ALL_GAMES(null), LAST3_MATCHES(3);
+	ALL_GAMES(1), LAST3_MATCHES(3);
 	
 	private Integer numerOfMatches;
 	
-	private CriteriaNumberMatchesType(Integer numberOfmatches) {
+	private CriteriaAnalisysMatchesTypeEnum(Integer numberOfmatches) {
 		this.numerOfMatches = numberOfmatches;
 	}
 

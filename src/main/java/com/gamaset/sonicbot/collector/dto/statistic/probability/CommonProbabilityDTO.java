@@ -1,6 +1,6 @@
 package com.gamaset.sonicbot.collector.dto.statistic.probability;
 
-import com.gamaset.sonicbot.collector.infra.constants.CriteriaNumberMatchesType;
+import com.gamaset.sonicbot.collector.infra.constants.CriteriaAnalisysMatchesTypeEnum;
 
 /**
  * 
@@ -10,13 +10,13 @@ import com.gamaset.sonicbot.collector.infra.constants.CriteriaNumberMatchesType;
  */
 public abstract class CommonProbabilityDTO {
 
-	private CriteriaNumberMatchesType numberMatchesType;
+	private CriteriaAnalisysMatchesTypeEnum numberMatchesType;
 	private StatsMarketDTO stats;
 	
 	/**
 	 * @param numberMatchesType
 	 */
-	public CommonProbabilityDTO(CriteriaNumberMatchesType numberMatchesType) {
+	public CommonProbabilityDTO(CriteriaAnalisysMatchesTypeEnum numberMatchesType) {
 		this.numberMatchesType = numberMatchesType;
 	}
 
@@ -37,7 +37,7 @@ public abstract class CommonProbabilityDTO {
 	/**
 	 * @return the numberMatchesType
 	 */
-	public CriteriaNumberMatchesType getNumberMatchesType() {
+	public CriteriaAnalisysMatchesTypeEnum getNumberMatchesType() {
 		return numberMatchesType;
 	}
 	

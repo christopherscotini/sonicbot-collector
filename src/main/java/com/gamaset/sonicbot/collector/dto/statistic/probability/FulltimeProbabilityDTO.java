@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.gamaset.sonicbot.collector.infra.constants.CriteriaNumberMatchesType;
+import com.gamaset.sonicbot.collector.infra.constants.CriteriaAnalisysMatchesTypeEnum;
 
 /**
  * 
@@ -17,9 +17,9 @@ public class FulltimeProbabilityDTO extends CommonProbabilityDTO{
 
 	/**
 	 * 
-	 * @param numberMatchesType {@link CriteriaNumberMatchesType}
+	 * @param numberMatchesType {@link CriteriaAnalisysMatchesTypeEnum}
 	 */
-	public FulltimeProbabilityDTO(CriteriaNumberMatchesType numberMatchesType) {
+	public FulltimeProbabilityDTO(CriteriaAnalisysMatchesTypeEnum numberMatchesType) {
 		super(numberMatchesType);
 	}
 

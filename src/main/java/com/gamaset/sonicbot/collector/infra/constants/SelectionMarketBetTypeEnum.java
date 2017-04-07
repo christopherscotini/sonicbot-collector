@@ -1,6 +1,6 @@
 package com.gamaset.sonicbot.collector.infra.constants;
 
-public enum SelectionMarketBetType {
+public enum SelectionMarketBetTypeEnum {
 
 	OVER_05(5L),
 	OVER_15(7L),
@@ -11,7 +11,7 @@ public enum SelectionMarketBetType {
 	
 	private Long id;
 
-	private SelectionMarketBetType(Long id) {
+	private SelectionMarketBetTypeEnum(Long id) {
 		this.id = id;
 	}
 

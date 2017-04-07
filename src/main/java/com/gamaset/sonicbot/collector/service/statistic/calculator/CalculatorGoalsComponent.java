@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 
 import com.gamaset.sonicbot.collector.dto.detail.TeamMatchDetailDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.probability.GoalProbabilityDTO;
-import com.gamaset.sonicbot.collector.infra.constants.GeneralOrConditionType;
-import com.gamaset.sonicbot.collector.infra.constants.CriteriaNumberMatchesType;
-import com.gamaset.sonicbot.collector.infra.constants.GoalMarketType;
+import com.gamaset.sonicbot.collector.infra.constants.GeneralOrConditionTypeEnum;
+import com.gamaset.sonicbot.collector.infra.constants.CriteriaAnalisysMatchesTypeEnum;
+import com.gamaset.sonicbot.collector.infra.constants.GoalMarketTypeEnum;
 import com.gamaset.sonicbot.collector.infra.constants.GoalTypeEnum;
 import com.gamaset.sonicbot.collector.infra.constants.HomeAwayConditionEnum;
 
@@ -31,14 +31,14 @@ public class CalculatorGoalsComponent {
 		List<GoalProbabilityDTO> goalProbs = new ArrayList<GoalProbabilityDTO>();
 		
 		//CONDITIONAL
-		GoalProbabilityDTO prob1 = new GoalProbabilityDTO(GeneralOrConditionType.CONDITION, GoalMarketType.OVER_05, GoalTypeEnum.SCORED, CriteriaNumberMatchesType.ALL_GAMES);
-		GoalProbabilityDTO prob2 = new GoalProbabilityDTO(GeneralOrConditionType.CONDITION, GoalMarketType.OVER_05, GoalTypeEnum.SCORED, CriteriaNumberMatchesType.LAST3_MATCHES);
-		GoalProbabilityDTO prob3 = new GoalProbabilityDTO(GeneralOrConditionType.CONDITION, GoalMarketType.OVER_05, GoalTypeEnum.CONCEDED, CriteriaNumberMatchesType.ALL_GAMES);
-		GoalProbabilityDTO prob4 = new GoalProbabilityDTO(GeneralOrConditionType.CONDITION, GoalMarketType.OVER_05, GoalTypeEnum.CONCEDED, CriteriaNumberMatchesType.LAST3_MATCHES);
-		GoalProbabilityDTO prob5 = new GoalProbabilityDTO(GeneralOrConditionType.CONDITION, GoalMarketType.OVER_15, GoalTypeEnum.SCORED, CriteriaNumberMatchesType.ALL_GAMES);
-		GoalProbabilityDTO prob6 = new GoalProbabilityDTO(GeneralOrConditionType.CONDITION, GoalMarketType.OVER_15, GoalTypeEnum.SCORED, CriteriaNumberMatchesType.LAST3_MATCHES);
-		GoalProbabilityDTO prob7 = new GoalProbabilityDTO(GeneralOrConditionType.CONDITION, GoalMarketType.OVER_15, GoalTypeEnum.CONCEDED, CriteriaNumberMatchesType.ALL_GAMES);
-		GoalProbabilityDTO prob8 = new GoalProbabilityDTO(GeneralOrConditionType.CONDITION, GoalMarketType.OVER_15, GoalTypeEnum.CONCEDED, CriteriaNumberMatchesType.LAST3_MATCHES);
+		GoalProbabilityDTO prob1 = new GoalProbabilityDTO(GeneralOrConditionTypeEnum.CONDITION, GoalMarketTypeEnum.OVER_05, GoalTypeEnum.SCORED, CriteriaAnalisysMatchesTypeEnum.ALL_GAMES);
+		GoalProbabilityDTO prob2 = new GoalProbabilityDTO(GeneralOrConditionTypeEnum.CONDITION, GoalMarketTypeEnum.OVER_05, GoalTypeEnum.SCORED, CriteriaAnalisysMatchesTypeEnum.LAST3_MATCHES);
+		GoalProbabilityDTO prob3 = new GoalProbabilityDTO(GeneralOrConditionTypeEnum.CONDITION, GoalMarketTypeEnum.OVER_05, GoalTypeEnum.CONCEDED, CriteriaAnalisysMatchesTypeEnum.ALL_GAMES);
+		GoalProbabilityDTO prob4 = new GoalProbabilityDTO(GeneralOrConditionTypeEnum.CONDITION, GoalMarketTypeEnum.OVER_05, GoalTypeEnum.CONCEDED, CriteriaAnalisysMatchesTypeEnum.LAST3_MATCHES);
+		GoalProbabilityDTO prob5 = new GoalProbabilityDTO(GeneralOrConditionTypeEnum.CONDITION, GoalMarketTypeEnum.OVER_15, GoalTypeEnum.SCORED, CriteriaAnalisysMatchesTypeEnum.ALL_GAMES);
+		GoalProbabilityDTO prob6 = new GoalProbabilityDTO(GeneralOrConditionTypeEnum.CONDITION, GoalMarketTypeEnum.OVER_15, GoalTypeEnum.SCORED, CriteriaAnalisysMatchesTypeEnum.LAST3_MATCHES);
+		GoalProbabilityDTO prob7 = new GoalProbabilityDTO(GeneralOrConditionTypeEnum.CONDITION, GoalMarketTypeEnum.OVER_15, GoalTypeEnum.CONCEDED, CriteriaAnalisysMatchesTypeEnum.ALL_GAMES);
+		GoalProbabilityDTO prob8 = new GoalProbabilityDTO(GeneralOrConditionTypeEnum.CONDITION, GoalMarketTypeEnum.OVER_15, GoalTypeEnum.CONCEDED, CriteriaAnalisysMatchesTypeEnum.LAST3_MATCHES);
 		
 		calcProbs(prob1, matches, condition);
 		calcProbs(prob2, matches, condition);
@@ -64,7 +64,7 @@ public class CalculatorGoalsComponent {
 	private void calcProbs(GoalProbabilityDTO prob, List<TeamMatchDetailDTO> matches, HomeAwayConditionEnum condition) {
 		int occurs = 0;
 		
-		int numberMatches = prob.getNumberMatchesType()==CriteriaNumberMatchesType.ALL_GAMES?matches.size():prob.getNumberMatchesType().getNumerOfMatches();
+		int numberMatches = prob.getNumberMatchesType()==CriteriaAnalisysMatchesTypeEnum.ALL_GAMES?matches.size():prob.getNumberMatchesType().getNumerOfMatches();
 		for (int i = 0; i < numberMatches; i++) {
 			TeamMatchDetailDTO match = matches.get(i);
 			

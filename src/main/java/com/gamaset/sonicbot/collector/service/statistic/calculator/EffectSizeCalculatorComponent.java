@@ -3,7 +3,7 @@ package com.gamaset.sonicbot.collector.service.statistic.calculator;
 import org.springframework.stereotype.Component;
 
 import com.gamaset.sonicbot.collector.infra.constants.EffectSizeEnum;
-import com.gamaset.sonicbot.collector.infra.constants.GoalMarketType;
+import com.gamaset.sonicbot.collector.infra.constants.GoalMarketTypeEnum;
 import com.gamaset.sonicbot.collector.infra.constants.GoalTypeEnum;
 import com.gamaset.sonicbot.collector.infra.constants.HomeAwayConditionEnum;
 
@@ -33,15 +33,15 @@ public class EffectSizeCalculatorComponent {
 		
 	}
 
-	public EffectSizeEnum calculateForGoal(Double value, HomeAwayConditionEnum condition, GoalMarketType goalMarketType, GoalTypeEnum goalType) {
+	public EffectSizeEnum calculateForGoal(Double value, HomeAwayConditionEnum condition, GoalMarketTypeEnum goalMarketType, GoalTypeEnum goalType) {
 		if(HomeAwayConditionEnum.HOME_TEAM.equals(condition)){
-			if(goalMarketType.equals(GoalMarketType.OVER_05)){
+			if(goalMarketType.equals(GoalMarketTypeEnum.OVER_05)){
 				if(goalType.equals(GoalTypeEnum.SCORED)){
 					return calc(90, 80, 70, 60, value);
 				}else{
 					return calc(80, 70, 60, 50, value);
 				}
-			}else if(goalMarketType.equals(GoalMarketType.OVER_15)){
+			}else if(goalMarketType.equals(GoalMarketTypeEnum.OVER_15)){
 				if(goalType.equals(GoalTypeEnum.SCORED)){
 					return calc(70, 60, 40, 30, value);
 				}else{
@@ -49,13 +49,13 @@ public class EffectSizeCalculatorComponent {
 				}
 			}
 		}else{
-			if(goalMarketType.equals(GoalMarketType.OVER_05)){
+			if(goalMarketType.equals(GoalMarketTypeEnum.OVER_05)){
 				if(goalType.equals(GoalTypeEnum.SCORED)){
 					return calc(90, 80, 60, 50, value);
 				}else{
 					return calc(90, 80, 70, 60, value);
 				}
-			}else if(goalMarketType.equals(GoalMarketType.OVER_15)){
+			}else if(goalMarketType.equals(GoalMarketTypeEnum.OVER_15)){
 				if(goalType.equals(GoalTypeEnum.SCORED)){
 					return calc(50, 40, 20, 10, value);
 				}else{
