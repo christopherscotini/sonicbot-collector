@@ -27,7 +27,7 @@ public class MatchService {
 
 //	@Cacheable(cacheNames = CachingConfig.MATCH_BY_DATE_CHACHE)
 	public MatchSeriesDTO listByDate(String date){
-		//TODO veriry if necessary any validator
+		//TODO verify if necessary any validator
 
 		String url = (date == null || date.trim().equals("")) ? URL_ACADEMIA : URL_ACADEMIA + DateUtils.convertDateStringToTimestamp(date) + "/";
 		
