@@ -5,9 +5,13 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MatchStatisticDTO {
 
+	@JsonProperty("homeTeamStats")
 	private TeamStatisticsDTO homeTeamStats;
+	@JsonProperty("awayTeamStats")
 	private TeamStatisticsDTO awayTeamStats;
 
 	public MatchStatisticDTO() {	}

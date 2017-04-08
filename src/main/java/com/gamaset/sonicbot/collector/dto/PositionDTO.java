@@ -1,42 +1,41 @@
-package com.gamaset.sonicbot.collector.dto.detail;
-
-import java.util.List;
+package com.gamaset.sonicbot.collector.dto;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.gamaset.sonicbot.collector.dto.PositionDTO;
-import com.gamaset.sonicbot.collector.dto.TeamMatchDTO;
+import com.gamaset.sonicbot.collector.infra.constants.PositionConditionEnum;
 
-/**
- * 
- * @author Christopher Rozario
- *
- * @since 1.0.0
- */
-public class MatchDetailTeamDTO {
-
-	private List<TeamMatchDetailDTO> matchesByCondition;
-	private List<PositionDTO> positions;
-
-	public List<TeamMatchDetailDTO> getMatchesByCondition() {
-		return matchesByCondition;
+public class PositionDTO {
+	private PositionConditionEnum condition;
+	private Integer position;
+	
+	public PositionDTO() {
 	}
 
-	public void setMatchesByCondition(List<TeamMatchDetailDTO> matchesByCondition) {
-		this.matchesByCondition = matchesByCondition;
+	/**
+	 * @param condition
+	 * @param position
+	 */
+	public PositionDTO(PositionConditionEnum condition, Integer position) {
+		super();
+		this.condition = condition;
+		this.position = position;
+	}
+	public PositionConditionEnum getCondition() {
+		return condition;
+	}
+	public void setCondition(PositionConditionEnum condition) {
+		this.condition = condition;
+	}
+	public Integer getPosition() {
+		return position;
+	}
+	public void setPosition(Integer position) {
+		this.position = position;
 	}
 	
-	public List<PositionDTO> getPositions() {
-		return positions;
-	}
-
-	public void setPositions(List<PositionDTO> positions) {
-		this.positions = positions;
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -60,4 +59,5 @@ public class MatchDetailTeamDTO {
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
 	}
+
 }

@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
@@ -26,12 +25,7 @@ public class MatchService {
 	
 	private final String URL_ACADEMIA = "https://www.academiadasapostas.com/stats/livescores/popup/";
 
-//	@Cacheable
-	public MatchSeriesDTO listToday(){
-		
-		return scrapper.scrap(getAvailableComps(), URL_ACADEMIA);
-	}
-	
+//	@Cacheable(cacheNames = CachingConfig.MATCH_BY_DATE_CHACHE)
 	public MatchSeriesDTO listByDate(String date){
 		//TODO veriry if necessary any validator
 

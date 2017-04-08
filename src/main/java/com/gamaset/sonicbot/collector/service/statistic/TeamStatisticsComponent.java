@@ -33,6 +33,7 @@ public class TeamStatisticsComponent {
 		statsDTO.setFulltimeProbabilities(calculatorFulltimeResult.calculate(matchDetailTeam.getMatchesByCondition(), condition));
 		statsDTO.setDoubleChanceProbabilities(calculatorDoubleChance.calculate(matchDetailTeam.getMatchesByCondition(), condition));
 		statsDTO.setGoalsProbabilities(calculatoGoals.calculate(matchDetailTeam.getMatchesByCondition(), condition));
+		statsDTO.setPositions(matchDetailTeam.getPositions());
 		
 		return statsDTO;
 	}

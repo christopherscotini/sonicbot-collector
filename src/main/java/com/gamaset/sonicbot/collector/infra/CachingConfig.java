@@ -28,24 +28,35 @@ import com.gamaset.sonicbot.collector.service.login.LoginComponent;
 @EnableScheduling
 public class CachingConfig {
 
-	private final String PREDICTIONS = "predictions";
+	public static final String MATCH_DETAIL_CHACHE = "matchesByDateDetail";
+	public static final String MATCH_BY_DATE_CHACHE = "matchesByDate";
+	private static final String CRON_CONFIG = "0 50 11 * * ?";
 	
 	@Autowired
 	private LoginComponent login;
 	
 	@Bean
 	public CacheManager cacheManager() {
-		return new ConcurrentMapCacheManager(PREDICTIONS);
+		return new ConcurrentMapCacheManager(MATCH_BY_DATE_CHACHE, MATCH_DETAIL_CHACHE);
 	}
 
-	//fixedDelay = 3 minutos
-	@Scheduled(fixedDelay = 400 * 60 * 1000, initialDelay = 500)
-	@CacheEvict(allEntries = true, value = {PREDICTIONS})
-	public void reportCacheEvict() {
+	@Scheduled(cron = CRON_CONFIG, zone="America/Sao_Paulo")
+	@CacheEvict(allEntries = true, value = {MATCH_BY_DATE_CHACHE})
+	public void reportCacheEvictMatchByDate() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		login.resetCookie();
-		System.out.println("Flush Cache " + now.format(formatter));
+		System.out.println("Flush Cache MATCH_BY_DATE_CHACHE: " + now.format(formatter));
 	}
+
+	@Scheduled(cron = CRON_CONFIG, zone="America/Sao_Paulo")
+	@CacheEvict(allEntries = true, value = {MATCH_DETAIL_CHACHE})
+	public void reportCacheEvictMatchDetailByDate() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		login.resetCookie();
+		System.out.println("Flush Cache MATCH_DETAIL_CHACHE: " + now.format(formatter));
+	}
+
 
 }

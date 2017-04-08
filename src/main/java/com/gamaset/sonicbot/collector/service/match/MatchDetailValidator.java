@@ -15,7 +15,7 @@ public class MatchDetailValidator {
 	private boolean validateEnumMatchStatus(MatchStatusEnum mse){
 		for (MatchStatusEnum _mse : MatchStatusEnum.values()) {
 			if (_mse.name().equals(mse.name())) {
-				if(mse.name().equals(MatchStatusEnum.AGUARDANDO.name()) || mse.name().equals(MatchStatusEnum.EM_ANDAMENTO.name())){
+				if(mse.name().equals(MatchStatusEnum.CANCELADO.name()) || mse.name().equals(MatchStatusEnum.ADIADO.name())){
 					return true;
 				}
 			}
@@ -68,7 +68,7 @@ public class MatchDetailValidator {
 		if(match.getMatchStatus() == null){
 			throw new DataEntryInvalidException("matchStatus");
 		}else{
-			if(!validateEnumMatchStatus(match.getMatchStatus())){
+			if(validateEnumMatchStatus(match.getMatchStatus())){
 				throw new DataEntryInvalidException("matchStatus");
 			}
 		}

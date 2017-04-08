@@ -7,10 +7,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
+import com.gamaset.sonicbot.collector.dto.PositionDTO;
 import com.gamaset.sonicbot.collector.dto.TeamDTO;
 import com.gamaset.sonicbot.collector.dto.TeamMatchDTO;
 import com.gamaset.sonicbot.collector.dto.detail.TeamMatchDetailDTO;
 import com.gamaset.sonicbot.collector.infra.constants.HomeAwayConditionEnum;
+import com.gamaset.sonicbot.collector.infra.constants.PositionConditionEnum;
 
 /**
  * 
@@ -24,7 +26,7 @@ public class MatchDetailScrapperHelper {
 	public List<TeamMatchDetailDTO> extractLast10MatchesByCondition(Element dataStats, HomeAwayConditionEnum teamCondition){
 		Elements trGames = dataStats.select("table[class=stat-last10 stat-half-padding]");
 		if(trGames.size()>2){
-			trGames = trGames.get(teamCondition.ordinal()+2).select("tbody").select("tr[class~=(even|odd)]");;
+			trGames = trGames.get(teamCondition.ordinal()+2).select("tbody").select("tr[class~=(even|odd)]");
 			return getListMatchs(trGames, null);
 		}else{
 			return new ArrayList<TeamMatchDetailDTO>();
@@ -71,6 +73,42 @@ public class MatchDetailScrapperHelper {
 		return dto;
 	}
 	
+	public List<PositionDTO> extractPosition(Element dataStats, TeamMatchDTO teamMatch) {
+		List<PositionDTO> dtos = new ArrayList<PositionDTO>();
+
+		for (int i = 0; i < 3; i++) {
+			Elements trTables = dataStats.select("table[class=results competition-rounds competition-half-padding]");
+			trTables = trTables.get(i).select("tbody").select("tr");
+			
+			if(trTables.size()>2){
+				PositionDTO dto = getPosition(trTables, teamMatch, i);
+				if(dto != null){
+					dtos.add(dto);
+				}
+			}
+		}
+		
+		return dtos;
+	}
+
+	private PositionDTO getPosition(Elements trTables, TeamMatchDTO teamMatch, int condition) {
+		for (Element trPosition : trTables) {	
+			if(trPosition.select("td").size() < 8){
+				return null;
+			}
+			
+			if(trPosition.select("td").get(1).text().trim().equals(teamMatch.getTeam().getName())){
+				PositionDTO dto = new PositionDTO();
+				dto.setCondition(PositionConditionEnum.values()[condition]);
+				dto.setPosition(Integer.parseInt(trPosition.select("td").get(0).text()));
+				
+				return dto;
+			}
+		}
+		
+		return null;		
+	}
+
 //	private TeamMatchDetailDTO getMatchesGeneral(Element trGame, TeamMatchDTO teamMatch){
 //		TeamMatchDetailDTO dto = new TeamMatchDetailDTO();
 //		

@@ -42,11 +42,9 @@ public class MatchController {
 	@ApiOperation(value="Retorna as partidas do dia.", notes="")
 	@RequestMapping(method = RequestMethod.GET, value = "/list", produces = { "application/json; charset=UTF-8" })
 	public MatchSeriesDTO list(@RequestParam(required = false) String date) {
-		if(date == null || date.isEmpty()){
-			return matchService.listToday();
-		}
-		return matchService.listByDate(date);
+		MatchSeriesDTO listByDate = matchService.listByDate(date);
 
+		return listByDate;
 	}
 
 	@ApiOperation(value="Retorna os detalhes da partida", notes="Busca os detalhes da partida de acordo com o id")
@@ -55,7 +53,9 @@ public class MatchController {
 			@ApiParam(value="Usado para retornar os detalhes da partida.", required=true) 
 			@RequestBody MatchResumeDTO match){
 		
-		return managerProcessMatchStatistic.generateStatistics(match);
+		MatchStatisticDTO statistics = managerProcessMatchStatistic.generateStatistics(match);
+		
+		return statistics;
 		
 	}
 
