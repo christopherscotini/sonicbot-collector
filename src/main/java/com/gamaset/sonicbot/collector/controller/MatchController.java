@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gamaset.sonicbot.collector.business.ManagerProcessMatchStatistic;
+import com.gamaset.sonicbot.collector.business.statistic.ManagerProcessMatchStatistic;
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.MatchStatisticDTO;

@@ -1,7 +1,5 @@
 package com.gamaset.sonicbot.collector.repository.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -17,51 +14,66 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.gamaset.sonicbot.collector.repository.entity.domain.SelectionMarketBet;
+import com.gamaset.sonicbot.collector.repository.entity.domain.GoalType;
 
 @Entity
-@Table(name = "coupon_match_team_market")
-public class CouponMatchTeamMarket {
+@Table(name = "coupon_match_team_prob_value_goal")
+public class CouponMatchTeamProbValueGoal {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "CMTM_CD_ID_PK")
+	@Column(name = "CMTPVG_CD_ID_PK")
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "SEMB_CD_ID_FK")
-	private SelectionMarketBet selectionMarketBet;
+	@JoinColumn(name = "CMTPV_CD_ID_FK")
+	private CouponMatchTeamProbValue couponMatchTeamProbValue;
 
 	@ManyToOne
-	@JoinColumn(name = "COMT_CD_ID_FK")
-	private CouponMatchTeam couponMatchTeam;
+	@JoinColumn(name = "GOTY_CD_ID_FK")
+	private GoalType goalType;
 	
-//	@OneToMany(mappedBy = "predictionProbabilityDetail")
-//	private List<PredictionProbabilityDetailItem> predictionProbabilityDetailItems;
-	
+
+	/**
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public SelectionMarketBet getSelectionMarketBet() {
-		return selectionMarketBet;
+	/**
+	 * @return the couponMatchTeamProbValue
+	 */
+	public CouponMatchTeamProbValue getCouponMatchTeamProbValue() {
+		return couponMatchTeamProbValue;
 	}
 
-	public void setSelectionMarketBet(SelectionMarketBet selectionMarketBet) {
-		this.selectionMarketBet = selectionMarketBet;
+	/**
+	 * @param couponMatchTeamProbValue the couponMatchTeamProbValue to set
+	 */
+	public void setCouponMatchTeamProbValue(CouponMatchTeamProbValue couponMatchTeamProbValue) {
+		this.couponMatchTeamProbValue = couponMatchTeamProbValue;
 	}
 
-
-	public CouponMatchTeam getCouponMatchTeam() {
-		return couponMatchTeam;
+	/**
+	 * @return the goalType
+	 */
+	public GoalType getGoalType() {
+		return goalType;
 	}
 
-	public void setCouponMatchTeam(CouponMatchTeam couponMatchTeam) {
-		this.couponMatchTeam = couponMatchTeam;
+	/**
+	 * @param goalType the goalType to set
+	 */
+	public void setGoalType(GoalType goalType) {
+		this.goalType = goalType;
 	}
 
 	/* (non-Javadoc)

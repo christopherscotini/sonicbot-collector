@@ -18,7 +18,7 @@ import com.gamaset.sonicbot.collector.service.statistic.calculator.CalculatorGoa
  * @since 1.0.0
  */
 @Component
-public class TeamStatisticsComponent {
+public class ManagerTeamStatisticsCalculator {
 
 	@Autowired
 	private CalculatorFulltimeResultComponent calculatorFulltimeResult;

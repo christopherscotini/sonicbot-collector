@@ -28,6 +28,7 @@ import com.gamaset.sonicbot.collector.service.login.LoginComponent;
 @EnableScheduling
 public class CachingConfig {
 
+	public static final String MATCH_STATS_CHACHE = "generateStatistics";
 	public static final String MATCH_DETAIL_CHACHE = "matchesByDateDetail";
 	public static final String MATCH_BY_DATE_CHACHE = "matchesByDate";
 	private static final String CRON_CONFIG = "0 50 11 * * ?";
@@ -56,6 +57,15 @@ public class CachingConfig {
 		LocalDateTime now = LocalDateTime.now();
 		login.resetCookie();
 		System.out.println("Flush Cache MATCH_DETAIL_CHACHE: " + now.format(formatter));
+	}
+	
+	@Scheduled(cron = CRON_CONFIG, zone="America/Sao_Paulo")
+	@CacheEvict(allEntries = true, value = {MATCH_STATS_CHACHE})
+	public void reportCacheEvictStatsByMatch() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		login.resetCookie();
+		System.out.println("Flush Cache MATCH_STATS_CHACHE: " + now.format(formatter));
 	}
 
 

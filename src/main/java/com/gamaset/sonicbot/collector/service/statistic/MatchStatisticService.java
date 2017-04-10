@@ -11,13 +11,13 @@ import com.gamaset.sonicbot.collector.infra.constants.HomeAwayConditionEnum;
 public class MatchStatisticService {
 
 	@Autowired
-	private TeamStatisticsComponent teamStatsCalculator;
+	private ManagerTeamStatisticsCalculator managerTeamStatisticsCalculator;
 	
 	public MatchStatisticDTO calculate(MatchDetailDTO detail) {
 
 		MatchStatisticDTO stats = new MatchStatisticDTO();
-		stats.setHomeTeamStats(teamStatsCalculator.calculate(detail.getMatchDetailHomeTeam(), HomeAwayConditionEnum.HOME_TEAM));
-		stats.setAwayTeamStats(teamStatsCalculator.calculate(detail.getMatchDetailAwayTeam(), HomeAwayConditionEnum.AWAY_TEAM));
+		stats.setHomeTeamStats(managerTeamStatisticsCalculator.calculate(detail.getMatchDetailHomeTeam(), HomeAwayConditionEnum.HOME_TEAM));
+		stats.setAwayTeamStats(managerTeamStatisticsCalculator.calculate(detail.getMatchDetailAwayTeam(), HomeAwayConditionEnum.AWAY_TEAM));
 		
 		return stats;
 	}

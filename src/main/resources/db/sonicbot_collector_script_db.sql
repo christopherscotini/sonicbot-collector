@@ -133,7 +133,7 @@ CREATE TABLE `flag` (
   `FLAG_DS_NAME` varchar(255) DEFAULT NULL,
   `FLAG_DS_URL` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`FLAG_CD_ID_PK`)
-) ENGINE=InnoDB AUTO_INCREMENT=223 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flag
@@ -1047,7 +1047,7 @@ CREATE TABLE `type_criteria_analisys_match` (
 -- Records of type_criteria_analisys_match
 -- ----------------------------
 INSERT INTO `type_criteria_analisys_match` VALUES ('1', 'ALL_GAMES');
-INSERT INTO `type_criteria_analisys_match` VALUES ('2', 'LAST3_MATCHES');
+INSERT INTO `type_criteria_analisys_match` VALUES ('3', 'LAST3_MATCHES');
 
 -- ----------------------------
 -- Table structure for type_general_condition
