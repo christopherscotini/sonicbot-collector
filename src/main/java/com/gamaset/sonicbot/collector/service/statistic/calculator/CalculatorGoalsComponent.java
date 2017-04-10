@@ -64,8 +64,9 @@ public class CalculatorGoalsComponent {
 	private void calcProbs(GoalProbabilityDTO prob, List<TeamMatchDetailDTO> matches, HomeAwayConditionEnum condition) {
 		int occurs = 0;
 		
-		int numberMatches = prob.getNumberMatchesType()==CriteriaAnalisysMatchesTypeEnum.ALL_GAMES?matches.size():prob.getNumberMatchesType().getNumerOfMatches();
-		for (int i = 0; i < (matches.size()>numberMatches?numberMatches:matches.size()); i++) {
+		int numberCriteriaMatches = prob.getNumberMatchesType()==CriteriaAnalisysMatchesTypeEnum.ALL_GAMES?matches.size():prob.getNumberMatchesType().getNumerOfMatches();
+		int numberMatches = matches.size()>numberCriteriaMatches?numberCriteriaMatches:matches.size();
+		for (int i = 0; i < numberMatches; i++) {
 			TeamMatchDetailDTO match = matches.get(i);
 			
 			if(condition.equals(HomeAwayConditionEnum.HOME_TEAM)){

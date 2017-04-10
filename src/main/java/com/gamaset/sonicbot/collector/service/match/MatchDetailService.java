@@ -28,7 +28,7 @@ public class MatchDetailService {
 	 * @param match
 	 * @return a {@link MatchDetailDTO} object
 	 */
-	@Cacheable(cacheNames = CachingConfig.MATCH_DETAIL_CHACHE)
+//	@Cacheable(cacheNames = CachingConfig.MATCH_DETAIL_CHACHE)
 	public MatchDetailDTO detail(MatchResumeDTO match) {
 		validator.validate(match);
 		return detailScrapperComponent.scrap(match);

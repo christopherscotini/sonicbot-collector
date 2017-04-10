@@ -44,9 +44,9 @@ public class CalculatorDoubleChanceComponent {
 		
 		int occurs = 0;
 
-		int numberMatches = dc.getNumberMatchesType()==CriteriaAnalisysMatchesTypeEnum.ALL_GAMES?matches.size():dc.getNumberMatchesType().getNumerOfMatches();
-		for (int i = 0; i < (matches.size()>numberMatches?numberMatches:matches.size()); i++) {
-			TeamMatchDetailDTO matchResume = matches.get(i);
+		int numberCriteriaMatches = dc.getNumberMatchesType()==CriteriaAnalisysMatchesTypeEnum.ALL_GAMES?matches.size():dc.getNumberMatchesType().getNumerOfMatches();
+		int numberMatches = matches.size()>numberCriteriaMatches?numberCriteriaMatches:matches.size();
+		for (int i = 0; i < numberMatches; i++) {			TeamMatchDetailDTO matchResume = matches.get(i);
 			if(condition.equals(HomeAwayConditionEnum.HOME_TEAM)){
 				if (matchResume.getWinner() == null || matchResume.getWinner().equals(matchResume.getHomeTeamMatch())){
 					occurs++;
@@ -59,7 +59,7 @@ public class CalculatorDoubleChanceComponent {
 		}
 
 		try {
-			result.setValue(new Double((occurs * 100) / matches.size()));
+			result.setValue(new Double((occurs * 100) / numberMatches));
 			if(HomeAwayConditionEnum.HOME_TEAM.equals(condition)){
 				result.setSize(sizeCalculator.calculateForDoubleChance(result.getValue(), condition));
 				result.setSelectionMarketBetId(SelectionMarketBetTypeEnum.HOME_TEAM_OR_DRAW.getId());

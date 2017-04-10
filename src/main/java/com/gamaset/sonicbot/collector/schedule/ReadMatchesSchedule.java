@@ -24,7 +24,6 @@ public class ReadMatchesSchedule {
 	public void readMatchesAndStatsAfterPersistDatabase() {
 		System.out.println("before Job ran at " + dateFormat.format(new Date()));
 		MatchSeriesDTO matchsOfTheDay = matchService.listByDate(null);
-		
-		System.out.println("readMatchesAndStatsAfterPersistDatabase Job ran at " + dateFormat.format(new Date()));
+		System.out.println("after Job ran at " + dateFormat.format(new Date()));
 	}
 }
