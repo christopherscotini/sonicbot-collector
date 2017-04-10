@@ -41,7 +41,7 @@ public class MatchSeriesDTO {
 
 	public Long getId() {
 		if(!(date == null || date.isEmpty())){
-			return DateUtils.convertDateStringToDate(this.date).getTime();
+			return DateUtils.convertDateStringToTimestamp(this.date);
 		}
 		return id;
 	}
