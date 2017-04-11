@@ -33,10 +33,11 @@ public class SwaggerConfiguration {
 	public Docket api(){
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.gamaset.sonicbot.collector"))
+				.apis(RequestHandlerSelectors.basePackage("com.gamaset.sonicbot.collector.controller"))
 				.paths(PathSelectors.any())
 				.build()
 				.tags(
+						new Tag("Schedule", "Serviços relacionado aos Jobs"),
 						new Tag("Match", "Serviços relacionados as partidas")
 				)
 				.apiInfo(apiInfo());

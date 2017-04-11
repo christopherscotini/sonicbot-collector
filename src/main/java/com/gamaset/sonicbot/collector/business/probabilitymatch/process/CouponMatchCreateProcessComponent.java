@@ -37,6 +37,7 @@ public class CouponMatchCreateProcessComponent {
 		TeamCompetitionSeason awayTeam = teamCompetitionSeasonValidatorComponent.validate(matchDataDTO.getMatchResume().getAwayTeamMatch().getTeam(), matchDataDTO.getMatchResume().getCompetitionSeason());
 		
 		CouponMatch entity = new CouponMatch();
+		entity.setId(matchDataDTO.getMatchResume().getMatchId());
 		entity.setCoupon(coupon);
 		entity.setHomeTeam(homeTeam);
 		entity.setAwayTeam(awayTeam);

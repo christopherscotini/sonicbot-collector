@@ -4,9 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
+import com.gamaset.sonicbot.collector.infra.CachingConfig;
 import com.gamaset.sonicbot.collector.infra.utils.DateUtils;
 import com.gamaset.sonicbot.collector.service.match.scrapper.MatchScrapperComponent;
 

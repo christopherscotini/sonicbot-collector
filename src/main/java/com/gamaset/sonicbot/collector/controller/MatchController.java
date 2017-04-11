@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gamaset.sonicbot.collector.business.probabilitymatch.ManagerProcessProbabilityMatch;
 import com.gamaset.sonicbot.collector.business.statistic.ManagerProcessMatchStatistic;
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.MatchStatisticDTO;
-import com.gamaset.sonicbot.collector.schedule.ReadMatchesSchedule;
 import com.gamaset.sonicbot.collector.service.match.MatchService;
 
 import io.swagger.annotations.Api;
@@ -29,7 +27,7 @@ import io.swagger.annotations.ApiParam;
  */
 @Api(tags="Match")
 @RestController
-@RequestMapping(value = "match")
+@RequestMapping(value = "matches")
 public class MatchController {
 
 	@Autowired
@@ -60,12 +58,4 @@ public class MatchController {
 		return statistics;
 	}
 
-	@Autowired
-	private ReadMatchesSchedule test;
-	
-	@RequestMapping(method = RequestMethod.POST, value = "/test", consumes = {"application/json; charset=UTF-8" })
-	public void test(){
-		test.readMatchesAndStatsAfterPersistDatabase();
-	}
-	
 }

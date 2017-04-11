@@ -28,25 +28,32 @@ public class CalculatorDoubleChanceComponent {
 	
 	public List<DoubleChanceProbabilityDTO> calculate(List<TeamMatchDetailDTO> matchesByCondition, HomeAwayConditionEnum condition) {
 		List<DoubleChanceProbabilityDTO> probs = new ArrayList<>();
-		DoubleChanceProbabilityDTO dc = null;
-		probs.add(dc = new DoubleChanceProbabilityDTO(CriteriaAnalisysMatchesTypeEnum.ALL_GAMES));
-		calcProbs(matchesByCondition, condition, dc);
-		probs.add(dc = new DoubleChanceProbabilityDTO(CriteriaAnalisysMatchesTypeEnum.LAST3_MATCHES));
-		calcProbs(matchesByCondition, condition, dc);
+		DoubleChanceProbabilityDTO dc = calcProbs(matchesByCondition, condition, CriteriaAnalisysMatchesTypeEnum.ALL_GAMES);
+		DoubleChanceProbabilityDTO dc2 = calcProbs(matchesByCondition, condition, CriteriaAnalisysMatchesTypeEnum.LAST3_MATCHES);
+		
+		if(dc != null){
+			probs.add(dc);
+		}
+
+		if(dc2 != null){
+			probs.add(dc2);
+		}
 		
 		return probs;
 	}
 
 
-	private void calcProbs(List<TeamMatchDetailDTO> matches, HomeAwayConditionEnum condition,
-			DoubleChanceProbabilityDTO dc) {
-		StatsMarketDTO result = new StatsMarketDTO();
+	private DoubleChanceProbabilityDTO calcProbs(List<TeamMatchDetailDTO> matches, HomeAwayConditionEnum condition,
+			CriteriaAnalisysMatchesTypeEnum numberMatchesType) {
+		
 		
 		int occurs = 0;
 
-		int numberCriteriaMatches = dc.getNumberMatchesType()==CriteriaAnalisysMatchesTypeEnum.ALL_GAMES?matches.size():dc.getNumberMatchesType().getNumerOfMatches();
+		int numberCriteriaMatches = numberMatchesType==CriteriaAnalisysMatchesTypeEnum.ALL_GAMES?matches.size():numberMatchesType.getNumerOfMatches();
 		int numberMatches = matches.size()>numberCriteriaMatches?numberCriteriaMatches:matches.size();
-		for (int i = 0; i < numberMatches; i++) {			TeamMatchDetailDTO matchResume = matches.get(i);
+		
+		for (int i = 0; i < numberMatches; i++) {			
+			TeamMatchDetailDTO matchResume = matches.get(i);
 			if(condition.equals(HomeAwayConditionEnum.HOME_TEAM)){
 				if (matchResume.getWinner() == null || matchResume.getWinner().equals(matchResume.getHomeTeamMatch())){
 					occurs++;
@@ -59,7 +66,9 @@ public class CalculatorDoubleChanceComponent {
 		}
 
 		try {
+			StatsMarketDTO result = new StatsMarketDTO();
 			result.setValue(new Double((occurs * 100) / numberMatches));
+			
 			if(HomeAwayConditionEnum.HOME_TEAM.equals(condition)){
 				result.setSize(sizeCalculator.calculateForDoubleChance(result.getValue(), condition));
 				result.setSelectionMarketBetId(SelectionMarketBetTypeEnum.HOME_TEAM_OR_DRAW.getId());
@@ -67,12 +76,17 @@ public class CalculatorDoubleChanceComponent {
 				result.setSize(sizeCalculator.calculateForDoubleChance(result.getValue(), condition));
 				result.setSelectionMarketBetId(SelectionMarketBetTypeEnum.DRAW_OR_AWAY_TEAM.getId());
 			}
-
-			dc.setStats(result);
+			
+			DoubleChanceProbabilityDTO ret = new DoubleChanceProbabilityDTO(numberMatchesType);
+			ret.setStats(result);
+			
+			return ret;
 		
 		} catch (ArithmeticException a) {
-			
+			System.err.println(""+a.getMessage());
 		}
+		
+		return null;
 	}
 
 }

@@ -2,8 +2,6 @@ package com.gamaset.sonicbot.collector.repository.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,12 +17,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class CouponMatch {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "COMA_CD_ID_PK")
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "COMA_CD_ID_FK")
+	@JoinColumn(name = "COUP_CD_ID_FK")
 	private Coupon coupon;
 
 	@ManyToOne
