@@ -38,7 +38,7 @@ public class CachingConfig {
 	
 	@Bean
 	public CacheManager cacheManager() {
-		return new ConcurrentMapCacheManager(MATCH_BY_DATE_CHACHE, MATCH_DETAIL_CHACHE);
+		return new ConcurrentMapCacheManager(MATCH_BY_DATE_CHACHE, MATCH_DETAIL_CHACHE, MATCH_STATS_CHACHE);
 	}
 
 	@Scheduled(cron = CRON_CONFIG, zone="America/Sao_Paulo")
@@ -55,7 +55,6 @@ public class CachingConfig {
 	public void reportCacheEvictMatchDetailByDate() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		login.resetCookie();
 		System.out.println("Flush Cache MATCH_DETAIL_CHACHE: " + now.format(formatter));
 	}
 	
@@ -64,7 +63,6 @@ public class CachingConfig {
 	public void reportCacheEvictStatsByMatch() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		login.resetCookie();
 		System.out.println("Flush Cache MATCH_STATS_CHACHE: " + now.format(formatter));
 	}
 

@@ -1,8 +1,8 @@
 package com.gamaset.sonicbot.collector.business.probabilitymatch.process.validator;
 
-import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import com.gamaset.sonicbot.collector.dto.CompetitionSeasonDTO;
 import com.gamaset.sonicbot.collector.dto.TeamDTO;
@@ -34,8 +34,8 @@ public class TeamCompetitionSeasonValidatorComponent {
 			throw new NoDataFoundException(String.format("teamId:%d, teamName:%s", team.getId(), team.getName()));
 		}
 		
-		Assert.assertNotNull("competitionId cannot be null", competitionSeason.getCompetition().getId());
-		Assert.assertNotNull("sessionId cannot be null", competitionSeason.getSeason().getId());
+		Assert.notNull(competitionSeason.getCompetition().getId(), "competitionId cannot be null");
+		Assert.notNull(competitionSeason.getSeason().getId(), "sessionId cannot be null");
 		
 		TeamCompetitionSeason teamCS = teamCompetitionSeasonRepository.findById(team.getId(), competitionSeason.getCompetition().getId(), competitionSeason.getSeason().getId());
 		if(teamCS == null){

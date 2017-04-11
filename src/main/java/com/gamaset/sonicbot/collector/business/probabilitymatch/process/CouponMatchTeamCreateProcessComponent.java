@@ -1,5 +1,6 @@
 package com.gamaset.sonicbot.collector.business.probabilitymatch.process;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.gamaset.sonicbot.collector.repository.CouponMatchTeamRepository;
@@ -16,6 +17,7 @@ import com.gamaset.sonicbot.collector.repository.entity.TeamCompetitionSeason;
 @Component
 public class CouponMatchTeamCreateProcessComponent {
 
+	@Autowired
 	private CouponMatchTeamRepository couponMatchTeamRepository;
 	
 	public CouponMatchTeam process(CouponMatch couponMatch, TeamCompetitionSeason teamCompetitionSeason){

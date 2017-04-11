@@ -31,7 +31,11 @@ public class MatchService {
 
 		String url = (date == null || date.trim().equals("")) ? URL_ACADEMIA : URL_ACADEMIA + DateUtils.convertDateStringToTimestamp(date) + "/";
 		
-		return scrapper.scrap(getAvailableComps(), url);
+		MatchSeriesDTO matchSeries = scrapper.scrap(getAvailableComps(), url);
+		
+		System.out.println(">> matches found: "+matchSeries.getMatches().size());
+		
+		return matchSeries;
 	}
 	
 	

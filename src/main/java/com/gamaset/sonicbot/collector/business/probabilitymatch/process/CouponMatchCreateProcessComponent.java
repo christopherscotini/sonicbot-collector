@@ -40,11 +40,13 @@ public class CouponMatchCreateProcessComponent {
 		entity.setCoupon(coupon);
 		entity.setHomeTeam(homeTeam);
 		entity.setAwayTeam(awayTeam);
-		entity.setPosHomeTeam(matchDataDTO.getMatchstatistics().getHomeTeamStats().getPositions().get(0).getPosition());
-		entity.setPosAwayTeam(matchDataDTO.getMatchstatistics().getAwayTeamStats().getPositions().get(0).getPosition());
 		entity.setScoreHomeTeam(matchDataDTO.getMatchResume().getHomeTeamMatch().getScore());
 		entity.setScoreAwayTeam(matchDataDTO.getMatchResume().getAwayTeamMatch().getScore());
 		entity.setUrlMatch(matchDataDTO.getMatchResume().getLinkMatch());
+		if(matchDataDTO.getMatchstatistics().getHomeTeamStats().getPositions() != null){
+			entity.setPosHomeTeam(matchDataDTO.getMatchstatistics().getHomeTeamStats().getPositions().get(0).getPosition());
+			entity.setPosAwayTeam(matchDataDTO.getMatchstatistics().getAwayTeamStats().getPositions().get(0).getPosition());
+		}
 
 		if(matchDataDTO.getMatchResume().getHomeTeamMatch().getScore() > matchDataDTO.getMatchResume().getAwayTeamMatch().getScore()){
 			entity.setWinnerTeam(homeTeam);

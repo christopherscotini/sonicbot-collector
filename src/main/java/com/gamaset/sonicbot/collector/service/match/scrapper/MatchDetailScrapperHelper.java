@@ -78,6 +78,10 @@ public class MatchDetailScrapperHelper {
 
 		for (int i = 0; i < 3; i++) {
 			Elements trTables = dataStats.select("table[class=results competition-rounds competition-half-padding]");
+			if(trTables.size() == 0){
+				return null;
+			}
+			
 			trTables = trTables.get(i).select("tbody").select("tr");
 			
 			if(trTables.size()>2){
