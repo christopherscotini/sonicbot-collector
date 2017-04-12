@@ -41,8 +41,17 @@ public class ScheduleController {
 	 */
 	@ApiOperation(value="Insere as informações dos jogos do dia", notes="")
 	@RequestMapping(method = RequestMethod.POST, value = "/runToday", consumes = {"application/json; charset=UTF-8" })
-	public void test(){
-		readMatchesSchedule.readMatchesAndStatsAfterPersistDatabase();
+	public void runToday(){
+		readMatchesSchedule.executeReadMatchesAndPersist();
+	}
+
+	/**
+	 * 
+	 */
+	@ApiOperation(value="Insere as informações dos jogos do dia", notes="")
+	@RequestMapping(method = RequestMethod.POST, value = "/updateToday", consumes = {"application/json; charset=UTF-8" })
+	public void updateToday(){
+		readMatchesSchedule.executeReadMatchesAndUpdateResults();
 	}
 	
 }

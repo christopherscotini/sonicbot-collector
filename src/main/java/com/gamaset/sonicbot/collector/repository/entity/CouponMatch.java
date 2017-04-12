@@ -2,6 +2,8 @@ package com.gamaset.sonicbot.collector.repository.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,6 +13,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import com.gamaset.sonicbot.collector.dto.MatchStatusEnum;
 
 @Entity
 @Table(name = "coupon_match")
@@ -46,6 +50,10 @@ public class CouponMatch {
 	
 	@Column(name = "PRDE_DS_URL_MATCH")
 	private String urlMatch;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "PRDE_DS_MATCH_STATUS")
+	private MatchStatusEnum matchStatus;
 	
 	@ManyToOne
 	@JoinColumn(name = "TECS_WINNER_CD_ID_FK")
@@ -142,6 +150,20 @@ public class CouponMatch {
 //	public void setPredictionProbabilities(List<PredictionProbability> predictionProbabilities) {
 //		this.predictionProbabilities = predictionProbabilities;
 //	}
+
+	/**
+	 * @return the matchStatus
+	 */
+	public MatchStatusEnum getMatchStatus() {
+		return matchStatus;
+	}
+
+	/**
+	 * @param matchStatus the matchStatus to set
+	 */
+	public void setMatchStatus(MatchStatusEnum matchStatus) {
+		this.matchStatus = matchStatus;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

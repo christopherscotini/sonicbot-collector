@@ -39,6 +39,7 @@ public class CouponMatchCreateProcessComponent {
 		CouponMatch entity = new CouponMatch();
 		entity.setId(matchDataDTO.getMatchResume().getMatchId());
 		entity.setCoupon(coupon);
+		entity.setMatchStatus(matchDataDTO.getMatchResume().getMatchStatus());
 		entity.setHomeTeam(homeTeam);
 		entity.setAwayTeam(awayTeam);
 		entity.setScoreHomeTeam(matchDataDTO.getMatchResume().getHomeTeamMatch().getScore());
