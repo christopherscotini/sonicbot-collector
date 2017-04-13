@@ -29,10 +29,11 @@ public class ReadMatchesSchedule {
 
 	private final static Logger LOG = LogManager.getLogger(ReadMatchesSchedule.class);
 	
-	// ler as 02:30:00 
-	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 30 02 * * ?";
 	// ler as 03:00:00 
-	private static final String CRON_CONFIG_STATS_MATCHES = "00 00 03 * * ?";
+	private static final String CRON_CONFIG_STATS_MATCHES = "00 43 10 * * ?";
+	// ler as 02:30:00 
+	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 47 10 * * ?";
+
 	private static final String ZONE_CONFIG = "America/Sao_Paulo";
 	
 	@Autowired
@@ -49,14 +50,14 @@ public class ReadMatchesSchedule {
 		LOG.info("=== initializing read and save matches today ===" + dateFormat.format(new Date()));
 		
 		MatchSeriesDTO matchSeries = matchService.listByDate(null);
-		List<MatchDataDTO> datas = new ArrayList<>();
-		for (MatchResumeDTO matchResume : matchSeries.getMatches()) {
-			matchResume.setDate(matchSeries.getDate());
-			MatchStatisticDTO matchStatisticDTO = matchStatistic.generateStatistics(matchResume);
-			datas.add(new MatchDataDTO(matchResume, matchStatisticDTO));
-		}
-		
-		probabilityMatch.save(datas);
+//		List<MatchDataDTO> datas = new ArrayList<>();
+//		for (MatchResumeDTO matchResume : matchSeries.getMatches()) {
+//			matchResume.setDate(matchSeries.getDate());
+//			MatchStatisticDTO matchStatisticDTO = matchStatistic.generateStatistics(matchResume);
+//			datas.add(new MatchDataDTO(matchResume, matchStatisticDTO));
+//		}
+//		
+//		probabilityMatch.save(datas);
 		
 		LOG.info("=== finished read and save matches today ===" + dateFormat.format(new Date()));
 	}
