@@ -1,5 +1,7 @@
 package com.gamaset.sonicbot.collector.infra.utils;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -67,5 +69,10 @@ public class DateUtils {
 
 	public static long convertDateStringToTimestamp(String date) {
 		return convertDateStringToDate(date).getTime()/1000;
+	}
+
+	public static String getTodayMinus1DayDateString() {
+		LocalDate now = LocalDate.now().minusDays(1);
+		return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(now);
 	}
 }

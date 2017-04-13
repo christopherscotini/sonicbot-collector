@@ -19,6 +19,7 @@ import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
 import com.gamaset.sonicbot.collector.dto.MatchStatusEnum;
 import com.gamaset.sonicbot.collector.dto.statistic.MatchStatisticDTO;
+import com.gamaset.sonicbot.collector.infra.utils.DateUtils;
 import com.gamaset.sonicbot.collector.repository.CouponMatchRepository;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatch;
 import com.gamaset.sonicbot.collector.service.match.MatchService;
@@ -29,8 +30,8 @@ public class ReadMatchesSchedule {
 	private final static Logger LOG = LogManager.getLogger(ReadMatchesSchedule.class);
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-	// ler as 23:10:00 
-	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 15 00 * * ?";
+	// ler as 02:30:00 
+	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 33 00 * * ?";
 	// ler as 00:10:00 
 	private static final String CRON_CONFIG_STATS_MATCHES = "00 10 00 * * ?";
 	private static final String ZONE_CONFIG = "America/Sao_Paulo";
@@ -66,7 +67,7 @@ public class ReadMatchesSchedule {
 	public void executeReadMatchesAndUpdateResults() {
 		LOG.info("=== initializing read and update matches results today ===" + dateFormat.format(new Date()));
 		
-		MatchSeriesDTO matchSeries = matchService.listByDate(null);
+		MatchSeriesDTO matchSeries = matchService.listByDate(DateUtils.getTodayMinus1DayDateString());
 		List<CouponMatch> matches = couponMatchRepository.findByCouponId(matchSeries.getId());
 		for (int i = 0; i < matches.size(); i++) {
 			CouponMatch couponMatch = matches.get(i);
