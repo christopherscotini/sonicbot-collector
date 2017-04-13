@@ -30,9 +30,9 @@ public class ReadMatchesSchedule {
 	private final static Logger LOG = LogManager.getLogger(ReadMatchesSchedule.class);
 	
 	// ler as 03:00:00 
-	private static final String CRON_CONFIG_STATS_MATCHES = "00 07 11 * * ?";
+	private static final String CRON_CONFIG_STATS_MATCHES = "00 15 11 * * ?";
 	// ler as 02:30:00 
-	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 15 11 * * ?";
+	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 20 11 * * ?";
 
 	private static final String ZONE_CONFIG = "America/Sao_Paulo";
 	
