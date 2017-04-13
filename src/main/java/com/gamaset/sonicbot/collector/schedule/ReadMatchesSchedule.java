@@ -30,9 +30,9 @@ public class ReadMatchesSchedule {
 	private final static Logger LOG = LogManager.getLogger(ReadMatchesSchedule.class);
 	
 	// ler as 03:00:00 
-	private static final String CRON_CONFIG_STATS_MATCHES = "00 43 10 * * ?";
+	private static final String CRON_CONFIG_STATS_MATCHES = "00 07 11 * * ?";
 	// ler as 02:30:00 
-	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 47 10 * * ?";
+	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 15 11 * * ?";
 
 	private static final String ZONE_CONFIG = "America/Sao_Paulo";
 	
@@ -49,15 +49,15 @@ public class ReadMatchesSchedule {
 	public void executeReadMatchesAndPersist() {
 		LOG.info("=== initializing read and save matches today ===" + dateFormat.format(new Date()));
 		
-		MatchSeriesDTO matchSeries = matchService.listByDate(null);
-//		List<MatchDataDTO> datas = new ArrayList<>();
-//		for (MatchResumeDTO matchResume : matchSeries.getMatches()) {
-//			matchResume.setDate(matchSeries.getDate());
-//			MatchStatisticDTO matchStatisticDTO = matchStatistic.generateStatistics(matchResume);
-//			datas.add(new MatchDataDTO(matchResume, matchStatisticDTO));
-//		}
-//		
-//		probabilityMatch.save(datas);
+		MatchSeriesDTO matchSeries = matchService.listByDate("2017-04-15");
+		List<MatchDataDTO> datas = new ArrayList<>();
+		for (MatchResumeDTO matchResume : matchSeries.getMatches()) {
+			matchResume.setDate(matchSeries.getDate());
+			MatchStatisticDTO matchStatisticDTO = matchStatistic.generateStatistics(matchResume);
+			datas.add(new MatchDataDTO(matchResume, matchStatisticDTO));
+		}
+		
+		probabilityMatch.save(datas);
 		
 		LOG.info("=== finished read and save matches today ===" + dateFormat.format(new Date()));
 	}
@@ -71,7 +71,7 @@ public class ReadMatchesSchedule {
 		String date = DateUtils.getTodayMinus1DayDateString();
 		LOG.info(String.format("=== initializing read and update matches results [%s] in [%s] ===", date, dateFormat.format(new Date())));
 		
-		MatchSeriesDTO matchSeries = matchService.listByDate(date);
+		MatchSeriesDTO matchSeries = matchService.listByDate("2017-04-15");
 		List<CouponMatch> matches = couponMatchRepository.findByCouponId(matchSeries.getId());
 		for (int i = 0; i < matches.size(); i++) {
 			CouponMatch couponMatch = matches.get(i);
