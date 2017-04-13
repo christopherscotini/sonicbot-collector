@@ -1,5 +1,7 @@
 package com.gamaset.sonicbot.collector.business.probabilitymatch.process;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -49,7 +51,8 @@ public class CouponMatchCreateProcessComponent {
 			entity.setPosHomeTeam(matchDataDTO.getMatchstatistics().getHomeTeamStats().getPositions().get(0).getPosition());
 			entity.setPosAwayTeam(matchDataDTO.getMatchstatistics().getAwayTeamStats().getPositions().get(0).getPosition());
 		}
-
+		entity.setCreatedDate(new Date());
+		entity.setUpdatedDate(entity.getCreatedDate());
 		if(matchDataDTO.getMatchResume().getHomeTeamMatch().getScore() > matchDataDTO.getMatchResume().getAwayTeamMatch().getScore()){
 			entity.setWinnerTeam(homeTeam);
 		}else if(matchDataDTO.getMatchResume().getHomeTeamMatch().getScore() < matchDataDTO.getMatchResume().getAwayTeamMatch().getScore()){

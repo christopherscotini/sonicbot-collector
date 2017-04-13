@@ -1,5 +1,7 @@
 package com.gamaset.sonicbot.collector.repository.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -58,7 +62,14 @@ public class CouponMatch {
 	@ManyToOne
 	@JoinColumn(name = "TECS_WINNER_CD_ID_FK")
 	private TeamCompetitionSeason winnerTeam;
-	
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "PRDE_DT_CREATED")
+	private Date createdDate;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "PRDE_DT_UPDATED")
+	private Date updatedDate;
 //	@OneToMany(mappedBy = "teamCompetitionSeason")
 //	private List<PredictionProbability> predictionProbabilities;
 	
@@ -69,6 +80,22 @@ public class CouponMatch {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
 	public Integer getPosHomeTeam() {
