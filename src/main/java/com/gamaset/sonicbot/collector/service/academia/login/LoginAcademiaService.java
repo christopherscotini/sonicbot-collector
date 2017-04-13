@@ -1,4 +1,4 @@
-package com.gamaset.sonicbot.collector.service.login;
+package com.gamaset.sonicbot.collector.service.academia.login;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class LoginComponent {
+public class LoginAcademiaService {
 
 	// URL found in form's action attribute
 	private final String URL_ACADEMIA = "https://www.academiadasapostas.com/";

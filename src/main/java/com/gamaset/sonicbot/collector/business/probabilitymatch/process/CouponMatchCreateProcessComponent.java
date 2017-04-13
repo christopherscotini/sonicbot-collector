@@ -61,11 +61,6 @@ public class CouponMatchCreateProcessComponent {
 		});
 		entity.setCreatedDate(new Date());
 		entity.setUpdatedDate(entity.getCreatedDate());
-		if(matchDataDTO.getMatchResume().getHomeTeamMatch().getScore() > matchDataDTO.getMatchResume().getAwayTeamMatch().getScore()){
-			entity.setWinnerTeam(homeTeam);
-		}else if(matchDataDTO.getMatchResume().getHomeTeamMatch().getScore() < matchDataDTO.getMatchResume().getAwayTeamMatch().getScore()){
-			entity.setWinnerTeam(awayTeam);
-		}//EMPATE vai NULL
 		
 		return couponMatchRepository.insert(entity);
 	}

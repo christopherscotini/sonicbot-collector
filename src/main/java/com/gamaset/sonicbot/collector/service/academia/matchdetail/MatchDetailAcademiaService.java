@@ -1,4 +1,4 @@
-package com.gamaset.sonicbot.collector.service.match;
+package com.gamaset.sonicbot.collector.service.academia.matchdetail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.detail.MatchDetailDTO;
 import com.gamaset.sonicbot.collector.infra.CachingConfig;
-import com.gamaset.sonicbot.collector.service.match.scrapper.MatchDetailScrapperComponent;
+import com.gamaset.sonicbot.collector.service.academia.matchdetail.scrapper.MatchDetailAcademiaScrapperComponent;
+import com.gamaset.sonicbot.collector.service.academia.matchdetail.validator.MatchDetailAcademiaValidator;
 
 /**
  * 
@@ -16,12 +17,12 @@ import com.gamaset.sonicbot.collector.service.match.scrapper.MatchDetailScrapper
  * @since 1.0.0
  */
 @Service
-public class MatchDetailService {
+public class MatchDetailAcademiaService {
 
 	@Autowired
-	private MatchDetailScrapperComponent detailScrapperComponent;
+	private MatchDetailAcademiaScrapperComponent detailScrapperComponent;
 	@Autowired
-	private MatchDetailValidator validator;
+	private MatchDetailAcademiaValidator validator;
 
 	/**
 	 * 

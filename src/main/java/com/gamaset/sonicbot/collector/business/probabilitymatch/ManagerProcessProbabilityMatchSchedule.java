@@ -1,7 +1,11 @@
 package com.gamaset.sonicbot.collector.business.probabilitymatch;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,12 +15,17 @@ import com.gamaset.sonicbot.collector.business.probabilitymatch.process.CouponCr
 import com.gamaset.sonicbot.collector.business.probabilitymatch.process.CouponMatchCreateProcessComponent;
 import com.gamaset.sonicbot.collector.business.probabilitymatch.process.CouponMatchTeamCreateProcessComponent;
 import com.gamaset.sonicbot.collector.business.probabilitymatch.process.CouponMatchTeamProbValueCreateProcessComponent;
-import com.gamaset.sonicbot.collector.business.probabilitymatch.process.validator.CompetitionSeasonValidatorComponent;
+import com.gamaset.sonicbot.collector.business.probabilitymatch.process.validator.MatchValidatorComponent;
+import com.gamaset.sonicbot.collector.business.statistic.ManagerProcessMatchStatistic;
 import com.gamaset.sonicbot.collector.dto.MatchDataDTO;
-import com.gamaset.sonicbot.collector.dto.statistic.TeamStatisticsDTO;
+import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
+import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
+import com.gamaset.sonicbot.collector.dto.statistic.MatchStatisticDTO;
+import com.gamaset.sonicbot.collector.repository.CouponMatchRepository;
 import com.gamaset.sonicbot.collector.repository.entity.Coupon;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatch;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatchTeam;
+import com.gamaset.sonicbot.collector.service.academia.match.MatchAcademiaService;
 
 /**
  * 
@@ -27,7 +36,8 @@ import com.gamaset.sonicbot.collector.repository.entity.CouponMatchTeam;
 @Component
 public class ManagerProcessProbabilityMatchSchedule {
 
-	
+	private static final Logger LOG = LogManager.getLogger(ManagerProcessProbabilityMatchSchedule.class);
+
 	@Autowired
 	private CouponCreateProcessComponent couponCreateProcessComponent;
 	@Autowired
@@ -37,50 +47,91 @@ public class ManagerProcessProbabilityMatchSchedule {
 	@Autowired
 	private CouponMatchTeamProbValueCreateProcessComponent couponMatchTeamProbValueCreateProcessComponent;
 	@Autowired
-	private CompetitionSeasonValidatorComponent competitionSeasonValidatorComponent;
+	private MatchValidatorComponent matchValidatorComponent;
+	@Autowired
+	private MatchAcademiaService matchAcademiaService;
+	@Autowired
+	private ManagerProcessMatchStatistic matchStatistic;
+	@Autowired
+	private CouponMatchRepository couponMatchRepository;
+
+	/**
+	 * Metodo que faz a leitura dos jogos(por data) e das estatisticas no
+	 * academia das apostas
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public List<MatchDataDTO> read(String date) {
+		MatchSeriesDTO matchSeries = matchAcademiaService.listByDate(date);
+		List<MatchDataDTO> datas = new ArrayList<>();
+		for (MatchResumeDTO matchResume : matchSeries.getMatches()) {
+			matchResume.setDate(matchSeries.getDate());
+			MatchStatisticDTO matchStatisticDTO = matchStatistic.generateStatistics(matchResume);
+			datas.add(new MatchDataDTO(matchResume, matchStatisticDTO));
+		}
+
+		return datas;
+	}
 	
+	/**
+	 * 
+	 * @param matchesData
+	 */
 	@Transactional
-	public void save(List<MatchDataDTO> matchesData){
-		
+	public void save(List<MatchDataDTO> matchesData) {
+
 		Coupon coupon = couponCreateProcessComponent.process(matchesData.get(0).getMatchResume().getDate());
 
 		for (MatchDataDTO matchDataDTO : matchesData) {
-			
-			if(!validateWithMatchesContainsAnalytics(matchDataDTO.getMatchstatistics().getHomeTeamStats())){
+
+			if (!matchValidatorComponent.validate(matchDataDTO)) {
+				LOG.warn(String.format("%n===== discart match %s =====", matchDataDTO.getMatchResume().toString()));
 				continue;
 			}
-			if(!validateWithMatchesContainsAnalytics(matchDataDTO.getMatchstatistics().getAwayTeamStats())){
-				continue;
-			}
-			
-			//IGNORA CASO A COMPETICAO NAO ESTEJA CADASTRADA
-			if (!competitionSeasonValidatorComponent
-					.validate(matchDataDTO.getMatchResume().getCompetitionSeason())) {
-				continue;
-			}
-			
-			try{
+
+			try {
 				CouponMatch couponMatch = couponMatchCreateProcessComponent.process(coupon, matchDataDTO);
+
+				CouponMatchTeam couponMatchHomeTeam = couponMatchTeamCreateProcessComponent.process(couponMatch,
+						couponMatch.getHomeTeam());
+				couponMatchTeamProbValueCreateProcessComponent.process(couponMatchHomeTeam,
+						matchDataDTO.getMatchstatistics().getHomeTeamStats());
+
+				CouponMatchTeam couponMatchAwayTeam = couponMatchTeamCreateProcessComponent.process(couponMatch,
+						couponMatch.getAwayTeam());
+				couponMatchTeamProbValueCreateProcessComponent.process(couponMatchAwayTeam,
+						matchDataDTO.getMatchstatistics().getAwayTeamStats());
 				
-				CouponMatchTeam couponMatchHomeTeam = couponMatchTeamCreateProcessComponent.process(couponMatch, couponMatch.getHomeTeam());
-				couponMatchTeamProbValueCreateProcessComponent.process(couponMatchHomeTeam, matchDataDTO.getMatchstatistics().getHomeTeamStats());
-	
-				CouponMatchTeam couponMatchAwayTeam = couponMatchTeamCreateProcessComponent.process(couponMatch, couponMatch.getAwayTeam());
-				couponMatchTeamProbValueCreateProcessComponent.process(couponMatchAwayTeam, matchDataDTO.getMatchstatistics().getAwayTeamStats());
-			}catch (ConstraintViolationException c){
-				System.err.println(c.getErrorCode() +" - "+ c.getConstraintName());
+			} catch (ConstraintViolationException c) {
+				LOG.error(c.getErrorCode() + " - " + c.getConstraintName());
 			}
 			
 		}
-		
 	}
 
-	private boolean validateWithMatchesContainsAnalytics(TeamStatisticsDTO teamStats) {
-		if(teamStats.getDoubleChanceProbabilities().isEmpty() || teamStats.getFulltimeProbabilities().isEmpty() || 
-				teamStats.getGoalsProbabilities().isEmpty()){
-			return false;
+	/**
+	 * 
+	 * @param date
+	 */
+	@Transactional
+	public void update(String date) {
+
+		MatchSeriesDTO matchSeries = matchAcademiaService.listByDate(date);
+		List<CouponMatch> matchesSavedDb = couponMatchRepository.findByCouponId(matchSeries.getId());
+		for (int i = 0; i < matchesSavedDb.size(); i++) {
+			CouponMatch couponMatch = matchesSavedDb.get(i);
+			for (MatchResumeDTO matchResume : matchSeries.getMatches()) {
+				if (matchResume.getMatchId().equals(couponMatch.getId())) {
+					couponMatch.setMatchStatus(matchResume.getMatchStatus());
+					couponMatch.setScoreHomeTeam(matchResume.getHomeTeamMatch().getScore());
+					couponMatch.setScoreAwayTeam(matchResume.getAwayTeamMatch().getScore());
+					couponMatch.setUpdatedDate(new Date());
+					couponMatchRepository.update(couponMatch);
+				}
+			}
 		}
-		return true;
+
 	}
 
 }

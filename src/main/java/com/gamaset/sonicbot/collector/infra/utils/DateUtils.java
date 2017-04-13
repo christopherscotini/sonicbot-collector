@@ -12,7 +12,9 @@ import com.gamaset.sonicbot.collector.infra.exception.FormatDateException;
 
 public class DateUtils {
 
-	public static String convertDateInfoMatchStringToDateStringYYYY_MM_DD(String date) {
+	private static final String DEFAULT_PATTERN = "yyyy-MM-dd";
+	
+	public static String convertDateMatchInfoToDateString(String date) {
 		StringBuilder ret = new StringBuilder();
 		String[] dateParts = date.split(" ");
 		
@@ -25,17 +27,26 @@ public class DateUtils {
 		return ret.toString();
 	}
 
+	public static long convertDateStringToTimestamp(String date) {
+		return convertDateStringToDate(date).getTime()/1000;
+	}
+
+	public static String getDateStringTodayMinus1Day() {
+		LocalDate now = LocalDate.now().minusDays(1);
+		return DateTimeFormatter.ofPattern(DEFAULT_PATTERN).format(now);
+	}
+	
 	/**
-	 * Convert date pattern YYYY-MM-DD to Date object
+	 * Convert date pattern yyyy-MM-dd to Date object
 	 * 
-	 * @param date
+	 * @param dateString
 	 * @return
 	 */
-	public static Date convertDateStringToDate(String date) {
+	private static Date convertDateStringToDate(String dateString) {
 		Calendar cal = null;
 		
 		try{
-			String[] dateParts = date.split("-");
+			String[] dateParts = dateString.split("-");
 			cal = new GregorianCalendar(
 				Integer.valueOf(dateParts[0]),
 				Integer.valueOf(dateParts[1])-1, 
@@ -66,13 +77,5 @@ public class DateUtils {
 
 		return months.get(key);
 	}
-
-	public static long convertDateStringToTimestamp(String date) {
-		return convertDateStringToDate(date).getTime()/1000;
-	}
-
-	public static String getTodayMinus1DayDateString() {
-		LocalDate now = LocalDate.now().minusDays(1);
-		return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(now);
-	}
+	
 }

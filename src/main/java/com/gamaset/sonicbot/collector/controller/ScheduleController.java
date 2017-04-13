@@ -3,6 +3,7 @@ package com.gamaset.sonicbot.collector.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gamaset.sonicbot.collector.schedule.ReadMatchesSchedule;
@@ -30,19 +31,19 @@ public class ScheduleController {
 	/**
 	 * 
 	 */
-	@ApiOperation(value="Insere as informações dos jogos do dia", notes="")
-	@RequestMapping(method = RequestMethod.POST, value = "/runToday", consumes = {"application/json; charset=UTF-8" })
-	public void runToday(){
-		readMatchesSchedule.executeReadMatchesAndPersist();
+	@ApiOperation(value="Insere as informações dos jogos do dia", notes="Caso nao seja informada data, entende-se hoje")
+	@RequestMapping(method = RequestMethod.POST, value = "/read", consumes = {"application/json; charset=UTF-8" })
+	public void runToday(@RequestParam("date") String date){
+		readMatchesSchedule.executeSave(date);
 	}
 
 	/**
 	 * 
 	 */
-	@ApiOperation(value="Atualiza as informações dos jogos de ontem", notes="")
-	@RequestMapping(method = RequestMethod.POST, value = "/updateMatchesYesterday", consumes = {"application/json; charset=UTF-8" })
-	public void updateToday(){
-		readMatchesSchedule.executeReadMatchesAndUpdateResults();
+	@ApiOperation(value="Atualiza as informações dos jogos conforme a data informada", notes="Caso nao seja informada data, entende-se hoje -1 dia")
+	@RequestMapping(method = RequestMethod.POST, value = "/update", consumes = {"application/json; charset=UTF-8" })
+	public void update(@RequestParam("date") String date){
+		readMatchesSchedule.executeUpdate(date);
 	}
 	
 }

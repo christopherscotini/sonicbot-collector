@@ -1,4 +1,4 @@
-package com.gamaset.sonicbot.collector.service.match;
+package com.gamaset.sonicbot.collector.service.academia.matchdetail.validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,7 +10,7 @@ import com.gamaset.sonicbot.collector.dto.MatchStatusEnum;
 import com.gamaset.sonicbot.collector.infra.exception.DataEntryInvalidException;
 
 @Component
-public class MatchDetailValidator {
+public class MatchDetailAcademiaValidator {
 
 	private boolean validateEnumMatchStatus(MatchStatusEnum mse){
 		for (MatchStatusEnum _mse : MatchStatusEnum.values()) {
@@ -25,7 +25,7 @@ public class MatchDetailValidator {
 	}
 
 	private boolean validateFieldString(String field){
-		if(field == null || field.trim().equals("")){
+		if(field == null || field.trim().isEmpty()){
 			return false;
 		}
 

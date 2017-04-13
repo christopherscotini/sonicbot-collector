@@ -2,6 +2,7 @@ package com.gamaset.sonicbot.collector.service.statistic.calculator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,27 +26,30 @@ public class CalculatorDoubleChanceComponent {
 	@Autowired
 	private EffectSizeCalculatorComponent sizeCalculator;
 
-	
+	/**
+	 * 
+	 * @param matchesByCondition
+	 * @param condition
+	 * @return
+	 */
 	public List<DoubleChanceProbabilityDTO> calculate(List<TeamMatchDetailDTO> matchesByCondition, HomeAwayConditionEnum condition) {
 		List<DoubleChanceProbabilityDTO> probs = new ArrayList<>();
 		DoubleChanceProbabilityDTO dc = calcProbs(matchesByCondition, condition, CriteriaAnalisysMatchesTypeEnum.ALL_GAMES);
 		DoubleChanceProbabilityDTO dc2 = calcProbs(matchesByCondition, condition, CriteriaAnalisysMatchesTypeEnum.LAST3_MATCHES);
 		
-		if(dc != null){
+		if(!Objects.isNull(dc)){
 			probs.add(dc);
 		}
 
-		if(dc2 != null){
+		if(!Objects.isNull(dc2)){
 			probs.add(dc2);
 		}
 		
 		return probs;
 	}
 
-
 	private DoubleChanceProbabilityDTO calcProbs(List<TeamMatchDetailDTO> matches, HomeAwayConditionEnum condition,
 			CriteriaAnalisysMatchesTypeEnum numberMatchesType) {
-		
 		
 		int occurs = 0;
 

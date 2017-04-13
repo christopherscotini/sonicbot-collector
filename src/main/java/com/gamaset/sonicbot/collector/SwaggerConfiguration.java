@@ -38,7 +38,8 @@ public class SwaggerConfiguration {
 				.build()
 				.tags(
 						new Tag("Schedule", "Serviços relacionado aos Jobs"),
-						new Tag("Match", "Serviços relacionados as partidas")
+						new Tag("MatchAcademia", "Serviços relacionados as partidas do academia das Apostas"),
+						new Tag("Match", "Serviços relacionados as partidas salvas no bd")
 				)
 				.apiInfo(apiInfo());
 	}

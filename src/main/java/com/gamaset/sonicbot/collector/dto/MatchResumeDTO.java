@@ -2,9 +2,8 @@ package com.gamaset.sonicbot.collector.dto;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -82,10 +81,22 @@ public class MatchResumeDTO {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	
+	@JsonIgnore
+	public TeamMatchDTO getWinner(){
+		if(this.homeTeamMatch.getScore() > this.awayTeamMatch.getScore()){
+			return homeTeamMatch;
+		}else{
+			if(this.homeTeamMatch.getScore() < this.awayTeamMatch.getScore()){
+				return awayTeamMatch;
+			}
+		}
+		return null;
+	}
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+		return String.format("%s - %s - %s x %s", date, competitionSeason.getCompetition().getName(), homeTeamMatch.getTeam().getName(), awayTeamMatch.getTeam().getName());
 	}
 
 	@Override

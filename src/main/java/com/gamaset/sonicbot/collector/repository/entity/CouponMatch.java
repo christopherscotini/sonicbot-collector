@@ -1,6 +1,8 @@
 package com.gamaset.sonicbot.collector.repository.entity;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,11 +26,11 @@ import com.gamaset.sonicbot.collector.dto.MatchStatusEnum;
 @Entity
 @Table(name = "coupon_match")
 public class CouponMatch {
-	
+
 	@Id
 	@Column(name = "COMA_CD_ID_PK")
 	private Long id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "COUP_CD_ID_FK")
 	private Coupon coupon;
@@ -48,17 +51,17 @@ public class CouponMatch {
 
 	@Column(name = "PRDE_VL_SCORE_HOME")
 	private Integer scoreHomeTeam;
-	
+
 	@Column(name = "PRDE_VL_SCORE_AWAY")
 	private Integer scoreAwayTeam;
-	
+
 	@Column(name = "PRDE_DS_URL_MATCH")
 	private String urlMatch;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "PRDE_DS_MATCH_STATUS")
 	private MatchStatusEnum matchStatus;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "TECS_WINNER_CD_ID_FK")
 	private TeamCompetitionSeason winnerTeam;
@@ -70,9 +73,24 @@ public class CouponMatch {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "PRDE_DT_UPDATED")
 	private Date updatedDate;
-//	@OneToMany(mappedBy = "teamCompetitionSeason")
-//	private List<PredictionProbability> predictionProbabilities;
-	
+
+	 @OneToMany(mappedBy = "couponMatch")
+	 private List<CouponMatchTeam> couponMatchTeams;
+
+	 
+	/**
+	 * @return the couponMatchTeam
+	 */
+	public List<CouponMatchTeam> getCouponMatchTeams() {
+		return couponMatchTeams;
+	}
+
+	/**
+	 * @param couponMatchTeam the couponMatchTeam to set
+	 */
+	public void setCouponMatchTeams(List<CouponMatchTeam> couponMatchTeams) {
+		this.couponMatchTeams = couponMatchTeams;
+	}
 
 	public Long getId() {
 		return id;
@@ -163,20 +181,19 @@ public class CouponMatch {
 	}
 
 	public TeamCompetitionSeason getWinnerTeam() {
-		return winnerTeam;
-	}
+		Objects.requireNonNull(scoreHomeTeam, "[scoreHomeTeam] field cannot be null.");
+		Objects.requireNonNull(scoreAwayTeam, "[scoreAwayTeam] field cannot be null.");
 
-	public void setWinnerTeam(TeamCompetitionSeason winnerTeam) {
-		this.winnerTeam = winnerTeam;
-	}
+		if (this.scoreHomeTeam > this.scoreAwayTeam) {
+			return homeTeam;
+		} else {
+			if (this.scoreHomeTeam < this.scoreAwayTeam) {
+				return awayTeam;
+			}
+		}
 
-//	public List<PredictionProbability> getPredictionProbabilities() {
-//		return predictionProbabilities;
-//	}
-//
-//	public void setPredictionProbabilities(List<PredictionProbability> predictionProbabilities) {
-//		this.predictionProbabilities = predictionProbabilities;
-//	}
+		return null;
+	}
 
 	/**
 	 * @return the matchStatus
@@ -186,13 +203,16 @@ public class CouponMatch {
 	}
 
 	/**
-	 * @param matchStatus the matchStatus to set
+	 * @param matchStatus
+	 *            the matchStatus to set
 	 */
 	public void setMatchStatus(MatchStatusEnum matchStatus) {
 		this.matchStatus = matchStatus;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -200,7 +220,9 @@ public class CouponMatch {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -208,12 +230,14 @@ public class CouponMatch {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
 	}
-	
+
 }

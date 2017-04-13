@@ -1,5 +1,7 @@
 package com.gamaset.sonicbot.collector.repository.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -31,9 +34,24 @@ public class CouponMatchTeam {
 	@JoinColumn(name = "TECS_CD_ID_FK")
 	private TeamCompetitionSeason teamCompetitionSeason;
 	
-//	@OneToMany(mappedBy = "predictionProbability")
-//	private List<PredictionProbabilityDetail> predictionProbabilityDetails;
+	@OneToMany(mappedBy = "couponMatchTeam")
+	private List<CouponMatchTeamProbValue> couponMatchTeamProbValues;
 	
+	
+	/**
+	 * @return the couponMatchTeamProbValues
+	 */
+	public List<CouponMatchTeamProbValue> getCouponMatchTeamProbValues() {
+		return couponMatchTeamProbValues;
+	}
+
+	/**
+	 * @param couponMatchTeamProbValues the couponMatchTeamProbValues to set
+	 */
+	public void setCouponMatchTeamProbValues(List<CouponMatchTeamProbValue> couponMatchTeamProbValues) {
+		this.couponMatchTeamProbValues = couponMatchTeamProbValues;
+	}
+
 	public Long getId() {
 		return id;
 	}

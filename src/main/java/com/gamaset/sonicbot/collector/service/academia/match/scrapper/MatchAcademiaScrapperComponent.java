@@ -1,11 +1,11 @@
-package com.gamaset.sonicbot.collector.service.match.scrapper;
+package com.gamaset.sonicbot.collector.service.academia.match.scrapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -26,7 +26,8 @@ import com.gamaset.sonicbot.collector.infra.exception.scrapper.FormatValueScrapp
 import com.gamaset.sonicbot.collector.infra.utils.DateUtils;
 import com.gamaset.sonicbot.collector.infra.utils.NumberUtils;
 import com.gamaset.sonicbot.collector.infra.utils.TimerUtils;
-import com.gamaset.sonicbot.collector.service.login.LoginComponent;
+import com.gamaset.sonicbot.collector.service.academia.login.LoginAcademiaService;
+import com.gamaset.sonicbot.collector.service.academia.match.validator.MatchAcademiaScrapperValidator;
 
 /**
  * Componente responsavel pela leitura dos jogos no academia das apostas.
@@ -37,13 +38,21 @@ import com.gamaset.sonicbot.collector.service.login.LoginComponent;
  * 
  */
 @Component
-public class MatchScrapperComponent {
+public class MatchAcademiaScrapperComponent {
 
-	private static final Logger log = Logger.getLogger(MatchScrapperComponent.class.getName());
-	
+	private static final Logger LOG = LogManager.getLogger(MatchAcademiaScrapperComponent.class);
+
 	@Autowired
-	private LoginComponent login;
+	private LoginAcademiaService login;
+	@Autowired
+	private MatchAcademiaScrapperValidator scrapperValidator;
 	
+	/**
+	 * 
+	 * @param availableCompetitionsId
+	 * @param url
+	 * @return object of type {@link MatchSeriesDTO}
+	 */
 	public MatchSeriesDTO scrap(Set<Long> availableCompetitionsId, String url) {
 
 		MatchSeriesDTO dto = new MatchSeriesDTO();
@@ -63,15 +72,12 @@ public class MatchScrapperComponent {
 				MatchResumeDTO match = new MatchResumeDTO();
 				
 				match.setMatchStatus(findMatchStatus(trGame.select("td[class^=status]").first()));
-				if(match.getMatchStatus() == MatchStatusEnum.ADIADO || 
-						match.getMatchStatus() == MatchStatusEnum.CANCELADO){
-					continue;
-				}
-
 				match.setCompetitionSeason(new CompetitionSeasonDTO(findCompetition(trGame), null));
-				if(!availableCompetitionsId.contains(match.getCompetitionSeason().getCompetition().getId())){
+
+				if(!scrapperValidator.validate(match, availableCompetitionsId)){
 					continue;
 				}
+				
 				match.setMatchId(findMatchId(trGame));
 				match.setLinkMatch(findLinkMatch(trGame));
 				match.setHomeTeamMatch(extractTeam(trGame, HomeAwayConditionEnum.HOME_TEAM));
@@ -80,15 +86,15 @@ public class MatchScrapperComponent {
 				dto.getMatches().add(match);
 			}
 			
-			if(dto.getMatches().size()>0){
+			if(dto.getMatches().size() > 0){
 				dto.setDate(findDate(dto.getMatches().get(0).getLinkMatch()));
 			}
 			
 		} catch (IOException e) {
-			log.log(Level.SEVERE, e.getMessage());
+			LOG.error(e.getMessage());
 		}
 
-		System.out.println(String.format("time to procces: %s segs ", timer.stop().get("seconds")));
+		LOG.info(String.format("%n===== time to procces: %s segs =====", timer.stop().get("seconds")));
 		
 		return dto;
 	}
@@ -98,7 +104,7 @@ public class MatchScrapperComponent {
 		try{
 			return Long.valueOf(urlGame.substring(urlGame.lastIndexOf('/')+1));
 		}catch(NumberFormatException nfe){
-			log.severe("ID DA PARTIDA INVÁLIDO.\n"+nfe.getMessage());
+			LOG.error("%nID DA PARTIDA INVÁLIDO.\n"+nfe.getMessage());
 			throw new FormatValueScrapperException("matchId cannot be converted to Long");
 		}
 	}
@@ -158,7 +164,7 @@ public class MatchScrapperComponent {
 				select("td[class=stats-game-head-date]").
 				select("ul").get(1).
 				select("li[class=gamehead]").first();
-		return DateUtils.convertDateInfoMatchStringToDateStringYYYY_MM_DD(gameHeadInfo.text());
+		return DateUtils.convertDateMatchInfoToDateString(gameHeadInfo.text());
 	}
 	
 	private void findDetailsMatch(MatchResumeDTO match) throws IOException{
@@ -166,16 +172,16 @@ public class MatchScrapperComponent {
 		Element gameHeadInfo = doc.select("div[class=stats-game-head]").first();
 
 		String urlIdHomeTeam = gameHeadInfo.select("div[class=stats-game-head-teamname]").get(0).select("a").first().attr("href");
-		Long idHomeTeam = Long.valueOf(urlIdHomeTeam.substring(urlIdHomeTeam.lastIndexOf("/")+1).replace("#", ""));
+		Long idHomeTeam = Long.valueOf(urlIdHomeTeam.substring(urlIdHomeTeam.lastIndexOf('/')+1).replace("#", ""));
 		match.getHomeTeamMatch().getTeam().setId(idHomeTeam);
 		
 		String urlIdAwayTeam = gameHeadInfo.select("div[class=stats-game-head-teamname]").get(1).select("a").first().attr("href");
-		Long idAwayTeam = Long.valueOf(urlIdAwayTeam.substring(urlIdAwayTeam.lastIndexOf("/")+1).replace("#", ""));
+		Long idAwayTeam = Long.valueOf(urlIdAwayTeam.substring(urlIdAwayTeam.lastIndexOf('/')+1).replace("#", ""));
 		match.getAwayTeamMatch().getTeam().setId(idAwayTeam);
 		
 		Elements liElement = gameHeadInfo.select("td[class=stats-game-head-date]").select("ul").get(1).select("li[class=gamehead]");
 		String idSess = liElement.get(2).select("a").first().attr("href");
-		Long idSession = Long.valueOf(idSess.substring(idSess.lastIndexOf("/")+1).replace("#", ""));
+		Long idSession = Long.valueOf(idSess.substring(idSess.lastIndexOf('/')+1).replace("#", ""));
 		String descSession = gameHeadInfo.select("td[class=stats-game-head-date]").select("ul").get(1).select("li[class=gamehead]").get(2).select("a").first().text();
 		match.getCompetitionSeason().setSeason(new SeasonDTO(idSession, descSession));
 	}
