@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.gamaset.sonicbot.collector.business.probabilitymatch.process.validator.TeamCompetitionSeasonValidatorComponent;
 import com.gamaset.sonicbot.collector.dto.MatchDataDTO;
+import com.gamaset.sonicbot.collector.infra.constants.PositionConditionEnum;
 import com.gamaset.sonicbot.collector.repository.CouponMatchRepository;
 import com.gamaset.sonicbot.collector.repository.entity.Coupon;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatch;
@@ -47,10 +48,17 @@ public class CouponMatchCreateProcessComponent {
 		entity.setScoreHomeTeam(matchDataDTO.getMatchResume().getHomeTeamMatch().getScore());
 		entity.setScoreAwayTeam(matchDataDTO.getMatchResume().getAwayTeamMatch().getScore());
 		entity.setUrlMatch(matchDataDTO.getMatchResume().getLinkMatch());
-		if(matchDataDTO.getMatchstatistics().getHomeTeamStats().getPositions() != null){
-			entity.setPosHomeTeam(matchDataDTO.getMatchstatistics().getHomeTeamStats().getPositions().get(0).getPosition());
-			entity.setPosAwayTeam(matchDataDTO.getMatchstatistics().getAwayTeamStats().getPositions().get(0).getPosition());
-		}
+		
+		matchDataDTO.getMatchstatistics().getHomeTeamStats().getPositions().forEach(pos -> {
+			if(pos.getCondition().equals(PositionConditionEnum.GENERAL)){
+				entity.setPosHomeTeam(pos.getPosition());
+			}
+		});
+		matchDataDTO.getMatchstatistics().getAwayTeamStats().getPositions().forEach(pos -> {
+			if(pos.getCondition().equals(PositionConditionEnum.GENERAL)){
+				entity.setPosAwayTeam(pos.getPosition());
+			}
+		});
 		entity.setCreatedDate(new Date());
 		entity.setUpdatedDate(entity.getCreatedDate());
 		if(matchDataDTO.getMatchResume().getHomeTeamMatch().getScore() > matchDataDTO.getMatchResume().getAwayTeamMatch().getScore()){

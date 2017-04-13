@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.gamaset.sonicbot.collector.infra.constants.PositionConditionEnum;
 
 public class PositionDTO {
+	
 	private PositionConditionEnum condition;
 	private Integer position;
 	
