@@ -47,7 +47,6 @@ public class CachingConfig {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		//TODO RODAR ALGUM MANAGAR PARA ATUALIZAR A TABELA COUPON_MATCH
-		login.resetCookie();
 		System.out.println("Flush Cache MATCH_BY_DATE_CHACHE: " + now.format(formatter));
 	}
 

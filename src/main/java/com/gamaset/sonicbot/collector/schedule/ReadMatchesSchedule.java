@@ -30,7 +30,7 @@ public class ReadMatchesSchedule {
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 	// ler as 23:10:00 
-	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 10 23 * * ?";
+	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 15 00 * * ?";
 	// ler as 00:10:00 
 	private static final String CRON_CONFIG_STATS_MATCHES = "00 10 00 * * ?";
 	private static final String ZONE_CONFIG = "America/Sao_Paulo";
