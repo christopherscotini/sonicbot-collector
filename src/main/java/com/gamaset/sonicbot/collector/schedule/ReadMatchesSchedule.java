@@ -29,11 +29,10 @@ public class ReadMatchesSchedule {
 
 	private final static Logger LOG = LogManager.getLogger(ReadMatchesSchedule.class);
 	
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 	// ler as 02:30:00 
-	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 33 00 * * ?";
-	// ler as 00:10:00 
-	private static final String CRON_CONFIG_STATS_MATCHES = "00 10 00 * * ?";
+	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 30 02 * * ?";
+	// ler as 03:00:00 
+	private static final String CRON_CONFIG_STATS_MATCHES = "00 00 03 * * ?";
 	private static final String ZONE_CONFIG = "America/Sao_Paulo";
 	
 	@Autowired
@@ -62,12 +61,16 @@ public class ReadMatchesSchedule {
 		LOG.info("=== finished read and save matches today ===" + dateFormat.format(new Date()));
 	}
 	
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 	@Scheduled(cron = CRON_CONFIG_UPDATE_MATCHES, zone=ZONE_CONFIG)
 	@Transactional
 	public void executeReadMatchesAndUpdateResults() {
-		LOG.info("=== initializing read and update matches results today ===" + dateFormat.format(new Date()));
 		
-		MatchSeriesDTO matchSeries = matchService.listByDate(DateUtils.getTodayMinus1DayDateString());
+		String date = DateUtils.getTodayMinus1DayDateString();
+		LOG.info(String.format("=== initializing read and update matches results [%s] in [%s] ===", date, dateFormat.format(new Date())));
+		
+		MatchSeriesDTO matchSeries = matchService.listByDate(date);
 		List<CouponMatch> matches = couponMatchRepository.findByCouponId(matchSeries.getId());
 		for (int i = 0; i < matches.size(); i++) {
 			CouponMatch couponMatch = matches.get(i);
@@ -92,7 +95,7 @@ public class ReadMatchesSchedule {
 			}
 		}
 		
-		LOG.info("=== finished read and update matches today ===" + dateFormat.format(new Date()));
+		LOG.info(String.format("=== finished read and update matches [%s] in [%s] ===", date, dateFormat.format(new Date())));
 	}
 }
 
