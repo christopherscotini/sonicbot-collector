@@ -51,4 +51,6 @@ public class DoubleChanceProbabilityDTO extends CommonProbabilityDTO{
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
 	}
+	
+	
 }
