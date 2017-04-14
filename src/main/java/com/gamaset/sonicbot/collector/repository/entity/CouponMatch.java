@@ -77,7 +77,10 @@ public class CouponMatch {
 	 @OneToMany(mappedBy = "couponMatch")
 	 private List<CouponMatchTeam> couponMatchTeams;
 
-	 
+	public void setWinnerTeam(TeamCompetitionSeason winnerTeam) {
+		this.winnerTeam = winnerTeam;
+	}
+
 	/**
 	 * @return the couponMatchTeam
 	 */
