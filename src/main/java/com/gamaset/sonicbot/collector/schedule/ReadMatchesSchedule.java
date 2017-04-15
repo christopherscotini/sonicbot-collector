@@ -28,7 +28,7 @@ public class ReadMatchesSchedule {
 	private static final Logger LOG = LogManager.getLogger(ReadMatchesSchedule.class);
 	
 	// ler as 03:00:00 
-	private static final String CRON_CONFIG_STATS_MATCHES = "00 00 03 * * ?";
+	private static final String CRON_CONFIG_STATS_MATCHES = "00 25 03 * * ?";
 	// ler as 02:30:00 
 	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 30 02 * * ?";
 
@@ -51,7 +51,9 @@ public class ReadMatchesSchedule {
 	public void executeReadMatchesAndPersist() {
 		
 		if(Objects.isNull(date)){
+			LOG.info(String.format("%n=== before Objects.isNull [%s] ===", date));
 			date = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now());
+			LOG.info(String.format("%n=== after Objects.isNull [%s] ===", date));
 		}
 
 		LOG.info(String.format("%n=== initializing read and save matches [%s] in [%s] ===", date, dateFormat.format(new Date())));
