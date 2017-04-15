@@ -64,11 +64,7 @@ public class LoginAcademiaService {
 			
 			this.cookies = loginForm.cookies();
 
-			LOG.info(
-					String.format("%n===== LOGIN STATUS: %s \nCache: %s =====",
-							resultLogin,
-							cookies)
-					);
+			LOG.info(String.format("%n===== LOGIN: %s CACHE: %s =====", resultLogin, cookies));
 			
 		} catch (IOException e) {
 			this.cookies = null;

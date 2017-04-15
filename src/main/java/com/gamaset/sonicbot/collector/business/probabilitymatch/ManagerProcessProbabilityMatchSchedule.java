@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
@@ -93,7 +95,13 @@ public class ManagerProcessProbabilityMatchSchedule {
 				}
 	
 				try {
-					CouponMatch couponMatch = couponMatchCreateProcessComponent.process(coupon, matchDataDTO);
+					CouponMatch couponMatch = null;
+					try{
+						couponMatch = couponMatchCreateProcessComponent.process(coupon, matchDataDTO);
+					}catch(PersistenceException p){
+						LOG.warn(String.format("%n===== discart because are exists match %s =====", matchDataDTO.getMatchResume().toString()));
+						continue;
+					}
 	
 					CouponMatchTeam couponMatchHomeTeam = couponMatchTeamCreateProcessComponent.process(couponMatch,
 							couponMatch.getHomeTeam());
@@ -106,6 +114,7 @@ public class ManagerProcessProbabilityMatchSchedule {
 							matchDataDTO.getMatchstatistics().getAwayTeamStats());
 					
 				} catch (ConstraintViolationException c) {
+					LOG.warn(String.format("%n===== discart because are exists match %s =====", matchDataDTO.getMatchResume().toString()));
 					LOG.error(c.getErrorCode() + " - " + c.getConstraintName());
 				}
 			}
