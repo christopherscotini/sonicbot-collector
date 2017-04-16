@@ -33,7 +33,7 @@ public class ScheduleController {
 	 */
 	@ApiOperation(value="Insere as informações dos jogos do dia", notes="Caso nao seja informada data, entende-se hoje")
 	@RequestMapping(method = RequestMethod.POST, value = "/read", consumes = {"application/json; charset=UTF-8" })
-	public void runToday(@RequestParam("date") String date){
+	public void runToday(@RequestParam(value = "date", required = false) String date){
 		readMatchesSchedule.executeSave(date);
 	}
 
@@ -42,7 +42,7 @@ public class ScheduleController {
 	 */
 	@ApiOperation(value="Atualiza as informações dos jogos conforme a data informada", notes="Caso nao seja informada data, entende-se hoje -1 dia")
 	@RequestMapping(method = RequestMethod.POST, value = "/update", consumes = {"application/json; charset=UTF-8" })
-	public void update(@RequestParam("date") String date){
+	public void update(@RequestParam(value = "date", required = false) String date){
 		readMatchesSchedule.executeUpdate(date);
 	}
 	

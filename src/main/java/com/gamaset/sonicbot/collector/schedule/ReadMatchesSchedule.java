@@ -26,7 +26,7 @@ public class ReadMatchesSchedule {
 	private static final Logger LOG = LogManager.getLogger(ReadMatchesSchedule.class);
 	
 	// ler as 03:00:00 
-	private static final String CRON_CONFIG_STATS_MATCHES = "00 25 03 * * ?";
+	private static final String CRON_CONFIG_STATS_MATCHES = "00 00 03 * * ?";
 	// ler as 02:30:00 
 	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 30 02 * * ?";
 
@@ -46,15 +46,15 @@ public class ReadMatchesSchedule {
 		
 		if(Objects.isNull(date)){
 			LOG.info(String.format("%n=== before Objects.isNull [%s] ===", date));
-			date = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now());
+			date = DateUtils.getNowDateFormatted();
 			LOG.info(String.format("%n=== after Objects.isNull [%s] ===", date));
 		}
 
-		LOG.info(String.format("%n=== initializing read and save matches [%s] in [%s] ===", date, DateUtils.getNowDateTImeFormatted()));
+		LOG.info(String.format("%n=== initializing read and save matches [%s] at [%s] ===", date, DateUtils.getNowDateTimeFormatted()));
 		
 		probabilityMatch.save(probabilityMatch.read(date));
 		
-		LOG.info(String.format("%n=== finished read and save matches [%s] in [%s] ===", date, DateUtils.getNowDateTImeFormatted()));
+		LOG.info(String.format("%n=== finished read and save matches [%s] at [%s] ===", date, DateUtils.getNowDateTimeFormatted()));
 	}
 	
 	/**
@@ -68,11 +68,11 @@ public class ReadMatchesSchedule {
 			date = DateUtils.getDateStringTodayMinus1Day();
 		}
 		
-		LOG.info(String.format("%n=== initializing read and update matches results [%s] in [%s] ===", date, DateUtils.getNowDateTImeFormatted()));
+		LOG.info(String.format("%n=== initializing read and update matches results [%s] at [%s] ===", date, DateUtils.getNowDateTimeFormatted()));
 		
 		probabilityMatch.update(date);
 		
-		LOG.info(String.format("%n=== finished read and update matches [%s] in [%s] ===", date, DateUtils.getNowDateTImeFormatted()));
+		LOG.info(String.format("%n=== finished read and update matches [%s] at [%s] ===", date, DateUtils.getNowDateTimeFormatted()));
 	}
 	
 	/**

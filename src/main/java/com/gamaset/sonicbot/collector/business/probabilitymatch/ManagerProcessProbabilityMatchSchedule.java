@@ -86,24 +86,24 @@ public class ManagerProcessProbabilityMatchSchedule {
 	@Transactional
 	public void save(List<MatchDataDTO> matchesData) {
 
-		LOG.warn(String.format("%n===== init process insert data in database %s =====", DateUtils.getNowDateTImeFormatted()));
+		LOG.warn(String.format("%n===== init process insert data in database %s =====", DateUtils.getNowDateTimeFormatted()));
 		Coupon coupon = couponCreateProcessComponent.process(matchesData.get(0).getMatchResume().getDate());
 		if(couponMatchRepository.findByCouponId(coupon.getId()).isEmpty()){//TODO trocar por stream() e setar num HashSet os ids dos jogos cadastrados e persistir somente os nao existentes
 			for (MatchDataDTO matchDataDTO : matchesData) {
-	
+
+				if(couponMatchRepository.findById(matchDataDTO.getMatchResume().getMatchId()) != null){
+					LOG.warn(String.format("%n===== discart because are exists match %s =====", matchDataDTO.getMatchResume().toString()));
+					continue;
+				}
+				
 				if (!matchValidatorComponent.validate(matchDataDTO)) {
 					LOG.warn(String.format("%n===== discart match %s =====", matchDataDTO.getMatchResume().toString()));
 					continue;
 				}
 	
 				try {
-					CouponMatch couponMatch = null;
-					try{
-						couponMatch = couponMatchCreateProcessComponent.process(coupon, matchDataDTO);
-					}catch(PersistenceException p){
-						LOG.warn(String.format("%n===== [PersistenceException] discart because are exists match %s =====", matchDataDTO.getMatchResume().toString()));
-						continue;
-					}
+					
+					CouponMatch couponMatch = couponMatchCreateProcessComponent.process(coupon, matchDataDTO);
 	
 					CouponMatchTeam couponMatchHomeTeam = couponMatchTeamCreateProcessComponent.process(couponMatch,
 							couponMatch.getHomeTeam());
@@ -116,12 +116,11 @@ public class ManagerProcessProbabilityMatchSchedule {
 							matchDataDTO.getMatchstatistics().getAwayTeamStats());
 					
 				} catch (ConstraintViolationException c) {
-					LOG.warn(String.format("%n===== [ConstraintViolationException] discart because are exists match %s =====", matchDataDTO.getMatchResume().toString()));
 					LOG.error(c.getErrorCode() + " - " + c.getConstraintName());
 				}
 			}
 		}
-		LOG.warn(String.format("%n===== finished process insert data in database %s =====", DateUtils.getNowDateTImeFormatted()));
+		LOG.warn(String.format("%n===== finished process insert data in database %s =====", DateUtils.getNowDateTimeFormatted()));
 	}
 
 	/**
@@ -140,7 +139,7 @@ public class ManagerProcessProbabilityMatchSchedule {
 					couponMatch.setMatchStatus(matchResume.getMatchStatus());
 					couponMatch.setScoreHomeTeam(matchResume.getHomeTeamMatch().getScore());
 					couponMatch.setScoreAwayTeam(matchResume.getAwayTeamMatch().getScore());
-					couponMatch.setUpdatedDate(new Date());
+					couponMatch.setUpdatedDate(DateUtils.getNowDateTime());
 					if(matchResume.getWinner() != null && matchResume.getWinner().getTeam().getId().equals(couponMatch.getHomeTeam().getTeam().getId())){
 						couponMatch.setWinnerTeam(couponMatch.getHomeTeam());
 					}else if(matchResume.getWinner() != null && matchResume.getWinner().getTeam().getId().equals(couponMatch.getAwayTeam().getTeam().getId())){

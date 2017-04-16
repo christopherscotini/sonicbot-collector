@@ -30,9 +30,12 @@ public class CouponCreateProcessComponent {
 		if(findById != null){
 			return findById;
 		}
+		
 		Coupon entity = new Coupon();
 		entity.setDate(dateString);
 		entity.setId(dateLong);
+		entity.setCreatedDate(DateUtils.getNowDateTime());
+		entity.setUpdatedDate(entity.getCreatedDate());
 		return repo.insert(entity);
 	}
 	

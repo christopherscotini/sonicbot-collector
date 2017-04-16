@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.gamaset.sonicbot.collector.infra.utils.DateUtils;
 import com.gamaset.sonicbot.collector.repository.CouponMatchRepository;
+import com.gamaset.sonicbot.collector.repository.CouponRepository;
+import com.gamaset.sonicbot.collector.repository.entity.Coupon;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatch;
 
 /**
@@ -18,6 +20,8 @@ import com.gamaset.sonicbot.collector.repository.entity.CouponMatch;
 @Service
 public class MatchService {
 
+	@Autowired
+	private CouponRepository couponRepository;
 	@Autowired
 	private CouponMatchRepository matchRepository;
 	
@@ -32,6 +36,10 @@ public class MatchService {
 		List<CouponMatch> findByCouponId = matchRepository.findByCouponId(DateUtils.convertDateStringToTimestamp(date));
 		
 		return null;
+	}
+
+	public List<Coupon> coupons(){
+		return couponRepository.findAll();
 	}
 	
 }

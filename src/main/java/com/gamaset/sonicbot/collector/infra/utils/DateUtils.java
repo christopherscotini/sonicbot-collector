@@ -83,9 +83,20 @@ public class DateUtils {
 		return months.get(key);
 	}
 
-	public static Object getNowDateTImeFormatted() {
+	public static String getNowDateTimeFormatted() {
 		TimeZone.setDefault(TimeZone.getTimeZone(ZONE_CONFIG_SP));
 		return new SimpleDateFormat(DEFAULT_PATTERN_DATE_TIME).format(new Date());
+	}
+
+	public static String getNowDateFormatted() {
+		TimeZone.setDefault(TimeZone.getTimeZone(ZONE_CONFIG_SP));
+		return new SimpleDateFormat(DEFAULT_PATTERN_DATE).format(new Date());
+	}
+	
+	public static Date getNowDateTime() {
+		Calendar c = Calendar.getInstance();
+		c.setTimeZone(TimeZone.getTimeZone(ZONE_CONFIG_SP));
+		return c.getTime();
 	}
 	
 }

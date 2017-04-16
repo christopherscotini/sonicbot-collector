@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.MatchStatisticDTO;
+import com.gamaset.sonicbot.collector.repository.entity.Coupon;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatch;
 import com.gamaset.sonicbot.collector.service.match.MatchService;
 
@@ -35,6 +36,13 @@ public class MatchController {
 	private MatchService matchService;
 
 	
+	@ApiOperation(value="Retorna todos os dias lidos.", notes="")
+	@RequestMapping(method = RequestMethod.GET, value = "/coupons", produces = { "application/json; charset=UTF-8" })
+	public List<Coupon> listCoupons() {
+		
+		return matchService.coupons();
+	}
+
 	@ApiOperation(value="Retorna as partidas do dia.", notes="")
 	@RequestMapping(method = RequestMethod.GET, value = "/list", produces = { "application/json; charset=UTF-8" })
 	public List<CouponMatch> list(
