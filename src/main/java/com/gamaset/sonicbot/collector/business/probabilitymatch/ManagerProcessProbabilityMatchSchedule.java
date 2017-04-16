@@ -23,6 +23,7 @@ import com.gamaset.sonicbot.collector.dto.MatchDataDTO;
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.MatchStatisticDTO;
+import com.gamaset.sonicbot.collector.infra.utils.DateUtils;
 import com.gamaset.sonicbot.collector.repository.CouponMatchRepository;
 import com.gamaset.sonicbot.collector.repository.CouponRepository;
 import com.gamaset.sonicbot.collector.repository.entity.Coupon;
@@ -85,6 +86,7 @@ public class ManagerProcessProbabilityMatchSchedule {
 	@Transactional
 	public void save(List<MatchDataDTO> matchesData) {
 
+		LOG.warn(String.format("%n===== init process insert data in database %s =====", DateUtils.getNowDateTImeFormatted()));
 		Coupon coupon = couponCreateProcessComponent.process(matchesData.get(0).getMatchResume().getDate());
 		if(couponMatchRepository.findByCouponId(coupon.getId()).isEmpty()){//TODO trocar por stream() e setar num HashSet os ids dos jogos cadastrados e persistir somente os nao existentes
 			for (MatchDataDTO matchDataDTO : matchesData) {
@@ -99,7 +101,7 @@ public class ManagerProcessProbabilityMatchSchedule {
 					try{
 						couponMatch = couponMatchCreateProcessComponent.process(coupon, matchDataDTO);
 					}catch(PersistenceException p){
-						LOG.warn(String.format("%n===== discart because are exists match %s =====", matchDataDTO.getMatchResume().toString()));
+						LOG.warn(String.format("%n===== [PersistenceException] discart because are exists match %s =====", matchDataDTO.getMatchResume().toString()));
 						continue;
 					}
 	
@@ -114,11 +116,12 @@ public class ManagerProcessProbabilityMatchSchedule {
 							matchDataDTO.getMatchstatistics().getAwayTeamStats());
 					
 				} catch (ConstraintViolationException c) {
-					LOG.warn(String.format("%n===== discart because are exists match %s =====", matchDataDTO.getMatchResume().toString()));
+					LOG.warn(String.format("%n===== [ConstraintViolationException] discart because are exists match %s =====", matchDataDTO.getMatchResume().toString()));
 					LOG.error(c.getErrorCode() + " - " + c.getConstraintName());
 				}
 			}
 		}
+		LOG.warn(String.format("%n===== finished process insert data in database %s =====", DateUtils.getNowDateTImeFormatted()));
 	}
 
 	/**
