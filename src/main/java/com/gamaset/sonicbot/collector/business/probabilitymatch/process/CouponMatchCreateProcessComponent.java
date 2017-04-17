@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.gamaset.sonicbot.collector.business.probabilitymatch.process.validator.TeamCompetitionSeasonValidatorComponent;
 import com.gamaset.sonicbot.collector.dto.MatchDataDTO;
 import com.gamaset.sonicbot.collector.infra.constants.PositionConditionEnum;
+import com.gamaset.sonicbot.collector.infra.utils.DateUtils;
 import com.gamaset.sonicbot.collector.repository.CouponMatchRepository;
 import com.gamaset.sonicbot.collector.repository.entity.Coupon;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatch;
@@ -59,7 +60,7 @@ public class CouponMatchCreateProcessComponent {
 				entity.setPosAwayTeam(pos.getPosition());
 			}
 		});
-		entity.setCreatedDate(new Date());
+		entity.setCreatedDate(DateUtils.getNowDateTime());
 		entity.setUpdatedDate(entity.getCreatedDate());
 		
 		return couponMatchRepository.insert(entity);

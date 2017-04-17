@@ -15,7 +15,8 @@ public class MatchDetailAcademiaValidator {
 	private boolean validateEnumMatchStatus(MatchStatusEnum mse){
 		for (MatchStatusEnum _mse : MatchStatusEnum.values()) {
 			if (_mse.name().equals(mse.name())) {
-				if(mse.name().equals(MatchStatusEnum.CANCELADO.name()) || mse.name().equals(MatchStatusEnum.ADIADO.name())){
+				if(mse.name().equals(MatchStatusEnum.CANCELADO.name()) || mse.name().equals(MatchStatusEnum.ADIADO.name())
+						|| mse.name().equals(MatchStatusEnum.SUSPENSO.name())){
 					return true;
 				}
 			}

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class LoginAcademiaService {
+
+	private static final Logger LOG = LogManager.getLogger(LoginAcademiaService.class);
 
 	// URL found in form's action attribute
 	private final String URL_ACADEMIA = "https://www.academiadasapostas.com/";
@@ -60,11 +64,7 @@ public class LoginAcademiaService {
 			
 			this.cookies = loginForm.cookies();
 
-			System.out.println(
-					String.format("LOGIN STATUS: %s \nCache: %s",
-							resultLogin,
-							cookies)
-					);
+			LOG.info(String.format("%n===== LOGIN: %s CACHE: %s =====", resultLogin, cookies));
 			
 		} catch (IOException e) {
 			this.cookies = null;

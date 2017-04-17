@@ -1,5 +1,6 @@
 package com.gamaset.sonicbot.collector.infra.utils;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -7,12 +8,16 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import com.gamaset.sonicbot.collector.infra.exception.FormatDateException;
 
 public class DateUtils {
 
-	private static final String DEFAULT_PATTERN = "yyyy-MM-dd";
+
+	public static final String ZONE_CONFIG_SP = "America/Sao_Paulo";
+	private static final String DEFAULT_PATTERN_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+	private static final String DEFAULT_PATTERN_DATE = "yyyy-MM-dd";
 	
 	public static String convertDateMatchInfoToDateString(String date) {
 		StringBuilder ret = new StringBuilder();
@@ -33,7 +38,7 @@ public class DateUtils {
 
 	public static String getDateStringTodayMinus1Day() {
 		LocalDate now = LocalDate.now().minusDays(1);
-		return DateTimeFormatter.ofPattern(DEFAULT_PATTERN).format(now);
+		return DateTimeFormatter.ofPattern(DEFAULT_PATTERN_DATE).format(now);
 	}
 	
 	/**
@@ -76,6 +81,22 @@ public class DateUtils {
 		months.put("Dezembro", "12");
 
 		return months.get(key);
+	}
+
+	public static String getNowDateTimeFormatted() {
+		TimeZone.setDefault(TimeZone.getTimeZone(ZONE_CONFIG_SP));
+		return new SimpleDateFormat(DEFAULT_PATTERN_DATE_TIME).format(new Date());
+	}
+
+	public static String getNowDateFormatted() {
+		TimeZone.setDefault(TimeZone.getTimeZone(ZONE_CONFIG_SP));
+		return new SimpleDateFormat(DEFAULT_PATTERN_DATE).format(new Date());
+	}
+	
+	public static Date getNowDateTime() {
+		Calendar c = Calendar.getInstance();
+		c.setTimeZone(TimeZone.getTimeZone(ZONE_CONFIG_SP));
+		return c.getTime();
 	}
 	
 }

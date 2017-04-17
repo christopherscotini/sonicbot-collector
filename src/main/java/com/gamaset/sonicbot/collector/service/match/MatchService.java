@@ -16,6 +16,8 @@ import com.gamaset.sonicbot.collector.infra.constants.SelectionMarketBetTypeEnum
 import com.gamaset.sonicbot.collector.infra.utils.DateUtils;
 import com.gamaset.sonicbot.collector.infra.utils.MatchObjectConverter;
 import com.gamaset.sonicbot.collector.repository.CouponMatchRepository;
+import com.gamaset.sonicbot.collector.repository.CouponRepository;
+import com.gamaset.sonicbot.collector.repository.entity.Coupon;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatch;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatchTeam;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatchTeamProbValue;
@@ -29,6 +31,8 @@ import com.gamaset.sonicbot.collector.repository.entity.CouponMatchTeamProbValue
 @Service
 public class MatchService {
 
+	@Autowired
+	private CouponRepository couponRepository;
 	@Autowired
 	private CouponMatchRepository matchRepository;
 	
@@ -50,10 +54,8 @@ public class MatchService {
 		return datas;
 	}
 
-	private MatchResumeDTO buildMatchResume(List<CouponMatchTeam> couponMatchTeams) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Coupon> coupons(){
+		return couponRepository.findAll();
 	}
-
 	
 }

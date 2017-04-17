@@ -1,9 +1,7 @@
 package com.gamaset.sonicbot.collector.schedule;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Objects;
 
 import org.apache.log4j.LogManager;
@@ -32,10 +30,6 @@ public class ReadMatchesSchedule {
 	// ler as 02:30:00 
 	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 30 02 * * ?";
 
-	private static final String ZONE_CONFIG = "America/Sao_Paulo";
-	
-	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	
 	@Autowired
 	private ManagerProcessProbabilityMatchSchedule probabilityMatch;
 
@@ -47,36 +41,38 @@ public class ReadMatchesSchedule {
 	 * 
 	 * @param date
 	 */
-	@Scheduled(cron = CRON_CONFIG_STATS_MATCHES, zone=ZONE_CONFIG)
+	@Scheduled(cron = CRON_CONFIG_STATS_MATCHES, zone=DateUtils.ZONE_CONFIG_SP)
 	public void executeReadMatchesAndPersist() {
 		
 		if(Objects.isNull(date)){
-			date = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now());
+			LOG.info(String.format("%n=== before Objects.isNull [%s] ===", date));
+			date = DateUtils.getNowDateFormatted();
+			LOG.info(String.format("%n=== after Objects.isNull [%s] ===", date));
 		}
 
-		LOG.info(String.format("%n=== initializing read and save matches [%s] in [%s] ===", date, dateFormat.format(new Date())));
+		LOG.info(String.format("%n=== initializing read and save matches [%s] at [%s] ===", date, DateUtils.getNowDateTimeFormatted()));
 		
 		probabilityMatch.save(probabilityMatch.read(date));
 		
-		LOG.info(String.format("%n=== finished read and save matches [%s] in [%s] ===", date, dateFormat.format(new Date())));
+		LOG.info(String.format("%n=== finished read and save matches [%s] at [%s] ===", date, DateUtils.getNowDateTimeFormatted()));
 	}
 	
 	/**
 	 * 
 	 * @param date
 	 */
-	@Scheduled(cron = CRON_CONFIG_UPDATE_MATCHES, zone=ZONE_CONFIG)
+	@Scheduled(cron = CRON_CONFIG_UPDATE_MATCHES, zone=DateUtils.ZONE_CONFIG_SP)
 	public void executeReadMatchesAndUpdateResults() {
 		
 		if(Objects.isNull(date)){
 			date = DateUtils.getDateStringTodayMinus1Day();
 		}
 		
-		LOG.info(String.format("%n=== initializing read and update matches results [%s] in [%s] ===", date, dateFormat.format(new Date())));
+		LOG.info(String.format("%n=== initializing read and update matches results [%s] at [%s] ===", date, DateUtils.getNowDateTimeFormatted()));
 		
 		probabilityMatch.update(date);
 		
-		LOG.info(String.format("%n=== finished read and update matches [%s] in [%s] ===", date, dateFormat.format(new Date())));
+		LOG.info(String.format("%n=== finished read and update matches [%s] at [%s] ===", date, DateUtils.getNowDateTimeFormatted()));
 	}
 	
 	/**

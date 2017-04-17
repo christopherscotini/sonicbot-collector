@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gamaset.sonicbot.collector.dto.MatchDataDTO;
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.MatchStatisticDTO;
-import com.gamaset.sonicbot.collector.repository.entity.CouponMatch;
+import com.gamaset.sonicbot.collector.repository.entity.Coupon;
 import com.gamaset.sonicbot.collector.service.match.MatchService;
 
 import io.swagger.annotations.Api;
@@ -35,9 +36,16 @@ public class MatchController {
 	private MatchService matchService;
 
 	
+	@ApiOperation(value="Retorna todos os dias lidos.", notes="")
+	@RequestMapping(method = RequestMethod.GET, value = "/coupons", produces = { "application/json; charset=UTF-8" })
+	public List<Coupon> listCoupons() {
+		
+		return matchService.coupons();
+	}
+
 	@ApiOperation(value="Retorna as partidas do dia.", notes="")
 	@RequestMapping(method = RequestMethod.GET, value = "/list", produces = { "application/json; charset=UTF-8" })
-	public List<CouponMatch> list(
+	public List<MatchDataDTO> list(
 			@ApiParam(value="Usado para determinar a data dos jogos que serão lidos.", required=false) 
 			@RequestParam(required = false) String date) {
 		

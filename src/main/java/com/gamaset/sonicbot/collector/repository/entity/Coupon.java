@@ -1,9 +1,13 @@
 package com.gamaset.sonicbot.collector.repository.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -21,7 +25,31 @@ public class Coupon {
 	@Column(name = "COUP_DS_DATE")
 	private String date;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "COUP_DT_CREATED")
+	private Date createdDate;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "COUP_DT_UPDATED")
+	private Date updatedDate;
+	
 	public Coupon() {	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
 
 	public Long getId() {
 		return id;
