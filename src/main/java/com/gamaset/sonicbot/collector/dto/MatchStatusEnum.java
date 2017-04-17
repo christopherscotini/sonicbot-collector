@@ -16,7 +16,8 @@ public enum MatchStatusEnum {
 	AGUARDANDO(""),
 	EM_ANDAMENTO("Em andamento"),
 	CANCELADO("Cancelado"),
-	TERMINADO("Terminado");
+	TERMINADO("Terminado"), 
+	SUSPENSO("Suspenso");
 	
 	private String descriptionStatus;
 

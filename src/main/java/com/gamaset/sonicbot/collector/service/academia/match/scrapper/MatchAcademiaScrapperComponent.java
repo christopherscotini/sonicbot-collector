@@ -122,6 +122,9 @@ public class MatchAcademiaScrapperComponent {
 		if(MatchStatusEnum.ADIADO.getDescriptionStatus().equals(status)){
 			return MatchStatusEnum.ADIADO;
 		}
+		if(MatchStatusEnum.SUSPENSO.getDescriptionStatus().equals(status)){
+			return MatchStatusEnum.ADIADO;
+		}
 		if(MatchStatusEnum.CANCELADO.getDescriptionStatus().equals(status)){
 			return MatchStatusEnum.CANCELADO;
 		}
