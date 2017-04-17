@@ -1,7 +1,5 @@
 package com.gamaset.sonicbot.collector.business.probabilitymatch.process;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -43,23 +41,29 @@ public class CouponMatchCreateProcessComponent {
 		CouponMatch entity = new CouponMatch();
 		entity.setId(matchDataDTO.getMatchResume().getMatchId());
 		entity.setCoupon(coupon);
+		entity.setMatchDate(coupon.getDate());
 		entity.setMatchStatus(matchDataDTO.getMatchResume().getMatchStatus());
 		entity.setHomeTeam(homeTeam);
 		entity.setAwayTeam(awayTeam);
 		entity.setScoreHomeTeam(matchDataDTO.getMatchResume().getHomeTeamMatch().getScore());
 		entity.setScoreAwayTeam(matchDataDTO.getMatchResume().getAwayTeamMatch().getScore());
 		entity.setUrlMatch(matchDataDTO.getMatchResume().getLinkMatch());
+		entity.setWinnerTeam(entity.getWinnerTeam());
 		
-		matchDataDTO.getMatchstatistics().getHomeTeamStats().getPositions().forEach(pos -> {
-			if(pos.getCondition().equals(PositionConditionEnum.GENERAL)){
-				entity.setPosHomeTeam(pos.getPosition());
-			}
-		});
-		matchDataDTO.getMatchstatistics().getAwayTeamStats().getPositions().forEach(pos -> {
-			if(pos.getCondition().equals(PositionConditionEnum.GENERAL)){
-				entity.setPosAwayTeam(pos.getPosition());
-			}
-		});
+		if(matchDataDTO.getMatchstatistics().getHomeTeamStats().getPositions() != null)
+			matchDataDTO.getMatchstatistics().getHomeTeamStats().getPositions().forEach(pos -> {
+				if(pos.getCondition().equals(PositionConditionEnum.GENERAL)){
+					entity.setPosHomeTeam(pos.getPosition());
+				}
+			});
+		
+		if(matchDataDTO.getMatchstatistics().getAwayTeamStats().getPositions() != null)
+			matchDataDTO.getMatchstatistics().getAwayTeamStats().getPositions().forEach(pos -> {
+				if(pos.getCondition().equals(PositionConditionEnum.GENERAL)){
+					entity.setPosAwayTeam(pos.getPosition());
+				}
+			});
+		
 		entity.setCreatedDate(DateUtils.getNowDateTime());
 		entity.setUpdatedDate(entity.getCreatedDate());
 		

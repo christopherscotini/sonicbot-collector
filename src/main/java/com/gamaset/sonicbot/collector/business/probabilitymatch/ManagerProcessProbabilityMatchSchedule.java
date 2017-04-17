@@ -1,10 +1,7 @@
 package com.gamaset.sonicbot.collector.business.probabilitymatch;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import javax.persistence.PersistenceException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -25,7 +22,6 @@ import com.gamaset.sonicbot.collector.dto.MatchSeriesDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.MatchStatisticDTO;
 import com.gamaset.sonicbot.collector.infra.utils.DateUtils;
 import com.gamaset.sonicbot.collector.repository.CouponMatchRepository;
-import com.gamaset.sonicbot.collector.repository.CouponRepository;
 import com.gamaset.sonicbot.collector.repository.entity.Coupon;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatch;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatchTeam;
@@ -57,8 +53,6 @@ public class ManagerProcessProbabilityMatchSchedule {
 	@Autowired
 	private ManagerProcessMatchStatistic matchStatistic;
 	@Autowired
-	private CouponRepository couponRepository;
-	@Autowired
 	private CouponMatchRepository couponMatchRepository;
 
 	/**
@@ -69,6 +63,8 @@ public class ManagerProcessProbabilityMatchSchedule {
 	 * @return
 	 */
 	public List<MatchDataDTO> read(String date) {
+		LOG.warn(String.format("%n===== init process read matches in academia [%s] =====", DateUtils.getNowDateTimeFormatted()));
+		
 		MatchSeriesDTO matchSeries = matchAcademiaService.listByDate(date);
 		List<MatchDataDTO> datas = new ArrayList<>();
 			for (MatchResumeDTO matchResume : matchSeries.getMatches()) {
@@ -76,6 +72,9 @@ public class ManagerProcessProbabilityMatchSchedule {
 				MatchStatisticDTO matchStatisticDTO = matchStatistic.generateStatistics(matchResume);
 				datas.add(new MatchDataDTO(matchResume, matchStatisticDTO));
 			}
+		
+			LOG.warn(String.format("%n===== finished process read matches[%d] in academia [%s] =====", datas.size(), DateUtils.getNowDateTimeFormatted()));
+
 		return datas;
 	}
 	
@@ -140,12 +139,7 @@ public class ManagerProcessProbabilityMatchSchedule {
 					couponMatch.setScoreHomeTeam(matchResume.getHomeTeamMatch().getScore());
 					couponMatch.setScoreAwayTeam(matchResume.getAwayTeamMatch().getScore());
 					couponMatch.setUpdatedDate(DateUtils.getNowDateTime());
-					if(matchResume.getWinner() != null && matchResume.getWinner().getTeam().getId().equals(couponMatch.getHomeTeam().getTeam().getId())){
-						couponMatch.setWinnerTeam(couponMatch.getHomeTeam());
-					}else if(matchResume.getWinner() != null && matchResume.getWinner().getTeam().getId().equals(couponMatch.getAwayTeam().getTeam().getId())){
-						couponMatch.setWinnerTeam(couponMatch.getAwayTeam());
-					}
-					
+					couponMatch.setWinnerTeam(couponMatch.getWinnerTeam());
 					couponMatchRepository.update(couponMatch);
 				}
 			}

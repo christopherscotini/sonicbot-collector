@@ -57,21 +57,17 @@ public class CalculatorFulltimeResultComponent {
 			}
 		}
 
-		try {
-			result.setValue(occurs==0?0:new Double((occurs * 100) / numberMatches));
-			if(HomeAwayConditionEnum.HOME_TEAM.equals(condition)){
-				result.setSize(sizeCalculator.calculateForWin(result.getValue(), HomeAwayConditionEnum.HOME_TEAM));
-				result.setSelectionMarketBetId(SelectionMarketBetTypeEnum.HOME_TEAM_WIN.getId());
-			}else{
-				result.setSize(sizeCalculator.calculateForWin(result.getValue(), HomeAwayConditionEnum.AWAY_TEAM));
-				result.setSelectionMarketBetId(SelectionMarketBetTypeEnum.AWAY_TEAM_WIN.getId());
-			}
-
-			ft.setStats(result);
-		
-		} catch (ArithmeticException a) {
-			
+		result.setValue(occurs==0?0:new Double((occurs * 100) / numberMatches));
+		if(HomeAwayConditionEnum.HOME_TEAM.equals(condition)){
+			result.setSize(sizeCalculator.calculateForWin(result.getValue(), HomeAwayConditionEnum.HOME_TEAM));
+			result.setSelectionMarketBetId(SelectionMarketBetTypeEnum.HOME_TEAM_WIN.getId());
+		}else{
+			result.setSize(sizeCalculator.calculateForWin(result.getValue(), HomeAwayConditionEnum.AWAY_TEAM));
+			result.setSelectionMarketBetId(SelectionMarketBetTypeEnum.AWAY_TEAM_WIN.getId());
 		}
+
+		ft.setStats(result);
+		
 	}
 	
 

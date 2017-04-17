@@ -42,40 +42,43 @@ public class CouponMatch {
 	@ManyToOne
 	@JoinColumn(name = "TECS_AWAY_CD_ID_FK")
 	private TeamCompetitionSeason awayTeam;
-
-	@Column(name = "PRDE_VL_POS_HOME")
-	private Integer posHomeTeam;
-
-	@Column(name = "PRDE_VL_POS_AWAY")
-	private Integer posAwayTeam;
-
-	@Column(name = "PRDE_VL_SCORE_HOME")
-	private Integer scoreHomeTeam;
-
-	@Column(name = "PRDE_VL_SCORE_AWAY")
-	private Integer scoreAwayTeam;
-
-	@Column(name = "PRDE_DS_URL_MATCH")
-	private String urlMatch;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "PRDE_DS_MATCH_STATUS")
-	private MatchStatusEnum matchStatus;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "TECS_WINNER_CD_ID_FK")
 	private TeamCompetitionSeason winnerTeam;
 
+	@Column(name = "COMA_VL_POS_HOME")
+	private Integer posHomeTeam;
+
+	@Column(name = "COMA_VL_POS_AWAY")
+	private Integer posAwayTeam;
+
+	@Column(name = "COMA_VL_SCORE_HOME")
+	private Integer scoreHomeTeam;
+
+	@Column(name = "COMA_VL_SCORE_AWAY")
+	private Integer scoreAwayTeam;
+
+	@Column(name = "COMA_DS_URL_MATCH")
+	private String urlMatch;
+
+	@Column(name = "COMA_DS_MATCH_DATE")
+	private String matchDate;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "COMA_DS_MATCH_STATUS")
+	private MatchStatusEnum matchStatus;
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "PRDE_DT_CREATED")
+	@Column(name = "COMA_DT_CREATED")
 	private Date createdDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "PRDE_DT_UPDATED")
+	@Column(name = "COMA_DT_UPDATED")
 	private Date updatedDate;
 
-	 @OneToMany(mappedBy = "couponMatch")
-	 private List<CouponMatchTeam> couponMatchTeams;
+	@OneToMany(mappedBy = "couponMatch")
+	private List<CouponMatchTeam> couponMatchTeams;
 
 	public void setWinnerTeam(TeamCompetitionSeason winnerTeam) {
 		this.winnerTeam = winnerTeam;
@@ -93,6 +96,20 @@ public class CouponMatch {
 	 */
 	public void setCouponMatchTeams(List<CouponMatchTeam> couponMatchTeams) {
 		this.couponMatchTeams = couponMatchTeams;
+	}
+
+	/**
+	 * @return the matchDate
+	 */
+	public String getMatchDate() {
+		return matchDate;
+	}
+
+	/**
+	 * @param matchDate the matchDate to set
+	 */
+	public void setMatchDate(String matchDate) {
+		this.matchDate = matchDate;
 	}
 
 	public Long getId() {

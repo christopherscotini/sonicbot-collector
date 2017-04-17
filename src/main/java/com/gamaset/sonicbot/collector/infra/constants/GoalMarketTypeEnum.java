@@ -13,5 +13,10 @@ public enum GoalMarketTypeEnum {
 	public Integer getNumberGoals() {
 		return numberGoals;
 	}
+
+	public static void findById(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -1,5 +1,7 @@
 package com.gamaset.sonicbot.collector.infra.constants;
 
+import java.util.Arrays;
+
 public enum SelectionMarketBetTypeEnum {
 
 	OVER_05(5L),
@@ -17,6 +19,16 @@ public enum SelectionMarketBetTypeEnum {
 
 	public Long getId() {
 		return id;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public static SelectionMarketBetTypeEnum findById(Long id) {
+		return Arrays.asList(values()).stream().filter(t -> t.getId().equals(id)).findAny()
+        		.orElseThrow(() -> new IllegalStateException(String.format("Unsupported type %s.", id)));
 	}
 
 }

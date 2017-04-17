@@ -69,9 +69,8 @@ public class CalculatorDoubleChanceComponent {
 			}
 		}
 
-		try {
 			StatsMarketDTO result = new StatsMarketDTO();
-			result.setValue(new Double((occurs * 100) / numberMatches));
+			result.setValue(occurs ==0?0:new Double((occurs * 100) / numberMatches));
 			
 			if(HomeAwayConditionEnum.HOME_TEAM.equals(condition)){
 				result.setSize(sizeCalculator.calculateForDoubleChance(result.getValue(), condition));
@@ -86,11 +85,6 @@ public class CalculatorDoubleChanceComponent {
 			
 			return ret;
 		
-		} catch (ArithmeticException a) {
-			System.err.println(""+a.getMessage());
-		}
-		
-		return null;
 	}
 
 }
