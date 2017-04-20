@@ -63,7 +63,8 @@ public class ManagerProcessProbabilityMatchSchedule {
 	 * @return
 	 */
 	public List<MatchDataDTO> read(String date) {
-		LOG.warn(String.format("%n===== init process read matches in academia [%s] =====", DateUtils.getNowDateTimeFormatted()));
+		
+		LOG.info(String.format("%n===== init process read matches in academia [%s] =====", DateUtils.getNowDateTimeFormatted()));
 		
 		MatchSeriesDTO matchSeries = matchAcademiaService.listByDate(date);
 		List<MatchDataDTO> datas = new ArrayList<>();
@@ -73,7 +74,7 @@ public class ManagerProcessProbabilityMatchSchedule {
 				datas.add(new MatchDataDTO(matchResume, matchStatisticDTO));
 			}
 		
-			LOG.warn(String.format("%n===== finished process read matches[%d] in academia [%s] =====", datas.size(), DateUtils.getNowDateTimeFormatted()));
+		LOG.info(String.format("%n===== finished process read matches[%d] in academia [%s] =====", datas.size(), DateUtils.getNowDateTimeFormatted()));
 
 		return datas;
 	}
@@ -85,7 +86,7 @@ public class ManagerProcessProbabilityMatchSchedule {
 	@Transactional
 	public void save(List<MatchDataDTO> matchesData) {
 
-		LOG.warn(String.format("%n===== init process insert data in database %s =====", DateUtils.getNowDateTimeFormatted()));
+		LOG.info(String.format("%n===== init process insert data in database %s =====", DateUtils.getNowDateTimeFormatted()));
 		Coupon coupon = couponCreateProcessComponent.process(matchesData.get(0).getMatchResume().getDate());
 		if(couponMatchRepository.findByCouponId(coupon.getId()).isEmpty()){//TODO trocar por stream() e setar num HashSet os ids dos jogos cadastrados e persistir somente os nao existentes
 			for (MatchDataDTO matchDataDTO : matchesData) {
@@ -119,7 +120,7 @@ public class ManagerProcessProbabilityMatchSchedule {
 				}
 			}
 		}
-		LOG.warn(String.format("%n===== finished process insert data in database %s =====", DateUtils.getNowDateTimeFormatted()));
+		LOG.info(String.format("%n===== finished process insert data in database %s =====", DateUtils.getNowDateTimeFormatted()));
 	}
 
 	/**
