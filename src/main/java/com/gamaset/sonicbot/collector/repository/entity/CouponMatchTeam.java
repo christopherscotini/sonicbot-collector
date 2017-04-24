@@ -27,7 +27,7 @@ public class CouponMatchTeam {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "COMT_CD_ID_FK")
+	@JoinColumn(name = "COMA_CD_ID_FK")
 	private CouponMatch couponMatch;
 
 	@ManyToOne

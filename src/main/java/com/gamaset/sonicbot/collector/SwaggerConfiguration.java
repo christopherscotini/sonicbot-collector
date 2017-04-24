@@ -37,6 +37,7 @@ public class SwaggerConfiguration {
 				.paths(PathSelectors.any())
 				.build()
 				.tags(
+						new Tag("TeamCompetitionSeason", "Serviços relacionado a Time Competição/Sessão"),
 						new Tag("Schedule", "Serviços relacionado aos Jobs"),
 						new Tag("MatchAcademia", "Serviços relacionados as partidas do academia das Apostas"),
 						new Tag("Match", "Serviços relacionados as partidas salvas no bd")
