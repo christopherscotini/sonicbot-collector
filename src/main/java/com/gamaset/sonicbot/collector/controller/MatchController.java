@@ -35,13 +35,6 @@ public class MatchController {
 	@Autowired
 	private MatchService matchService;
 
-	
-	@ApiOperation(value="Retorna todos os dias lidos.", notes="")
-	@RequestMapping(method = RequestMethod.GET, value = "/coupons", produces = { "application/json; charset=UTF-8" })
-	public List<Coupon> listCoupons() {
-		
-		return matchService.coupons();
-	}
 
 	@ApiOperation(value="Retorna as partidas do dia.", notes="")
 	@RequestMapping(method = RequestMethod.GET, value = "/list", produces = { "application/json; charset=UTF-8" })

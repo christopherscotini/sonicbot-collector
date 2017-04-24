@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +27,7 @@ public class ReadMatchesSchedule {
 	private static final Logger LOG = LogManager.getLogger(ReadMatchesSchedule.class);
 	
 	// ler as 03:00:00 
-	private static final String CRON_CONFIG_STATS_MATCHES = "00 00 03 * * ?";
+	private static final String CRON_CONFIG_STATS_MATCHES = "00 01 03 * * ?";
 	// ler as 02:30:00 
 	private static final String CRON_CONFIG_UPDATE_MATCHES = "00 30 02 * * ?";
 
@@ -79,6 +80,7 @@ public class ReadMatchesSchedule {
 	 * Metodo servirá para testar os schedules via serviço
 	 * @param date
 	 */
+	@Async
 	public void executeSave(String date){
 		this.date = date;
 		executeReadMatchesAndPersist();
@@ -89,6 +91,7 @@ public class ReadMatchesSchedule {
 	 * Metodo servirá para testar os schedules via serviço
 	 * @param date
 	 */
+	@Async
 	public void executeUpdate(String date){
 		this.date = date;
 		executeReadMatchesAndUpdateResults();

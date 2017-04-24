@@ -29,6 +29,14 @@ public class MatchService {
 	private CouponMatchRepository matchRepository;
 	
 	/**
+	 * 
+	 * @return
+	 */
+	public List<Coupon> coupons(){
+		return couponRepository.findAll();
+	}
+	
+	/**
 	 * Lista os jogos salvos conforme a data
 	 * 
 	 * @param date
@@ -46,8 +54,4 @@ public class MatchService {
 		return datas;
 	}
 
-	public List<Coupon> coupons(){
-		return couponRepository.findAll();
-	}
-	
 }
