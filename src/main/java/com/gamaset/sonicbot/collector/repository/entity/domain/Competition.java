@@ -26,6 +26,9 @@ public class Competition {
 	@Column(name = "COMP_DS_URL")
 	private String url;
 	
+	@Column(name = "COBE_CD_ID_FK")
+	private Integer compIdbetOdd;
+	
 	@ManyToOne
 	@JoinColumn(name = "FLAG_CD_ID_FK")
 	private Flag flag;
@@ -82,6 +85,21 @@ public class Competition {
 	public void setCountry(Country country) {
 		this.country = country;
 	}
+	
+	/**
+	 * @return the compIdbetOdd
+	 */
+	public Integer getCompIdbetOdd() {
+		return compIdbetOdd;
+	}
+
+	/**
+	 * @param compIdbetOdd the compIdbetOdd to set
+	 */
+	public void setCompIdbetOdd(Integer compIdbetOdd) {
+		this.compIdbetOdd = compIdbetOdd;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

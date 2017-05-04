@@ -16,6 +16,7 @@ import com.gamaset.sonicbot.collector.infra.constants.EffectSizeEnum;
 public class StatsMarketDTO {
 
 	private Long selectionMarketBetId;
+	private Double oddMarketValue;
 	private Double value;
 	private EffectSizeEnum size;
 
@@ -28,6 +29,19 @@ public class StatsMarketDTO {
 		this.selectionMarketBetId = selectionMarketBetId;
 	}
 
+	/**
+	 * @return the oddMarketValue
+	 */
+	public Double getOddMarketValue() {
+		return oddMarketValue;
+	}
+
+	/**
+	 * @param oddMarketValue the oddMarketValue to set
+	 */
+	public void setOddMarketValue(Double oddMarketValue) {
+		this.oddMarketValue = oddMarketValue;
+	}
 
 	public Long getSelectionMarketBetId() {
 		return selectionMarketBetId;
