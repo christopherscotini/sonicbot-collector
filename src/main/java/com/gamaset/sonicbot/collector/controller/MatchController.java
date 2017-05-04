@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gamaset.sonicbot.collector.dto.MatchDataDTO;
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.MatchStatisticDTO;
-import com.gamaset.sonicbot.collector.repository.entity.Coupon;
 import com.gamaset.sonicbot.collector.service.match.MatchService;
 
 import io.swagger.annotations.Api;
