@@ -5,10 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gamaset.sonicbot.collector.dto.CompetitionDTO;
 import com.gamaset.sonicbot.collector.dto.TeamDTO;
 
@@ -18,19 +15,15 @@ import com.gamaset.sonicbot.collector.dto.TeamDTO;
  *
  * @since
  */
-@JsonIgnoreProperties({"datetime", "odds"})
+@JsonIgnoreProperties({"datetime"})
 public class EventBettingDTO {
 	
-	@JsonProperty(value="id")
 	private String id;
-	@JsonProperty(value="home")
 	private TeamDTO home;
-	@JsonProperty(value="away")
 	private TeamDTO away;
-	@JsonProperty(value="league")
 	private CompetitionDTO league;
 	private SportBettingDTO sport;
-	
+	private OddBettingDTO odds;
 	
 	public String getId() {
 		return id;
@@ -70,6 +63,14 @@ public class EventBettingDTO {
 
 	public void setSport(SportBettingDTO sport) {
 		this.sport = sport;
+	}
+
+	public OddBettingDTO getOdds() {
+		return odds;
+	}
+
+	public void setOdds(OddBettingDTO odds) {
+		this.odds = odds;
 	}
 
 	/* (non-Javadoc)

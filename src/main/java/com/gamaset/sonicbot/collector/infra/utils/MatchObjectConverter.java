@@ -62,7 +62,7 @@ public class MatchObjectConverter {
 	private static TeamMatchDTO buildTeamMatch(Team team, Integer score) {
 		TeamMatchDTO dto = new TeamMatchDTO();
 		dto.setScore(score);
-		dto.setTeam(new TeamDTO(team.getId(), team.getName()));
+		dto.setTeam(new TeamDTO(team.getId(), team.getBettingTeamId(), team.getName()));
 		return dto;
 	}
 

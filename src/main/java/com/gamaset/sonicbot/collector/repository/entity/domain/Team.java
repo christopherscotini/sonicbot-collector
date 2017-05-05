@@ -19,6 +19,9 @@ public class Team {
 	@Id
 	@Column(name = "TEAM_CD_ID_PK")
 	private Long id;
+
+	@Column(name = "TEBE_CD_ID_FK")
+	private Long bettingTeamId;
 	
 	@Column(name = "TEAM_DS_NAME")
 	private String name;
@@ -29,11 +32,31 @@ public class Team {
 	
 	public Team() {	}
 
-	public Team(Long id, String name, Country country) {
+
+	/**
+	 * @param id
+	 * @param bettingTeamId
+	 * @param name
+	 * @param country
+	 */
+	public Team(Long id, Long bettingTeamId, String name, Country country) {
+		super();
 		this.id = id;
+		this.bettingTeamId = bettingTeamId;
 		this.name = name;
 		this.country = country;
 	}
+
+
+	public Long getBettingTeamId() {
+		return bettingTeamId;
+	}
+
+
+	public void setBettingTeamId(Long bettingTeamId) {
+		this.bettingTeamId = bettingTeamId;
+	}
+
 
 	public Long getId() {
 		return id;

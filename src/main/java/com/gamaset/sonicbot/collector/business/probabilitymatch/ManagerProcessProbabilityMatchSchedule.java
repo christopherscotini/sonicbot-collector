@@ -77,8 +77,6 @@ public class ManagerProcessProbabilityMatchSchedule {
 				datas.add(new MatchDataDTO(matchResume, matchStatisticDTO));
 			}
 		
-			bettingOddsService.getOddsByDate(date);
-			
 		LOG.info(String.format("%n===== finished process read matches[%d] in academia [%s] =====", datas.size(), DateUtils.getNowDateTimeFormatted()));
 
 		return datas;

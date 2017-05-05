@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class TeamDTO {
 
 	private Long id;
+	private Long bettingTeamId;
 	private String name;
 	
 	public TeamDTO() {
@@ -22,6 +23,27 @@ public class TeamDTO {
 		this.id = id;
 		this.name = name;
 	}
+	
+	/**
+	 * @param id
+	 * @param bettingTeamId
+	 * @param name
+	 */
+	public TeamDTO(Long id, Long bettingTeamId, String name) {
+		super();
+		this.id = id;
+		this.bettingTeamId = bettingTeamId;
+		this.name = name;
+	}
+
+	public Long getBettingTeamId() {
+		return bettingTeamId;
+	}
+
+	public void setBettingTeamId(Long bettingTeamId) {
+		this.bettingTeamId = bettingTeamId;
+	}
+
 	public Long getId() {
 		return id;
 	}
