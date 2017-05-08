@@ -31,6 +31,9 @@ public class CompetitionSeason {
 	@JoinColumn(name = "SEAS_CD_ID_FK")
 	private Season season;
 	
+	@Column(name = "COSE_BL_ACTIVE")
+	private boolean active;
+	
 	public CompetitionSeason() {	}
 
 	public CompetitionSeason(Competition competition, Season season) {
@@ -61,6 +64,15 @@ public class CompetitionSeason {
 	public void setSeason(Season season) {
 		this.season = season;
 	}
+	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

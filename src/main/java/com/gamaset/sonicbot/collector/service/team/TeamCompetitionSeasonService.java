@@ -20,5 +20,9 @@ public class TeamCompetitionSeasonService {
 	public List<TeamCompetitionSeason> list(){
 		return repo.findAll();
 	}
+
+	public List<TeamCompetitionSeason> listByCompetition(Long competitionId) {
+		return repo.findByCompetition(competitionId);
+	}
 	
 }

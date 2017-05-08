@@ -31,6 +31,9 @@ public class TeamCompetitionSeason {
 	@JoinColumn(name = "TEAM_CD_ID_FK")
 	private Team team;
 	
+	@Column(name = "TECS_BL_ACTIVE")
+	private boolean active;
+	
 	public TeamCompetitionSeason() {	}
 
 	public TeamCompetitionSeason(Team team, CompetitionSeason competitionSeason) {
@@ -60,6 +63,14 @@ public class TeamCompetitionSeason {
 
 	public void setTeam(Team team) {
 		this.team = team;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	/* (non-Javadoc)

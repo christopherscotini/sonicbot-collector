@@ -21,6 +21,9 @@ public class Season {
 	@Column(name = "SEAS_DS_NAME")
 	private String name;
 	
+	@Column(name = "SEAS_BL_ACTIVE")
+	private boolean active;
+	
 	public Season() {	}
 
 	public Season(Long id, String name) {
@@ -43,6 +46,15 @@ public class Season {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

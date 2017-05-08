@@ -25,7 +25,6 @@ import com.gamaset.sonicbot.collector.repository.CouponMatchRepository;
 import com.gamaset.sonicbot.collector.repository.entity.Coupon;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatch;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatchTeam;
-import com.gamaset.sonicbot.collector.service.BettingOddsService;
 import com.gamaset.sonicbot.collector.service.academia.match.MatchAcademiaService;
 
 /**
@@ -55,8 +54,6 @@ public class ManagerProcessProbabilityMatchSchedule {
 	private ManagerProcessMatchStatistic matchStatistic;
 	@Autowired
 	private CouponMatchRepository couponMatchRepository;
-	@Autowired
-	private BettingOddsService bettingOddsService;
 
 	/**
 	 * Metodo que faz a leitura dos jogos(por data) e das estatisticas no
@@ -77,8 +74,6 @@ public class ManagerProcessProbabilityMatchSchedule {
 				datas.add(new MatchDataDTO(matchResume, matchStatisticDTO));
 			}
 		
-			bettingOddsService.getOddsByDate(date);
-			
 		LOG.info(String.format("%n===== finished process read matches[%d] in academia [%s] =====", datas.size(), DateUtils.getNowDateTimeFormatted()));
 
 		return datas;

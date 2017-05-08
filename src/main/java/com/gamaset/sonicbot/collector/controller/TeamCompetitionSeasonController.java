@@ -3,6 +3,7 @@ package com.gamaset.sonicbot.collector.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api(tags="TeamCompetitionSeason")
 @RestController
-@RequestMapping(value = "tcs")
+@RequestMapping(value = "competitions")
 public class TeamCompetitionSeasonController {
 
 
@@ -34,9 +35,15 @@ public class TeamCompetitionSeasonController {
 	 * 
 	 */
 	@ApiOperation(value="Lista os Times por Competição/Sessão", notes="")
-	@RequestMapping(method = RequestMethod.GET, value = "/", produces = { "application/json; charset=UTF-8" })
+	@RequestMapping(method = RequestMethod.GET, value = "/teamcompetitionseason", produces = { "application/json; charset=UTF-8" })
 	public List<TeamCompetitionSeason> list(){
 		return teamCompetitionSeasonService.list();
+	}
+
+	@ApiOperation(value="Lista os Times por Competição", notes="")
+	@RequestMapping(method = RequestMethod.GET, value = "/{competitionId}/teams", produces = { "application/json; charset=UTF-8" })
+	public List<TeamCompetitionSeason> list(@PathVariable("competitionId") Long competitionId){
+		return teamCompetitionSeasonService.listByCompetition(competitionId);
 	}
 
 }

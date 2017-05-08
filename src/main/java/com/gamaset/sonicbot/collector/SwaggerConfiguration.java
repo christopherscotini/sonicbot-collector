@@ -42,6 +42,7 @@ public class SwaggerConfiguration {
 						new Tag("MatchAcademia", "Serviços relacionados as partidas do academia das Apostas"),
 						new Tag("Match", "Serviços relacionados as partidas salvas no bd"),
 						new Tag("Coupon", "Serviços relacionados ao coupon de jogos"),
+						new Tag("Bankroll", "Serviços relacionados ao bankroll de jogos"),
 						new Tag("Competition", "Serviços relacionados as competições")
 				)
 				.apiInfo(apiInfo());

@@ -23,4 +23,10 @@ public class CompetitionSeasonRepository extends JpaGenericDao<CompetitionSeason
 		}
 
 	}
+	
+	@Override
+	public CompetitionSeason insert(CompetitionSeason entity) {
+		entity.setActive(true);
+		return super.insert(entity);
+	}
 }

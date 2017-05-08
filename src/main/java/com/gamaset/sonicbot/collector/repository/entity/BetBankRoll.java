@@ -29,6 +29,9 @@ public class BetBankRoll {
 	
 	@Column(name = "BEBR_DS_DATE")
 	private String date;
+
+	@Column(name = "BEBR_DS_NAME")
+	private String description;
 	
 	@Column(name = "BEBR_VL_INITIAL_BANK")
 	private BigDecimal initialBankrollValue;
@@ -78,6 +81,15 @@ public class BetBankRoll {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 
