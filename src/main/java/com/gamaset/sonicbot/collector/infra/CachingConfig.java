@@ -27,6 +27,7 @@ public class CachingConfig {
 	public static final String MATCH_DETAIL_CHACHE = "matchesByDateDetail";
 	public static final String MATCH_BY_DATE_CHACHE = "matchesByDate";
 	public static final String TEAM_COMP_SEAS = "teamCompSeason";
+	public static final String SELECT_MARKET_BET_CACHE = "selectionMarketBetCache";
 	
 	
 	private static final String CRON_CONFIG = "0 50 11 * * ?";
@@ -40,14 +41,21 @@ public class CachingConfig {
 				MATCH_BY_DATE_CHACHE, 
 				MATCH_DETAIL_CHACHE, 
 				MATCH_STATS_CHACHE, 
-				TEAM_COMP_SEAS
+				TEAM_COMP_SEAS,
+				SELECT_MARKET_BET_CACHE
 				);
 	}
 	
-	@CacheEvict(allEntries = true, value = {TEAM_COMP_SEAS})
-    public void resetCacheTeamCompSeason() {
+	@CacheEvict(allEntries = true, value = {SELECT_MARKET_BET_CACHE})
+    public void resetCacheSelectionMarketbet() {
         
-		LOG.info("Flush Cache [TEAM_COMP_SEAS] at " + DateUtils.getNowDateTimeFormatted());
+		LOG.info("Flush Cache [SELECT_MARKET_BET_CACHE] at " + DateUtils.getNowDateTimeFormatted());
     }
+
+	@CacheEvict(allEntries = true, value = {TEAM_COMP_SEAS})
+	public void resetCacheTeamCompSeason() {
+		
+		LOG.info("Flush Cache [TEAM_COMP_SEAS] at " + DateUtils.getNowDateTimeFormatted());
+	}
 
 }

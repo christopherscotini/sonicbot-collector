@@ -8,6 +8,12 @@ import com.gamaset.sonicbot.collector.repository.dao.JpaGenericDao;
 import com.gamaset.sonicbot.collector.repository.entity.BetBankRoll;
 import com.gamaset.sonicbot.collector.repository.entity.domain.Competition;
 
+/**
+ * 
+ * @author Christopher Rozario
+ *
+ * @since 1.3.0
+ */
 @Component
 public class BankrollRepository extends JpaGenericDao<BetBankRoll, Long> {
 
