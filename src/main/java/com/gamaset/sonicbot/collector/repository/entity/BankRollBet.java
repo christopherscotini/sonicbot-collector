@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,12 +18,13 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.gamaset.sonicbot.collector.infra.constants.BetStatusEnum;
 import com.gamaset.sonicbot.collector.repository.entity.domain.Competition;
 import com.gamaset.sonicbot.collector.repository.entity.domain.SelectionMarketBet;
 
 @Entity
-@Table(name = "bet")
-public class Bet {
+@Table(name = "bet_bankroll")
+public class BankRollBet {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -29,8 +32,8 @@ public class Bet {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "BEBR_CD_ID_FK")
-	private BetBankRoll betBankroll;
+	@JoinColumn(name = "BANK_CD_ID_FK")
+	private BankRoll bankroll;
 
 	@ManyToOne
 	@JoinColumn(name = "COMP_CD_ID_FK")
@@ -48,25 +51,29 @@ public class Bet {
 	@JoinColumn(name = "SEMB_CD_ID_FK")
 	private SelectionMarketBet marketBet;
 
-	@Column(name = "BET_VL_BET_AMOUNT")
+	@Column(name = "BEBA_VL_BET_AMOUNT")
 	private BigDecimal betAmount;
 
-	@Column(name = "BET_VL_PERC_BET_BANKROLL")
+	@Column(name = "BEBA_VL_PERC_BET_BEBA_ROLL")
 	private BigDecimal betPercentualBankroll;
 	
-	@Column(name = "BET_VL_PRFIT")
+	@Column(name = "BEBA_VL_PRFIT")
 	private BigDecimal profit;
 	
-	@Column(name = "BET_VL_PERC_ROI")
+	@Column(name = "BEBA_VL_PERC_ROI")
 	private BigDecimal roi;
 	
-	@Column(name = "BET_VL_PERC_PROFITABILITY")
+	@Column(name = "BEBA_VL_PERC_PROFITABILITY")
 	private BigDecimal profitability;
 
-	@Column(name = "BET_VL_FINAL_BANKROLL")
+	@Column(name = "BEBA_VL_FINAL_BANKROLL")
 	private BigDecimal finalValueBankroll;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "BEBA_DS_STATUS")
+	private BetStatusEnum status;
 	
-	public Bet() {
+	public BankRollBet() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -80,16 +87,21 @@ public class Bet {
 		this.id = id;
 	}
 
-
-	public BetBankRoll getBetBankroll() {
-		return betBankroll;
+	public BankRoll getBankroll() {
+		return bankroll;
 	}
 
-
-	public void setBetBankroll(BetBankRoll betBankroll) {
-		this.betBankroll = betBankroll;
+	public void setBankroll(BankRoll bankroll) {
+		this.bankroll = bankroll;
 	}
 
+	public BetStatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(BetStatusEnum status) {
+		this.status = status;
+	}
 
 	public Competition getCompetition() {
 		return competition;

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gamaset.sonicbot.collector.repository.BankrollRepository;
-import com.gamaset.sonicbot.collector.repository.entity.BetBankRoll;
+import com.gamaset.sonicbot.collector.repository.entity.BankRoll;
 
 /**
  * 
@@ -21,12 +21,12 @@ public class BankrollService {
 	private BankrollRepository bankrollRepository;
 	
 	
-	public List<BetBankRoll> bankrolls() {
+	public List<BankRoll> bankrolls() {
 		return bankrollRepository.findAll();
 	}
 
 
-	public BetBankRoll bankroll(Long bankrollId) {
+	public BankRoll bankroll(Long bankrollId) {
 		return bankrollRepository.findById(bankrollId);
 	}
 	

@@ -20,45 +20,45 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "bet_bank_roll")
-public class BetBankRoll {
+@Table(name = "bankroll")
+public class BankRoll {
 
 	@Id
-	@Column(name = "BEBR_CD_ID_PK")
+	@Column(name = "BANK_CD_ID_PK")
 	private Long id;
 	
-	@Column(name = "BEBR_DS_DATE")
+	@Column(name = "BANK_DS_DATE")
 	private String date;
 
-	@Column(name = "BEBR_DS_NAME")
+	@Column(name = "BANK_DS_NAME")
 	private String description;
 	
-	@Column(name = "BEBR_VL_INITIAL_BANK")
+	@Column(name = "BANK_VL_INITIAL_BANK")
 	private BigDecimal initialBankrollValue;
 
-	@Column(name = "BEBR_VL_ACTUAL_BANK")
+	@Column(name = "BANK_VL_ACTUAL_BANK")
 	private BigDecimal actualBankrollValue;
 
-	@Column(name = "BEBR_VL_YIELD_VALUE")
+	@Column(name = "BANK_VL_YIELD_VALUE")
 	private BigDecimal yieldValue;
 
-	@Column(name = "BEBR_VL_YIELD_PERCENTAGE")
+	@Column(name = "BANK_VL_YIELD_PERCENTAGE")
 	private BigDecimal yieldPercentage;
 	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "BEBR_DT_CREATED")
+	@Column(name = "BANK_DT_CREATED")
 	private Date createdDate;
 
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "BEBR_DT_UPDATED")
+	@Column(name = "BANK_DT_UPDATED")
 	private Date updatedDate;
 	
-	@OneToMany(mappedBy = "betBankroll")
-	private List<Bet> bets; 
+	@OneToMany(mappedBy = "bankroll")
+	private List<BankRollBet> bankRollBets; 
 	
-	public BetBankRoll() {	}
+	public BankRoll() {	}
 
 
 //	public String getStatus(){
@@ -167,14 +167,12 @@ public class BetBankRoll {
 		this.updatedDate = updatedDate;
 	}
 
-
-	public List<Bet> getBets() {
-		return bets;
+	public List<BankRollBet> getBankRollBets() {
+		return bankRollBets;
 	}
 
-
-	public void setBets(List<Bet> bets) {
-		this.bets = bets;
+	public void setBankRollBets(List<BankRollBet> bankRollBets) {
+		this.bankRollBets = bankRollBets;
 	}
 
 
