@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.gamaset.sonicbot.collector.dto.SelectionMarketBetDTO;
 import com.gamaset.sonicbot.collector.infra.CachingConfig;
+import com.gamaset.sonicbot.collector.infra.ObjectsConverter;
 import com.gamaset.sonicbot.collector.repository.SelectionMarketBetRepository;
-import com.gamaset.sonicbot.collector.repository.entity.domain.SelectionMarketBet;
 
 /**
  * 
@@ -27,8 +28,8 @@ public class SelectionMarketBetService {
 	 * @return
 	 */
 	@Cacheable(cacheNames={CachingConfig.SELECT_MARKET_BET_CACHE})
-	public List<SelectionMarketBet> markets(){
-		return selectionMarketBetRepository.findAll();
+	public List<SelectionMarketBetDTO> markets(){
+		return ObjectsConverter.convertListSelectionMarketBet(selectionMarketBetRepository.findAll());
 	}
 	
 }

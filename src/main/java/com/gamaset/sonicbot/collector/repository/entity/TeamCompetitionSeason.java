@@ -40,6 +40,20 @@ public class TeamCompetitionSeason {
 		this.competitionSeason = competitionSeason;
 		this.team = team;
 	}
+	
+	/**
+	 * @param id
+	 * @param competitionSeason
+	 * @param team
+	 * @param active
+	 */
+	public TeamCompetitionSeason(Long id, CompetitionSeason competitionSeason, Team team, boolean active) {
+		super();
+		this.id = id;
+		this.competitionSeason = competitionSeason;
+		this.team = team;
+		this.active = active;
+	}
 
 	public Long getId() {
 		return id;

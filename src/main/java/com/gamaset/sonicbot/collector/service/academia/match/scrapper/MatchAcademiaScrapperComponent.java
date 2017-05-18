@@ -72,7 +72,7 @@ public class MatchAcademiaScrapperComponent {
 				MatchResumeDTO match = new MatchResumeDTO();
 				
 				match.setMatchStatus(findMatchStatus(trGame.select("td[class^=status]").first()));
-				match.setCompetitionSeason(new CompetitionSeasonDTO(findCompetition(trGame), null));
+				match.setCompetitionSeason(new CompetitionSeasonDTO(null, findCompetition(trGame), null));
 
 				if(!scrapperValidator.validate(match, availableCompetitionsId)){
 					continue;
@@ -156,7 +156,7 @@ public class MatchAcademiaScrapperComponent {
 		Element trComp = trGame.select("td[class^=flag tipsy-active]").select("a[class=a-flag]").first();
 		comp.setId(Long.valueOf(trGame.attr("competitionid")));
 		comp.setName(trComp.attr("title"));
-		comp.setLink(trComp.attr("href"));
+		comp.setUrl(trComp.attr("href"));
 		return comp;
 	}
 

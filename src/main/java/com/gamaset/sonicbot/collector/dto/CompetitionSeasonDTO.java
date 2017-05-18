@@ -13,14 +13,24 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class CompetitionSeasonDTO {
 	
+	private Long id;
 	private CompetitionDTO competition;
 	private SeasonDTO season;
 	
 	public CompetitionSeasonDTO() {	}
 	
-	public CompetitionSeasonDTO(CompetitionDTO competition, SeasonDTO season) {
+	public CompetitionSeasonDTO(Long id, CompetitionDTO competition, SeasonDTO season) {
+		this.id = id;
 		this.competition = competition;
 		this.season = season;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public CompetitionDTO getCompetition() {

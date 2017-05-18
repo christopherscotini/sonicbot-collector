@@ -5,10 +5,13 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.gamaset.sonicbot.collector.repository.entity.domain.Country;
+
 public class TeamDTO {
 
 	private Long id;
 	private String name;
+	private Country country;
 	
 	public TeamDTO() {
 	}
@@ -17,10 +20,11 @@ public class TeamDTO {
 	 * @param id
 	 * @param name
 	 */
-	public TeamDTO(Long id, String name) {
+	public TeamDTO(Long id, String name, Country country) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.country = country;
 	}
 	public Long getId() {
 		return id;
@@ -35,6 +39,14 @@ public class TeamDTO {
 		this.name = name;
 	}
 	
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

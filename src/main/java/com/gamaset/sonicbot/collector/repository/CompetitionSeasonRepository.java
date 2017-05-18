@@ -2,14 +2,19 @@ package com.gamaset.sonicbot.collector.repository;
 
 import javax.persistence.NoResultException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.gamaset.sonicbot.collector.infra.CachingConfig;
 import com.gamaset.sonicbot.collector.repository.dao.JpaGenericDao;
 import com.gamaset.sonicbot.collector.repository.entity.CompetitionSeason;
 
 @Component
 public class CompetitionSeasonRepository extends JpaGenericDao<CompetitionSeason, Long> {
 
+	@Autowired
+	private CachingConfig cache;
+	
 	public CompetitionSeason findById(Long competitionId, Long seasonId) {
 
 		try {
@@ -26,7 +31,9 @@ public class CompetitionSeasonRepository extends JpaGenericDao<CompetitionSeason
 	
 	@Override
 	public CompetitionSeason insert(CompetitionSeason entity) {
+		cache.resetCacheCompSeason();
 		entity.setActive(true);
+		entity.getSeason().setActive(true);
 		return super.insert(entity);
 	}
 }

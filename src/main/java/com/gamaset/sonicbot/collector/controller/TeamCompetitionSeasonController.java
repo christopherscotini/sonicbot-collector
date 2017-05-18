@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gamaset.sonicbot.collector.repository.entity.TeamCompetitionSeason;
+import com.gamaset.sonicbot.collector.dto.TeamCompetitionSeasonDTO;
 import com.gamaset.sonicbot.collector.service.team.TeamCompetitionSeasonService;
 
 import io.swagger.annotations.Api;
@@ -36,13 +36,13 @@ public class TeamCompetitionSeasonController {
 	 */
 	@ApiOperation(value="Lista os Times por Competição/Sessão", notes="")
 	@RequestMapping(method = RequestMethod.GET, value = "/teamcompetitionseason", produces = { "application/json; charset=UTF-8" })
-	public List<TeamCompetitionSeason> list(){
+	public List<TeamCompetitionSeasonDTO> list(){
 		return teamCompetitionSeasonService.list();
 	}
 
 	@ApiOperation(value="Lista os Times por Competição", notes="")
 	@RequestMapping(method = RequestMethod.GET, value = "/{competitionId}/teams", produces = { "application/json; charset=UTF-8" })
-	public List<TeamCompetitionSeason> list(@PathVariable("competitionId") Long competitionId){
+	public List<TeamCompetitionSeasonDTO> list(@PathVariable("competitionId") Long competitionId){
 		return teamCompetitionSeasonService.listByCompetition(competitionId);
 	}
 

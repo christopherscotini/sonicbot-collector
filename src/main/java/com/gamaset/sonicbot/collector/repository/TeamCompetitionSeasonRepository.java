@@ -22,6 +22,7 @@ public class TeamCompetitionSeasonRepository extends JpaGenericDao<TeamCompetiti
 		entity.setActive(true);
 		TeamCompetitionSeason insert = super.insert(entity);
 		caching.resetCacheTeamCompSeason();
+		caching.resetCacheTeamCompSeasonByCompetition();
 		return insert;
 	}
 	

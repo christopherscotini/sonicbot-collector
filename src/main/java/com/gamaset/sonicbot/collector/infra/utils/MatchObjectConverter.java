@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.gamaset.sonicbot.collector.dto.CompetitionDTO;
-import com.gamaset.sonicbot.collector.dto.CompetitionSeasonDTO;
 import com.gamaset.sonicbot.collector.dto.MatchDataDTO;
 import com.gamaset.sonicbot.collector.dto.MatchResumeDTO;
-import com.gamaset.sonicbot.collector.dto.SeasonDTO;
 import com.gamaset.sonicbot.collector.dto.TeamDTO;
 import com.gamaset.sonicbot.collector.dto.TeamMatchDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.MatchStatisticDTO;
@@ -17,12 +14,12 @@ import com.gamaset.sonicbot.collector.dto.statistic.probability.DoubleChanceProb
 import com.gamaset.sonicbot.collector.dto.statistic.probability.FulltimeProbabilityDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.probability.GoalProbabilityDTO;
 import com.gamaset.sonicbot.collector.dto.statistic.probability.StatsMarketDTO;
+import com.gamaset.sonicbot.collector.infra.ObjectsConverter;
 import com.gamaset.sonicbot.collector.infra.constants.CriteriaAnalisysMatchesTypeEnum;
 import com.gamaset.sonicbot.collector.infra.constants.GeneralOrConditionTypeEnum;
 import com.gamaset.sonicbot.collector.infra.constants.GoalMarketTypeEnum;
 import com.gamaset.sonicbot.collector.infra.constants.GoalTypeEnum;
 import com.gamaset.sonicbot.collector.infra.constants.SelectionMarketBetTypeEnum;
-import com.gamaset.sonicbot.collector.repository.entity.CompetitionSeason;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatch;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatchTeam;
 import com.gamaset.sonicbot.collector.repository.entity.CouponMatchTeamProbValue;
@@ -44,7 +41,7 @@ public class MatchObjectConverter {
 		MatchResumeDTO dto = new MatchResumeDTO();
 		dto.setHomeTeamMatch(buildTeamMatch(couponMatch.getHomeTeam().getTeam(), couponMatch.getScoreHomeTeam()));
 		dto.setAwayTeamMatch(buildTeamMatch(couponMatch.getAwayTeam().getTeam(), couponMatch.getScoreAwayTeam()));
-		dto.setCompetitionSeason(buildCompetitionSeasonDTO(couponMatch.getHomeTeam().getCompetitionSeason()));
+		dto.setCompetitionSeason(ObjectsConverter.convert(couponMatch.getHomeTeam().getCompetitionSeason()));
 		dto.setDate(couponMatch.getMatchDate());
 		dto.setLinkMatch(couponMatch.getUrlMatch());
 		dto.setMatchId(couponMatch.getId());
@@ -52,17 +49,11 @@ public class MatchObjectConverter {
 		return dto;
 	}
 
-	private static CompetitionSeasonDTO buildCompetitionSeasonDTO(CompetitionSeason competitionSeason) {
-		CompetitionSeasonDTO dto = new CompetitionSeasonDTO();
-		dto.setCompetition(new CompetitionDTO(competitionSeason.getCompetition().getId(), competitionSeason.getCompetition().getName(), competitionSeason.getCompetition().getUrl()));
-		dto.setSeason(new SeasonDTO(competitionSeason.getSeason().getId(), competitionSeason.getSeason().getName()));
-		return dto;
-	}
 
 	private static TeamMatchDTO buildTeamMatch(Team team, Integer score) {
 		TeamMatchDTO dto = new TeamMatchDTO();
 		dto.setScore(score);
-		dto.setTeam(new TeamDTO(team.getId(), team.getName()));
+		dto.setTeam(new TeamDTO(team.getId(), team.getName(), team.getCountry()));
 		return dto;
 	}
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gamaset.sonicbot.collector.repository.entity.domain.SelectionMarketBet;
+import com.gamaset.sonicbot.collector.dto.SelectionMarketBetDTO;
 import com.gamaset.sonicbot.collector.service.market.SelectionMarketBetService;
 
 import io.swagger.annotations.Api;
@@ -35,7 +35,7 @@ public class MarketBetController {
 	 */
 	@ApiOperation(value="Retorna todos os mercados cadastrados.", notes="")
 	@RequestMapping(method = RequestMethod.GET, value = "/", produces = { "application/json; charset=UTF-8" })
-	public List<SelectionMarketBet> list() {
+	public List<SelectionMarketBetDTO> list() {
 		return selectionMarketBetService.markets();
 	}
 

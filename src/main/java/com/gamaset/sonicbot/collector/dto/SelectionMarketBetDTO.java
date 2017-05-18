@@ -5,61 +5,49 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.gamaset.sonicbot.collector.repository.entity.domain.Flag;
+public class SelectionMarketBetDTO {
 
-public class CompetitionDTO {
-	
 	private Long id;
 	private String name;
-	private String url;
-	private Flag flag;
-	
-	public CompetitionDTO() {	}
-	
+	private MarketBetDTO marketBet;
+
+	public SelectionMarketBetDTO() {
+	}
+
 	/**
 	 * @param id
 	 * @param name
-	 * @param url
-	 * @param flag
+	 * @param marketBet
 	 */
-	public CompetitionDTO(Long id, String name, String url, Flag flag) {
-		super();
+	public SelectionMarketBetDTO(Long id, String name, MarketBetDTO marketBet) {
 		this.id = id;
 		this.name = name;
-		this.url = url;
-		this.flag = flag;
+		this.marketBet = marketBet;
 	}
 
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getUrl() {
-		return url;
+	public MarketBetDTO getMarketBet() {
+		return marketBet;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setMarketBet(MarketBetDTO marketBet) {
+		this.marketBet = marketBet;
 	}
-	
-
-	public Flag getFlag() {
-		return flag;
-	}
-
-	public void setFlag(Flag flag) {
-		this.flag = flag;
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -83,5 +71,4 @@ public class CompetitionDTO {
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
 	}
-
 }

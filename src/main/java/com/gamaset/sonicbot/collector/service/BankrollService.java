@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gamaset.sonicbot.collector.business.bankroll.ManagerProcessBankroll;
+import com.gamaset.sonicbot.collector.dto.BankrollDTO;
+import com.gamaset.sonicbot.collector.dto.requestbody.CreatebetRequestBodyDTO;
+import com.gamaset.sonicbot.collector.infra.ObjectsConverter;
+import com.gamaset.sonicbot.collector.infra.constants.BetStatusEnum;
 import com.gamaset.sonicbot.collector.repository.BankrollRepository;
-import com.gamaset.sonicbot.collector.repository.entity.BankRoll;
 
 /**
  * 
@@ -19,15 +23,23 @@ public class BankrollService {
 
 	@Autowired
 	private BankrollRepository bankrollRepository;
+	@Autowired
+	private ManagerProcessBankroll bankrollBusiness;
 	
 	
-	public List<BankRoll> bankrolls() {
-		return bankrollRepository.findAll();
+	public List<BankrollDTO> bankrolls() {
+		return ObjectsConverter.convertListBankroll(bankrollRepository.findAll());
 	}
 
 
-	public BankRoll bankroll(Long bankrollId) {
-		return bankrollRepository.findById(bankrollId);
+	public BankrollDTO bankroll(Long bankrollId) {
+		return ObjectsConverter.convert(bankrollRepository.findById(bankrollId));
+	}
+
+
+	public void addBet(CreatebetRequestBodyDTO request) {
+		bankrollBusiness.updateBankroll(request);
+		
 	}
 	
 }

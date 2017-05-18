@@ -5,61 +5,54 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.gamaset.sonicbot.collector.repository.entity.domain.Flag;
-
-public class CompetitionDTO {
+public class TeamCompetitionSeasonDTO {
 	
 	private Long id;
-	private String name;
-	private String url;
-	private Flag flag;
+	private CompetitionSeasonDTO competitionSeason;
+	private TeamDTO team;
+	private boolean active;
 	
-	public CompetitionDTO() {	}
+	public TeamCompetitionSeasonDTO() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	/**
 	 * @param id
-	 * @param name
-	 * @param url
-	 * @param flag
+	 * @param competitionSeason
+	 * @param team
+	 * @param active
 	 */
-	public CompetitionDTO(Long id, String name, String url, Flag flag) {
+	public TeamCompetitionSeasonDTO(Long id, CompetitionSeasonDTO competitionSeason, TeamDTO team, boolean active) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.url = url;
-		this.flag = flag;
+		this.competitionSeason = competitionSeason;
+		this.team = team;
+		this.active = active;
 	}
-
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public CompetitionSeasonDTO getCompetitionSeason() {
+		return competitionSeason;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setCompetitionSeason(CompetitionSeasonDTO competitionSeason) {
+		this.competitionSeason = competitionSeason;
 	}
-
-	public String getUrl() {
-		return url;
+	public TeamDTO getTeam() {
+		return team;
 	}
-
-	public void setUrl(String url) {
-		this.url = url;
+	public void setTeam(TeamDTO team) {
+		this.team = team;
 	}
-	
-
-	public Flag getFlag() {
-		return flag;
+	public boolean isActive() {
+		return active;
 	}
-
-	public void setFlag(Flag flag) {
-		this.flag = flag;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -83,5 +76,4 @@ public class CompetitionDTO {
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
 	}
-
 }

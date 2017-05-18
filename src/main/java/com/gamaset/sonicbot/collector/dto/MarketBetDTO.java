@@ -5,31 +5,19 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.gamaset.sonicbot.collector.repository.entity.domain.Flag;
-
-public class CompetitionDTO {
+public class MarketBetDTO {
 	
 	private Long id;
 	private String name;
-	private String url;
-	private Flag flag;
 	
-	public CompetitionDTO() {	}
-	
-	/**
-	 * @param id
-	 * @param name
-	 * @param url
-	 * @param flag
-	 */
-	public CompetitionDTO(Long id, String name, String url, Flag flag) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.url = url;
-		this.flag = flag;
+	public MarketBetDTO() {
 	}
 
+	public MarketBetDTO(Long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -41,23 +29,6 @@ public class CompetitionDTO {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	
-
-	public Flag getFlag() {
-		return flag;
-	}
-
-	public void setFlag(Flag flag) {
-		this.flag = flag;
 	}
 
 	/* (non-Javadoc)
@@ -83,5 +54,5 @@ public class CompetitionDTO {
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
 	}
-
+	
 }

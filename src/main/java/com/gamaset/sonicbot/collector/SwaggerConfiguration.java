@@ -44,6 +44,7 @@ public class SwaggerConfiguration {
 						new Tag("Coupon", "Serviços relacionados ao coupon de jogos"),
 						new Tag("Bankroll", "Serviços relacionados ao bankroll de jogos"),
 						new Tag("MarketBet", "Serviços relacionados aos mercado de jogo"),
+						new Tag("CompetitionSeason", "Serviços relacionados as competições/sessões"),
 						new Tag("Competition", "Serviços relacionados as competições")
 				)
 				.apiInfo(apiInfo());

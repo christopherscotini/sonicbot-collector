@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.gamaset.sonicbot.collector.dto.TeamCompetitionSeasonDTO;
 import com.gamaset.sonicbot.collector.infra.CachingConfig;
+import com.gamaset.sonicbot.collector.infra.ObjectsConverter;
 import com.gamaset.sonicbot.collector.repository.TeamCompetitionSeasonRepository;
-import com.gamaset.sonicbot.collector.repository.entity.TeamCompetitionSeason;
 
 @Service
 public class TeamCompetitionSeasonService {
@@ -17,12 +18,13 @@ public class TeamCompetitionSeasonService {
 	private TeamCompetitionSeasonRepository repo;
 	
 	@Cacheable(cacheNames=CachingConfig.TEAM_COMP_SEAS)
-	public List<TeamCompetitionSeason> list(){
-		return repo.findAll();
+	public List<TeamCompetitionSeasonDTO> list(){
+		return ObjectsConverter.convertListTeamCompSeason(repo.findAll());
 	}
 
-	public List<TeamCompetitionSeason> listByCompetition(Long competitionId) {
-		return repo.findByCompetition(competitionId);
+	@Cacheable(cacheNames=CachingConfig.TEAM_COMP_SEAS_BY_COMP)
+	public List<TeamCompetitionSeasonDTO> listByCompetition(Long competitionId) {
+		return ObjectsConverter.convertListTeamCompSeason(repo.findByCompetition(competitionId));
 	}
 	
 }

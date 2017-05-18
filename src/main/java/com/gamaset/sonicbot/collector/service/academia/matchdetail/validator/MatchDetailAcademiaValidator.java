@@ -86,7 +86,7 @@ public class MatchDetailAcademiaValidator {
 				if(!validateFieldString(match.getCompetitionSeason().getCompetition().getName())){
 					throw new DataEntryInvalidException("competitionSeason.competition.name");
 				}
-				if(!validateFieldLink(match.getCompetitionSeason().getCompetition().getLink(), match.getCompetitionSeason().getCompetition().getId())){
+				if(!validateFieldLink(match.getCompetitionSeason().getCompetition().getUrl(), match.getCompetitionSeason().getCompetition().getId())){
 					throw new DataEntryInvalidException("competitionSeason.competition.link");
 				}
 			}

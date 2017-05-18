@@ -61,12 +61,12 @@ public class MatchDetailAcademiaScrapperHelper {
 		}
 
 		TeamMatchDTO homeTeam = new TeamMatchDTO();
-		homeTeam.setTeam(new TeamDTO(null, trGame.select("td").get(1).text()));
+		homeTeam.setTeam(new TeamDTO(null, trGame.select("td").get(1).text(), null));
 		homeTeam.setScore(Integer.valueOf(scoreStr.split("-")[0]));
 		dto.setHomeTeamMatch(homeTeam);
 
 		TeamMatchDTO awayTeam = new TeamMatchDTO();
-		awayTeam.setTeam(new TeamDTO(null, trGame.select("td").get(3).text()));
+		awayTeam.setTeam(new TeamDTO(null, trGame.select("td").get(3).text(), null));
 		awayTeam.setScore(Integer.valueOf(scoreStr.split("-")[1]));
 		dto.setAwayTeamMatch(awayTeam);
 
