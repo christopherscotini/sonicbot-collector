@@ -1,7 +1,10 @@
 package com.gamaset.sonicbot.collector.business.bankroll;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.gamaset.sonicbot.collector.business.bankroll.process.BetCalculator;
+import com.gamaset.sonicbot.collector.business.bankroll.process.ProcessUpdateBetToBankroll;
 import com.gamaset.sonicbot.collector.dto.requestbody.CreatebetRequestBodyDTO;
 import com.gamaset.sonicbot.collector.infra.constants.BetStatusEnum;
 
@@ -13,19 +16,26 @@ import com.gamaset.sonicbot.collector.infra.constants.BetStatusEnum;
  */
 @Component
 public class ManagerProcessBankroll {
+	
+	@Autowired
+	private ProcessUpdateBetToBankroll processUpdateBetToBankroll;
+	@Autowired
+	private BetCalculator betCalculator;
 
 	public void updateBankroll(CreatebetRequestBodyDTO request) {
-		
-		
-		if (!request.getStatus().equals(BetStatusEnum.IN_PLAY)) {
 			
-		} else {
+			processUpdateBetToBankroll.execute(request);
+		
 			if (request.getStatus().equals(BetStatusEnum.WON)) {
-				//process win
+//				soma lucro no saldo atual
+//				soma lucro no saldo de lucro
+//				atualiza porc lucro 
+				
 			}else{
-				//process lost
+//				subtrai lucro no saldo atual
+//				subtrai lucro no saldo de lucro
+//				atualiza porc lucro 
 			}
-		}
 	}
 
 }

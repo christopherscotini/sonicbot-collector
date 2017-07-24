@@ -38,6 +38,7 @@ public class BankrollService {
 
 
 	public void addBet(CreatebetRequestBodyDTO request) {
+		//@TODO: implement validation
 		bankrollBusiness.updateBankroll(request);
 		
 	}

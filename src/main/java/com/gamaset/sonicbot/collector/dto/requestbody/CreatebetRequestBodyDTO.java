@@ -21,8 +21,9 @@ import com.gamaset.sonicbot.collector.infra.constants.BetStatusEnum;
  */
 public class CreatebetRequestBodyDTO {
 
-	private BankrollDTO bankroll;
 	private Long betId;
+	private String betDate;
+	private BankrollDTO bankroll;
 	private CompetitionSeasonDTO competition;
 	private TeamCompetitionSeasonDTO homeTeam;
 	private TeamCompetitionSeasonDTO awayTeam;
@@ -35,6 +36,15 @@ public class CreatebetRequestBodyDTO {
 	private BigDecimal finalValueBankroll;
 	private BetStatusEnum status;
 	
+	
+	public Long getBetId() {
+		return betId;
+	}
+
+	public void setBetId(Long betId) {
+		this.betId = betId;
+	}
+
 	public BankrollDTO getBankroll() {
 		return bankroll;
 	}
@@ -153,5 +163,19 @@ public class CreatebetRequestBodyDTO {
 	@Override
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+
+	/**
+	 * @return the betDate
+	 */
+	public String getBetDate() {
+		return betDate;
+	}
+
+	/**
+	 * @param betDate the betDate to set
+	 */
+	public void setBetDate(String betDate) {
+		this.betDate = betDate;
 	}
 }

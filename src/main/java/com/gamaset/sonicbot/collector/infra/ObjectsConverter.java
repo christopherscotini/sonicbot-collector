@@ -52,6 +52,19 @@ public class ObjectsConverter {
 		return new TeamCompetitionSeason(dto.getId(), convert(dto.getCompetitionSeason()), convert(dto.getTeam()), dto.isActive());
 	}
 	
+	public static BankRoll convert(BankrollDTO dto) {
+		BankRoll entity = new BankRoll();
+		entity.setId(dto.getId());
+		entity.setDate(dto.getDate());
+		entity.setDescription(dto.getDescription());
+		entity.setInitialBankrollValue(dto.getInitialBankrollValue());
+		entity.setActualBankrollValue(dto.getActualBankrollValue());
+		entity.setYieldValue(dto.getYieldValue());
+		entity.setYieldPercentage(dto.getYieldPercentage());
+		entity.setCreatedDate(dto.getCreatedDate());
+		entity.setUpdatedDate(dto.getUpdatedDate());
+		return entity;
+	}
 	
 //	===================================== ENTITY TO DTO ===================================== 
 

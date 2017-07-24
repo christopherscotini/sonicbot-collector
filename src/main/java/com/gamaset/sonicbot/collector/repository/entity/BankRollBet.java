@@ -1,6 +1,7 @@
 package com.gamaset.sonicbot.collector.repository.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,12 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gamaset.sonicbot.collector.infra.constants.BetStatusEnum;
 import com.gamaset.sonicbot.collector.repository.entity.domain.Competition;
 import com.gamaset.sonicbot.collector.repository.entity.domain.SelectionMarketBet;
@@ -28,16 +32,19 @@ public class BankRollBet {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "BET_CD_ID_PK")
+	@Column(name = "BEBA_CD_ID_PK")
 	private Long id;
+	
+	@Column(name = "BEBA_DS_DATE")
+	private String betDate;
 	
 	@ManyToOne
 	@JoinColumn(name = "BANK_CD_ID_FK")
 	private BankRoll bankroll;
 
 	@ManyToOne
-	@JoinColumn(name = "COMP_CD_ID_FK")
-	private Competition competition;
+	@JoinColumn(name = "COSE_CD_ID_FK")
+	private CompetitionSeason competition;
 
 	@ManyToOne
 	@JoinColumn(name = "TEAS_CD_ID_FK_HOME")
@@ -73,13 +80,34 @@ public class BankRollBet {
 	@Column(name = "BEBA_DS_STATUS")
 	private BetStatusEnum status;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "BEBA_DT_CREATED")
+	private Date createdDate;
+
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "BEBA_DT_UPDATED")
+	private Date updatedDate;
+	
 	public BankRollBet() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
 
 	public Long getId() {
 		return id;
+	}
+
+
+	public String getBetDate() {
+		return betDate;
+	}
+
+
+	public void setBetDate(String betDate) {
+		this.betDate = betDate;
 	}
 
 
@@ -103,10 +131,10 @@ public class BankRollBet {
 		this.status = status;
 	}
 
-	public Competition getCompetition() {
+	public CompetitionSeason getCompetition() {
 		return competition;
 	}
-	public void setCompetition(Competition competition) {
+	public void setCompetition(CompetitionSeason competition) {
 		this.competition = competition;
 	}
 	public TeamCompetitionSeason getHomeTeam() {
@@ -162,6 +190,25 @@ public class BankRollBet {
 	}
 	public void setFinalValueBankroll(BigDecimal finalValueBankroll) {
 		this.finalValueBankroll = finalValueBankroll;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
 	/* (non-Javadoc)
